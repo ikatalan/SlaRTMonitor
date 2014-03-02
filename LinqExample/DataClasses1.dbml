@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="LinqExample.Properties.Settings" SettingsPropertyName="Database1ConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="Users_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Users_Username" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Users_UserType_FK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Users_Pass" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="User_UserType" Member="UserType" ThisKey="Users_ID" OtherKey="UserTypes_ID" Type="UserType" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserTypes" Member="UserTypes">
+    <Type Name="UserType">
+      <Column Name="UserTypes_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserTypes_Type" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="User_UserType" Member="User" ThisKey="UserTypes_ID" OtherKey="Users_ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
