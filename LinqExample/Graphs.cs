@@ -14,7 +14,8 @@ namespace LinqExample
     public partial class Graphs : Form
     {
         private SqlConnection dbConnection;//Open connections for SimulatedMeasurements table
-        private SqlConnection dbConnection2;//Open connections forSlaContracts table
+        private SqlConnection dbConnection2;
+        private SqlConnection dbConnection3;//Open connections forSlaContracts table
         private SqlDataAdapter measurmentsAdapter;//used for filling list of items (device_name) per threshold_id      
         private SqlDataAdapter measurmentsValuesAdapter; // used for getting measurements valus for a specific device.
         private SqlDataAdapter singleThresholdValueAdapter;// used for getting threshold value from Contracts
@@ -36,6 +37,9 @@ namespace LinqExample
             dbConnection2 = new global::System.Data.SqlClient.SqlConnection();
             dbConnection2.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
+            dbConnection3 = new global::System.Data.SqlClient.SqlConnection();
+            dbConnection3.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
+
 
             this.thresholdsTableAdapter.Fill(this.sLA_RT_monitoringDataSetThreshold.Thresholds);
 
@@ -54,7 +58,7 @@ namespace LinqExample
             }
 
             measurmentsAdapter.SelectCommand.CommandType = global::System.Data.CommandType.Text;
-            measurmentsAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            measurmentsAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
 
 
@@ -63,8 +67,9 @@ namespace LinqExample
                 @"SELECT timestamp, value  "
                 + @" FROM [dbo].[SimulatedMeasurements] "
                 + @" WHERE device_name=@device_name "
+                + @" AND threshold_id=@threshold_id "
                 + @" ORDER BY timestamp;",
-                dbConnection);
+                dbConnection2);
             
             if (((measurmentsValuesAdapter.SelectCommand.Connection.State & global::System.Data.ConnectionState.Open)
                         != global::System.Data.ConnectionState.Open))
@@ -75,6 +80,7 @@ namespace LinqExample
 
             measurmentsValuesAdapter.SelectCommand.CommandType = global::System.Data.CommandType.Text;
             measurmentsValuesAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_name", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            measurmentsValuesAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
 
 
@@ -83,7 +89,7 @@ namespace LinqExample
                 @"SELECT value "
                 + @"FROM [dbo].[SlaContracts] "
                 + @"WHERE threshold_id=@threshold_id;",
-                dbConnection2);
+                dbConnection3);
 
 
             if (((singleThresholdValueAdapter.SelectCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -146,50 +152,60 @@ namespace LinqExample
 
             myPane.CurveList.Clear();// clear the graph
 
-            Int32 thresholdValue = GetThreshold();//Read the Threshold values
-            PointPairList thresholdPointList = new PointPairList();
-            thresholdPointList.Add(new PointPair(myPane.XAxis.Scale.Max, thresholdValue));
-            myPane.AddCurve(cmbBoxThresholdTypes.SelectedText, thresholdPointList, Color.FromArgb(255, 0, 0, 0), SymbolType.XCross);
-
+            XDate minDate = XDate.JulDayMax;
+            XDate maxDate = XDate.JulDayMin;
             //Create Random colors to show on Graph
             Random randGenerator = new Random();
             foreach (object device in listDevices.SelectedItems)
             {
                 String currDeviceName = (String)device;
 
-                PointPairList listDeviceValues = GetValuesForDevice(currDeviceName);
+                PointPairList listDeviceValues = GetValuesForDevice(currDeviceName, GetSelectedThresholdId());
 
                 int r = (int)(randGenerator.NextDouble() * 255);
                 int g = (int)(randGenerator.NextDouble() * 255);
                 int b = (int)(randGenerator.NextDouble() * 255);
                 
                 //use this to add line width 3.0F
-                myCurve = new LineItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b), SymbolType.XCross, 3.0f);
+                myCurve = new LineItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b), SymbolType.XCross);
                 myPane.CurveList.Add(myCurve);
-             //   myCurve = myPane.AddCurve(currDeviceName, listDeviceValues, Color.FromArgb(255,r,g,b), SymbolType.XCross);
+             
+                if ( listDeviceValues.Count > 0 )
+                {
+                    XDate firstDate = (XDate)(listDeviceValues[0].X);
+                    XDate lastDate = (XDate)listDeviceValues[listDeviceValues.Count - 1].X;
+                    if (minDate == XDate.JulDayMax) 
+                    {
+                        minDate = firstDate;
+                    }
+                    else if (firstDate < minDate)
+                    {
+                        minDate = firstDate;
+                    }
 
-
-                // Fill the area under the curve with a white-red gradient at 45 degrees
-                //myCurve.Line.Fill = new Fill(Color.White, Color.Red, 45F);
-                // Make the symbols opaque by filling them with white
-                //myCurve.Symbol.Fill = new Fill(Color.White);
+                    if (maxDate == XDate.JulDayMin)
+                    {
+                        maxDate = lastDate;
+                    }
+                    else if (lastDate > maxDate)
+                    {
+                        maxDate = lastDate;
+                    }
+                }
             }
 
-          
-          
+            Int32 thresholdValue = GetContractThreshold();//Read the Threshold values
+            PointPairList thresholdPointList = new PointPairList();
+            thresholdPointList.Add(new PointPair(minDate, thresholdValue));
+            thresholdPointList.Add(new PointPair(maxDate, thresholdValue));
+
+            myPane.CurveList.Insert(0,new LineItem("Threshold", thresholdPointList, Color.FromArgb(255, 0, 0, 0), SymbolType.XCross, 3.0f));
+
             // Fill the axis background with a color gradient
             myPane.Chart.Fill = new Fill(Color.White, Color.LightGoldenrodYellow, 45F);
 
             // Fill the pane background with a color gradient
             myPane.Fill = new Fill(Color.White, Color.FromArgb(220, 220, 255), 45F);
-
-            // Add a text box with instructions
-            //TextObj text = new TextObj(
-            //    "Zoom: left mouse & drag\nPan: middle mouse & drag\nContext Menu: right mouse",
-            //    0.05f, 0.95f, CoordType.ChartFraction, AlignH.Left, AlignV.Bottom);
-            //text.FontSpec.StringAlignment = StringAlignment.Near;
-
-            //myPane.GraphObjList.Add(text);
 
             //This informs ZedGraph to use the labels supplied by the user in Axis.Scale.TextLabels
              Axis.Default.Type = AxisType.Text;
@@ -198,30 +214,14 @@ namespace LinqExample
             zgc.IsShowPointValues = true;
             zgc.PointValueEvent += new ZedGraphControl.PointValueHandler(MyPointValueHandler);
 
-
-            
             // Set the XAxis to date type
             myPane.XAxis.Type = AxisType.Date;
-            // Manually set the x axis range
-        //    myPane.XAxis.Scale.Min = 0;
-        //    myPane.XAxis.Scale.Max = 800;
-            // Display the Y axis grid lines
+   
             myPane.YAxis.MajorGrid.IsVisible = true;
             myPane.YAxis.MinorGrid.IsVisible = true;
-          //  myPane.XAxis.Scale.MinorStep = 1.0;
-            //myPane.XAxis.Scale.MajorStep = 60.0;
-           // myPane.XAxis.Scale.MinorUnit = DateUnit.Second;
-           myPane.XAxis.Scale.MajorUnit = DateUnit.Second;
-
-
-        //    XAxis.Scale.MinAuto=true;
-          //  XAxis.Scale.MajorStepAuto=true;
-            //XAxis.Scale.MaxAuto = true;
-
+    
             // Calculate the Axis Scale Ranges
             axisChangeZedGraph(zgc); //refrsh the graph
-            
-          
         }
 
         // Display customized tooltips when the mouse hovers over a point
@@ -237,14 +237,9 @@ namespace LinqExample
         }
 
         // used for getting threshold value from Contracts
-        private Int32 GetThreshold()
+        private Int32 GetContractThreshold()
         {
-            DataRowView dataRow = (DataRowView)cmbBoxThresholdTypes.SelectedItem;
-
-            LinqExample.SLA_RT_monitoringDataSetThreshold.ThresholdsRow selectedRow =
-                (LinqExample.SLA_RT_monitoringDataSetThreshold.ThresholdsRow)dataRow.Row;
-
-            singleThresholdValueAdapter.SelectCommand.Parameters[0].Value = selectedRow.id;
+            singleThresholdValueAdapter.SelectCommand.Parameters[0].Value = GetSelectedThresholdId();
 
             global::System.Data.ConnectionState previousConnectionState = singleThresholdValueAdapter.SelectCommand.Connection.State;
             if (((singleThresholdValueAdapter.SelectCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -257,8 +252,18 @@ namespace LinqExample
             return (Int32)singleThresholdValueAdapter.SelectCommand.ExecuteScalar(); 
         }
 
+        private Int32 GetSelectedThresholdId()
+        {
+            DataRowView dataRow = (DataRowView)cmbBoxThresholdTypes.SelectedItem;
+
+            LinqExample.SLA_RT_monitoringDataSetThreshold.ThresholdsRow selectedRow =
+                (LinqExample.SLA_RT_monitoringDataSetThreshold.ThresholdsRow)dataRow.Row;
+
+            return selectedRow.id;
+        }
+
         //
-        private PointPairList GetValuesForDevice(String deviceName)
+        private PointPairList GetValuesForDevice(String deviceName, int threshold_id)
         {
             
             PointPairList listValues = new PointPairList();
@@ -267,6 +272,7 @@ namespace LinqExample
                 SqlDataReader measurementsReader = null;
 
                 measurmentsValuesAdapter.SelectCommand.Parameters[0].Value = deviceName;
+                measurmentsValuesAdapter.SelectCommand.Parameters[1].Value = threshold_id;
 
                 global::System.Data.ConnectionState previousConnectionState = measurmentsValuesAdapter.SelectCommand.Connection.State;
                 if (((measurmentsValuesAdapter.SelectCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -280,18 +286,9 @@ namespace LinqExample
                 
                 while (measurementsReader.Read())
                 {
-               
-               //     DateTime oaBaseDate = measurementsReader.GetDateTime(0).ToUniversalTime();
-               //     double result = oaBaseDate.Add(DateTime.Now.TimeOfDay).ToOADate();
-                  
-                  // var y = measurementsReader.GetInt32(1);
-                //    var y = DateTime.Parse(DateTime.FromOADate(measurementsReader.GetDateTime(0).ToOADate()).ToString());
-                    double x = (double)new XDate(measurementsReader.GetDateTime(0));
+                    DateTime x = measurementsReader.GetDateTime(0);
                     listValues.Add(
-                      //x,
-                      CalcStepSize(x,200000),
-                       // measurementsReader.GetDateTime(0).ToOADate(),
-                     // (double.(measurementsReader.GetDateTime(0).ToUniversalTime()),//timestemp
+                      new XDate(x),
                         measurementsReader.GetInt32(1) //value
                     );
                 }
@@ -300,7 +297,7 @@ namespace LinqExample
             }
             catch (Exception e)
             {
-                
+                MessageBox.Show(e.ToString());
             }
 
             return listValues;
@@ -360,9 +357,5 @@ namespace LinqExample
         {
 
         }
-
-      
-
-
     }
 }

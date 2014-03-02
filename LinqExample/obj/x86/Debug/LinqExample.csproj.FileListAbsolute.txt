@@ -89,3 +89,20 @@ C:\Users\ynsk4\Desktop\SLA_Project\LinqExample\LinqExample\obj\x86\Debug\LinqExa
 C:\Users\ikatalan-pc\Downloads\SLA_Project (1)\3.2.2014\LinqExample\LinqExample\bin\Debug\LinqExample.exe.config
 C:\Users\ikatalan-pc\Downloads\SLA_Project (1)\3.2.2014\LinqExample\LinqExample\obj\x86\Debug\LinqExample.exe
 C:\Users\ikatalan-pc\Downloads\SLA_Project (1)\3.2.2014\LinqExample\LinqExample\obj\x86\Debug\LinqExample.pdb
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\LinqExample.exe.config
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.exe
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.pdb
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\Database1.mdf
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\Database1_log.ldf
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\LinqExample.exe
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\LinqExample.pdb
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\ZedGraph.dll
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.csprojResolveAssemblyReference.cache
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Graphs.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SimulatedDataLoader.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SLAManager.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.UserManagement.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.StartScreen.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.MainMenu.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Properties.Resources.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.csproj.GenerateResource.Cache

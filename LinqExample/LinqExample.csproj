@@ -91,6 +91,7 @@
       <DependentUpon>Graphs.cs</DependentUpon>
     </Compile>
     <Compile Include="InputBox.cs" />
+    <Compile Include="RTDataGenerator.cs" />
     <Compile Include="SimulatedDataLoader.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -14,6 +14,8 @@ namespace LinqExample
 {
     public partial class StartScreen : Form
     {
+        static RTDataGenerator x;
+
         //connect to SQL
         SqlConnection con = new SqlConnection();
         SqlCommand cmd=new SqlCommand();
@@ -54,8 +56,8 @@ namespace LinqExample
 
         private void InitCmb()
         {
-            con.ConnectionString = "Data Source=SHELLEE07YANIV\\SQLEXPRESS;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
-          //  con.ConnectionString = "Data Source=THE_RAIN;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
+          //  con.ConnectionString = "Data Source=SHELLEE07YANIV\\SQLEXPRESS;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
+            con.ConnectionString = "Data Source=THE_RAIN;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
             
             cmd.Connection = con;
             loaddata();
@@ -85,13 +87,18 @@ namespace LinqExample
             flag = 1;
             bool result = string.Equals(txtPassword.Text, UserPass);
             if (result)
-            {
+            {//Password is OK
+
                 con.Close();//close the connection 
                 MainMenu menu = new MainMenu();
                 menu.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
 
                 menu.Show(); //show child
                 this.Hide(); //hide parent
+
+                x = new RTDataGenerator();
+                x.Start();
+
             }
             else
             {
