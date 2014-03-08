@@ -16,7 +16,7 @@ namespace LinqExample
         private SqlConnection dbConnection;//Open connections for SimulatedMeasurements table
         private SqlConnection dbConnection2;
         private SqlConnection dbConnection3;//Open connections forSlaContracts table
-        private SqlDataAdapter measurmentsAdapter;//used for filling list of items (device_name) per threshold_id      
+        private SqlCommand measurmentsSqlCommand;//used for filling list of items (device_name) per threshold_id      
         private SqlDataAdapter measurmentsValuesAdapter; // used for getting measurements valus for a specific device.
         private SqlDataAdapter singleThresholdValueAdapter;// used for getting threshold value from Contracts
         private LineItem myCurve;
@@ -40,34 +40,42 @@ namespace LinqExample
             dbConnection3 = new global::System.Data.SqlClient.SqlConnection();
             dbConnection3.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
+            try
+            {
+                this.thresholdsTableAdapter.Fill(this.sLA_RT_monitoringDataSetThreshold.Thresholds);
+            }
+            catch (Exception)
+            {
+            }
 
-            this.thresholdsTableAdapter.Fill(this.sLA_RT_monitoringDataSetThreshold.Thresholds);
 
             // Used for filling list of items (device_name) per threshold_id            
-            measurmentsAdapter = new SqlDataAdapter(
-                @"SELECT device_name FROM [dbo].[SimulatedMeasurements] "
-                    + @"WHERE threshold_id=@threshold_id "
-                    + @"GROUP BY device_name;",
+            measurmentsSqlCommand = new SqlCommand(
+                @"SELECT b.name FROM [dbo].[SimulatedMeasurements] a "
+                    + @"JOIN [dbo].[Devices] b ON a.device_id=b.id "
+                    + @"WHERE a.threshold_id=@threshold_id "
+                    + @"GROUP BY b.name;",
                 dbConnection);
 
 
-            if (((measurmentsAdapter.SelectCommand.Connection.State & global::System.Data.ConnectionState.Open)
+            if (((measurmentsSqlCommand.Connection.State & global::System.Data.ConnectionState.Open)
                         != global::System.Data.ConnectionState.Open))
             {
-                measurmentsAdapter.SelectCommand.Connection.Open();
+                measurmentsSqlCommand.Connection.Open();
             }
 
-            measurmentsAdapter.SelectCommand.CommandType = global::System.Data.CommandType.Text;
-            measurmentsAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            measurmentsSqlCommand.CommandType = global::System.Data.CommandType.Text;
+            measurmentsSqlCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
 
 
             // used for getting measurements valus for a specific device.
             measurmentsValuesAdapter = new SqlDataAdapter(
                 @"SELECT timestamp, value  "
-                + @" FROM [dbo].[SimulatedMeasurements] "
-                + @" WHERE device_name=@device_name "
-                + @" AND threshold_id=@threshold_id "
+                + @" FROM [dbo].[SimulatedMeasurements] a"
+                + @" JOIN [dbo].[Devices] b ON a.device_id=b.id "
+                + @" WHERE b.name=@device_name "
+                + @" AND a.threshold_id=@threshold_id "
                 + @" ORDER BY timestamp;",
                 dbConnection2);
             
@@ -113,16 +121,22 @@ namespace LinqExample
             LinqExample.SLA_RT_monitoringDataSetThreshold.ThresholdsRow selectedRow =
                 (LinqExample.SLA_RT_monitoringDataSetThreshold.ThresholdsRow) dataRow.Row;
 
-            measurmentsAdapter.SelectCommand.Parameters[0].Value = selectedRow.id;
+            measurmentsSqlCommand.Parameters[0].Value = selectedRow.id;
 
-            global::System.Data.ConnectionState previousConnectionState = measurmentsAdapter.SelectCommand.Connection.State;
-            if (((measurmentsAdapter.SelectCommand.Connection.State & global::System.Data.ConnectionState.Open)
+            global::System.Data.ConnectionState previousConnectionState = measurmentsSqlCommand.Connection.State;
+            if (((measurmentsSqlCommand.Connection.State & global::System.Data.ConnectionState.Open)
                         != global::System.Data.ConnectionState.Open))
             {
-                measurmentsAdapter.SelectCommand.Connection.Open();
+                measurmentsSqlCommand.Connection.Open();
             }
-               
-             measurementsReader = measurmentsAdapter.SelectCommand.ExecuteReader();
+            try
+            {
+                measurementsReader = measurmentsSqlCommand.ExecuteReader();
+            }
+            catch (Exception e123)
+            {
+                MessageBox.Show(e123.ToString());
+            }
           
             listDevices.Items.Clear();
 
@@ -158,7 +172,7 @@ namespace LinqExample
             Random randGenerator = new Random();
             foreach (object device in listDevices.SelectedItems)
             {
-                String currDeviceName = (String)device;
+                String currDeviceName = device.ToString();
 
                 PointPairList listDeviceValues = GetValuesForDevice(currDeviceName, GetSelectedThresholdId());
 

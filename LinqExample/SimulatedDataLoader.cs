@@ -15,6 +15,11 @@ namespace LinqExample
 {
     public partial class SimulatedDataLoader : Form
     {
+
+        Dictionary<int, String> deviceIdToName;
+        SqlConnection devicesConnection;
+        SqlCommand allDevices;
+
         public SimulatedDataLoader()
         {
             InitializeComponent();
@@ -97,13 +102,12 @@ namespace LinqExample
 
                 measurmentsAdapter.InsertCommand = new SqlCommand(
                     @"INSERT INTO [dbo].[SimulatedMeasurements] ( 
-                              [device_name], [device_type], [threshold_id], [value], [timestamp]) 
-                      VALUES (@device_name, @device_type, @threshold_id, @value, @timestamp);",
+                              [device_id], [threshold_id], [value], [timestamp]) 
+                      VALUES (@device_id, @threshold_id, @value, @timestamp);",
                     simulatedMeasurementsTableAdapter.Connection);
                 
                 measurmentsAdapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_name", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -130,23 +134,22 @@ namespace LinqExample
                     {
                         if (currRow.ItemArray[i].ToString() != "")//if measure availble to this device
                         {
-                            measurmentsAdapter.InsertCommand.Parameters[0].Value = ((string)currRow.ItemArray[0]);
-                            measurmentsAdapter.InsertCommand.Parameters[1].Value = ((string)(currRow.ItemArray[1]));
-                            measurmentsAdapter.InsertCommand.Parameters[2].Value = csvDataTable.Columns[i].Caption;
-                            measurmentsAdapter.InsertCommand.Parameters[3].Value = Convert.ToInt32(currRow.ItemArray[i]);
+                            measurmentsAdapter.InsertCommand.Parameters[0].Value = currRow.ItemArray[0];
+                            measurmentsAdapter.InsertCommand.Parameters[1].Value = csvDataTable.Columns[i].Caption;
+                            measurmentsAdapter.InsertCommand.Parameters[2].Value = Convert.ToInt32(currRow.ItemArray[i]);
 
                         ///don't change
                           //  measurmentsAdapter.InsertCommand.Parameters[4].Value = DateTime.Parse((string)currRow.ItemArray[2]);
 
                            // measurmentsAdapter.InsertCommand.Parameters[4].Value = DateTime.Parse((string)currRow.ItemArray[2].ToString());
 
-                            if (DateTime.Parse((string)currRow.ItemArray[2].ToString()) != null)
+                            if (DateTime.Parse((string)currRow.ItemArray[1].ToString()) != null)
                             {
-                                measurmentsAdapter.InsertCommand.Parameters[4].Value = DateTime.Parse((string)currRow.ItemArray[2].ToString());
+                                measurmentsAdapter.InsertCommand.Parameters[3].Value = DateTime.Parse((string)currRow.ItemArray[1].ToString());
                             }
                             else
                            {
-                                measurmentsAdapter.InsertCommand.Parameters[4].Value = DateTime.Now;
+                                measurmentsAdapter.InsertCommand.Parameters[3].Value = DateTime.Now;
                            }
                            
                             //Crash on disk
@@ -154,12 +157,10 @@ namespace LinqExample
 
 
                             measurementsDataTable.AddSimulatedMeasurementsRow(
-                                (String)currRow.ItemArray[0],
-                                (String)currRow.ItemArray[1],
+                                deviceIdToName[Convert.ToInt32(currRow.ItemArray[0])],
                                 typeValues[Int32.Parse(csvDataTable.Columns[i].Caption)],
                                 Convert.ToInt32(currRow.ItemArray[i]),
-                               // DateTime.Now);
-                                DateTime.Parse((string)currRow.ItemArray[2].ToString()));
+                                DateTime.Parse((string)currRow.ItemArray[1].ToString()));
                                 
 
                         }
@@ -178,6 +179,23 @@ namespace LinqExample
             // TODO: This line of code loads data into the 'sLA_RT_monitoringDataSetMeasurements.SimulatedMeasurements' table. You can move, or remove it, as needed.
             this.simulatedMeasurementsTableAdapter.Fill(this.sLA_RT_monitoringDataSetMeasurements.SimulatedMeasurements);
 
+            devicesConnection = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
+            allDevices = new SqlCommand("SELECT id, name FROM [dbo].[Devices]", devicesConnection);
+
+            if (((allDevices.Connection.State & global::System.Data.ConnectionState.Open)
+             != global::System.Data.ConnectionState.Open))
+            {
+                allDevices.Connection.Open();
+            }
+
+            SqlDataReader devicesReader = allDevices.ExecuteReader();
+
+            deviceIdToName = new Dictionary<int, string>();
+
+            while (devicesReader.Read())
+            {
+                deviceIdToName[devicesReader.GetInt32(0)] = devicesReader.GetString(1);
+            }
         }
 
         private void btnSaveData_Click(object sender, EventArgs e)

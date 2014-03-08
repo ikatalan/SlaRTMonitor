@@ -279,15 +279,11 @@ namespace LinqExample {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class SimulatedMeasurementsDataTable : global::System.Data.TypedTableBase<SimulatedMeasurementsRow> {
             
-            private global::System.Data.DataColumn columndevice_name;
-            
-            private global::System.Data.DataColumn columndevice_type;
+            private global::System.Data.DataColumn columndevice_id;
             
             private global::System.Data.DataColumn columnthreshold_id;
             
             private global::System.Data.DataColumn columnvalue;
-            
-            private global::System.Data.DataColumn columnmeasurement_id;
             
             private global::System.Data.DataColumn columntimestamp;
             
@@ -326,17 +322,9 @@ namespace LinqExample {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn device_nameColumn {
+            public global::System.Data.DataColumn device_idColumn {
                 get {
-                    return this.columndevice_name;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn device_typeColumn {
-                get {
-                    return this.columndevice_type;
+                    return this.columndevice_id;
                 }
             }
             
@@ -353,14 +341,6 @@ namespace LinqExample {
             public global::System.Data.DataColumn valueColumn {
                 get {
                     return this.columnvalue;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn measurement_idColumn {
-                get {
-                    return this.columnmeasurement_id;
                 }
             }
             
@@ -409,25 +389,16 @@ namespace LinqExample {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SimulatedMeasurementsRow AddSimulatedMeasurementsRow(string device_name, string device_type, string threshold_id, int value, System.DateTime timestamp) {
+            public SimulatedMeasurementsRow AddSimulatedMeasurementsRow(string device_id, string threshold_id, int value, System.DateTime timestamp) {
                 SimulatedMeasurementsRow rowSimulatedMeasurementsRow = ((SimulatedMeasurementsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        device_name,
-                        device_type,
+                        device_id,
                         threshold_id,
                         value,
-                        null,
                         timestamp};
                 rowSimulatedMeasurementsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSimulatedMeasurementsRow);
                 return rowSimulatedMeasurementsRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SimulatedMeasurementsRow FindBymeasurement_id(int measurement_id) {
-                return ((SimulatedMeasurementsRow)(this.Rows.Find(new object[] {
-                            measurement_id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -447,38 +418,23 @@ namespace LinqExample {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columndevice_name = base.Columns["device_name"];
-                this.columndevice_type = base.Columns["device_type"];
+                this.columndevice_id = base.Columns["device_id"];
                 this.columnthreshold_id = base.Columns["threshold_id"];
                 this.columnvalue = base.Columns["value"];
-                this.columnmeasurement_id = base.Columns["measurement_id"];
                 this.columntimestamp = base.Columns["timestamp"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columndevice_name = new global::System.Data.DataColumn("device_name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndevice_name);
-                this.columndevice_type = new global::System.Data.DataColumn("device_type", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndevice_type);
+                this.columndevice_id = new global::System.Data.DataColumn("device_id", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndevice_id);
                 this.columnthreshold_id = new global::System.Data.DataColumn("threshold_id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnthreshold_id);
                 this.columnvalue = new global::System.Data.DataColumn("value", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalue);
-                this.columnmeasurement_id = new global::System.Data.DataColumn("measurement_id", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmeasurement_id);
                 this.columntimestamp = new global::System.Data.DataColumn("timestamp", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntimestamp);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnmeasurement_id}, true));
-                this.columndevice_name.MaxLength = 15;
-                this.columndevice_type.MaxLength = 15;
-                this.columnmeasurement_id.AutoIncrement = true;
-                this.columnmeasurement_id.AutoIncrementSeed = -1;
-                this.columnmeasurement_id.AutoIncrementStep = -1;
-                this.columnmeasurement_id.AllowDBNull = false;
-                this.columnmeasurement_id.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -621,33 +577,18 @@ namespace LinqExample {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string device_name {
+            public string device_id
+            {
                 get {
                     try {
-                        return ((string)(this[this.tableSimulatedMeasurements.device_nameColumn]));
+                        return ((string)(this[this.tableSimulatedMeasurements.device_idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'device_name\' in table \'SimulatedMeasurements\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'device_id\' in table \'SimulatedMeasurements\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableSimulatedMeasurements.device_nameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string device_type {
-                get {
-                    try {
-                        return ((string)(this[this.tableSimulatedMeasurements.device_typeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'device_type\' in table \'SimulatedMeasurements\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSimulatedMeasurements.device_typeColumn] = value;
+                    this[this.tableSimulatedMeasurements.device_idColumn] = value;
                 }
             }
             
@@ -685,17 +626,6 @@ namespace LinqExample {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int measurement_id {
-                get {
-                    return ((int)(this[this.tableSimulatedMeasurements.measurement_idColumn]));
-                }
-                set {
-                    this[this.tableSimulatedMeasurements.measurement_idColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime timestamp {
                 get {
                     try {
@@ -712,26 +642,14 @@ namespace LinqExample {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Isdevice_nameNull() {
-                return this.IsNull(this.tableSimulatedMeasurements.device_nameColumn);
+            public bool Isdevice_idNull() {
+                return this.IsNull(this.tableSimulatedMeasurements.device_idColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setdevice_nameNull() {
-                this[this.tableSimulatedMeasurements.device_nameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Isdevice_typeNull() {
-                return this.IsNull(this.tableSimulatedMeasurements.device_typeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setdevice_typeNull() {
-                this[this.tableSimulatedMeasurements.device_typeColumn] = global::System.Convert.DBNull;
+            public void Setdevice_idNull() {
+                this[this.tableSimulatedMeasurements.device_idColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -930,41 +848,20 @@ namespace LinqExample.SLA_RT_monitoringDataSetMeasurementsTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "SimulatedMeasurements";
-            tableMapping.ColumnMappings.Add("device_name", "device_name");
-            tableMapping.ColumnMappings.Add("device_type", "device_type");
+            tableMapping.ColumnMappings.Add("device_id", "device_id");
             tableMapping.ColumnMappings.Add("threshold_id", "threshold_id");
             tableMapping.ColumnMappings.Add("value", "value");
-            tableMapping.ColumnMappings.Add("measurement_id", "measurement_id");
             tableMapping.ColumnMappings.Add("timestamp", "timestamp");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [SimulatedMeasurements] WHERE (([measurement_id] = @Original_measurem" +
-                "ent_id))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_measurement_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "measurement_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [SimulatedMeasurements] ([device_name], [device_type], [threshold_id], [value], [timestamp]) VALUES (@device_name, @device_type, @threshold_id, @value, @timestamp);
-SELECT device_name, device_type, threshold_id, value, timestamp, measurement_id FROM SimulatedMeasurements WHERE (measurement_id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[SimulatedMeasurements] ([device_id], [threshold_id], [value], " +
+                "[timestamp]) VALUES (@device_id, @threshold_id, @value, @timestamp)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_name", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [SimulatedMeasurements] SET [device_name] = @device_name, [device_type] = @device_type, [threshold_id] = @threshold_id, [value] = @value, [timestamp] = @timestamp WHERE (([measurement_id] = @Original_measurement_id));
-SELECT device_name, device_type, threshold_id, value, timestamp, measurement_id FROM SimulatedMeasurements WHERE (measurement_id = @measurement_id)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_name", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_measurement_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "measurement_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@measurement_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "measurement_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -980,8 +877,7 @@ SELECT device_name, device_type, threshold_id, value, timestamp, measurement_id 
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT device_name, device_type, threshold_id, value, timestamp, measurement_id F" +
-                "ROM SimulatedMeasurements";
+            this._commandCollection[0].CommandText = "SELECT device_id, threshold_id, value, timestamp FROM dbo.SimulatedMeasurements";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1041,59 +937,32 @@ SELECT device_name, device_type, threshold_id, value, timestamp, measurement_id 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_measurement_id) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_measurement_id));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string device_name, string device_type, string threshold_id, global::System.Nullable<int> value, global::System.Nullable<global::System.DateTime> timestamp) {
-            if ((device_name == null)) {
+        public virtual int Insert(string device_id, string threshold_id, global::System.Nullable<int> value, global::System.Nullable<global::System.DateTime> timestamp)
+        {
+            if ((device_id != null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = device_id;
+            }
+            else {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(device_name));
+            if (threshold_id != null) {
+                this.Adapter.InsertCommand.Parameters[1].Value = threshold_id;
             }
-            if ((device_type == null)) {
+            else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(device_type));
-            }
-            if ((threshold_id == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(threshold_id));
+            if ((value.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(value.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((value.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(value.Value));
+            if ((timestamp.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(timestamp.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((timestamp.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(timestamp.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1109,67 +978,6 @@ SELECT device_name, device_type, threshold_id, value, timestamp, measurement_id 
                     this.Adapter.InsertCommand.Connection.Close();
                 }
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string device_name, string device_type, global::System.Nullable<int> threshold_id, global::System.Nullable<int> value, global::System.Nullable<global::System.DateTime> timestamp, int Original_measurement_id, int measurement_id) {
-            if ((device_name == null)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(device_name));
-            }
-            if ((device_type == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(device_type));
-            }
-            if ((threshold_id.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(threshold_id.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((value.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(value.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((timestamp.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(timestamp.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_measurement_id));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(measurement_id));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string device_name, string device_type, global::System.Nullable<int> threshold_id, global::System.Nullable<int> value, global::System.Nullable<global::System.DateTime> timestamp, int Original_measurement_id) {
-            return this.Update(device_name, device_type, threshold_id, value, timestamp, Original_measurement_id, Original_measurement_id);
         }
     }
     

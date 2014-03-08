@@ -9,11 +9,9 @@ namespace LinqExample
 {
     class RTDataGenerator
     {
-        
-        static String[] deviceNames = new String[] { "Printer 1", "Printer 2", "Printer 3" };
-        static String[] deviceTypes = new String[] { "Printer" };
         static int minValue = 0;
         static int maxValue = 200;
+        static int[] deviceIds = new int[] { 1, 2 };
         static int[] thresholdTypes = new int[] { 1, 2, 3 };
         static int interval = 1000;//one sec
 
@@ -55,12 +53,11 @@ namespace LinqExample
             // Used for filling list of items (device_name) per threshold_id            
             insertSimulatedMeasurementCmd = new SqlCommand(
                 @"INSERT INTO [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] "
-                    + @"([device_name] "
-                    + @",[device_type] "
+                    + @"([device_id] "
                     + @",[threshold_id] "
                     + @",[value] "
                     + @",[timestamp]) "
-                    + @"VALUES (@device_name, @device_type, @threshold_id, @value, @timestamp)",
+                    + @"VALUES (@device_id, @threshold_id, @value, @timestamp)",
                 dbConnection);
 
 
@@ -71,8 +68,7 @@ namespace LinqExample
             }
 
             insertSimulatedMeasurementCmd.CommandType = global::System.Data.CommandType.Text;
-            insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_name", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -86,19 +82,14 @@ namespace LinqExample
 
             while (shouldContinue)
             {
-                // SEMI-DIFICULT PART
-
-                insertSimulatedMeasurementCmd.Parameters[0].Value = deviceNames[(int)(randGenerator.NextDouble()* (deviceNames.Count()))];
-                insertSimulatedMeasurementCmd.Parameters[1].Value = deviceTypes[(int)(randGenerator.NextDouble() * (deviceTypes.Count()))];
-                insertSimulatedMeasurementCmd.Parameters[2].Value = thresholdTypes[(int)(randGenerator.NextDouble() * (thresholdTypes.Count()))];
-                insertSimulatedMeasurementCmd.Parameters[3].Value = randGenerator.NextDouble() * (maxValue - minValue + 1) + minValue;
-                insertSimulatedMeasurementCmd.Parameters[4].Value = DateTime.Now;
+                insertSimulatedMeasurementCmd.Parameters[0].Value = deviceIds[(int)(randGenerator.NextDouble() * (deviceIds.Count()))];
+                insertSimulatedMeasurementCmd.Parameters[1].Value = thresholdTypes[(int)(randGenerator.NextDouble() * (thresholdTypes.Count()))];
+                insertSimulatedMeasurementCmd.Parameters[2].Value = randGenerator.NextDouble() * (maxValue - minValue + 1) + minValue;
+                insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
                 insertSimulatedMeasurementCmd.ExecuteNonQuery();
 
                 System.Threading.Thread.Sleep(interval);
-               
-               
  
             }
 
