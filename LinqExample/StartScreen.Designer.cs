@@ -41,6 +41,8 @@
             this.toolTip1_Info = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2_Error = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.ag1 = new System.Windows.Forms.AGauge();//Gauge
+         //   this.zg1 = new ZedGraph.ZedGraphControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -199,6 +201,7 @@
         private System.Windows.Forms.ToolTip toolTip1_Info;
         private System.Windows.Forms.ToolTip toolTip2_Error;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.AGauge ag1;
 
     }
 }

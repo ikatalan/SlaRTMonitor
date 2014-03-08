@@ -14,8 +14,9 @@ namespace LinqExample
 {
     public partial class StartScreen : Form
     {
-        static RTDataGenerator x;
-
+        static RTDataGenerator x;//The second thrad that create the simulated data
+       
+       
         //connect to SQL
         SqlConnection con = new SqlConnection();
         SqlCommand cmd=new SqlCommand();
@@ -25,6 +26,10 @@ namespace LinqExample
         public StartScreen()
         {
             InitializeComponent(); //Initializes this form
+          //  this.ag1 = new AGauge();//Test for Gauge
+            //this.ag1.Name = "aGauge1";
+           // this.Controls.Add(this.ag1);
+    
             cmbUserType.MaxLength = 20;
             txtPassword.PasswordChar='*';//show * insted of clear password
             txtPassword.MaxLength = 20;
@@ -56,8 +61,8 @@ namespace LinqExample
 
         private void InitCmb()
         {
-          //  con.ConnectionString = "Data Source=SHELLEE07YANIV\\SQLEXPRESS;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
-            con.ConnectionString = "Data Source=THE_RAIN;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
+           con.ConnectionString = "Data Source=SHELLEE07YANIV\\SQLEXPRESS;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
+           // con.ConnectionString = "Data Source=THE_RAIN;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
             
             cmd.Connection = con;
             loaddata();

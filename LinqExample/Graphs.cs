@@ -28,8 +28,8 @@ namespace LinqExample
         }
         GraphPane myPane; 
 
-        //Run when the Graph load
-        private void Graphs_Load(object sender, EventArgs e)
+        //Run when the Graph load //was privte
+        public void Graphs_Load(object sender, EventArgs e)
         {
             dbConnection = new global::System.Data.SqlClient.SqlConnection();
             dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
@@ -174,7 +174,7 @@ namespace LinqExample
                 {
                     XDate firstDate = (XDate)(listDeviceValues[0].X);
                     XDate lastDate = (XDate)listDeviceValues[listDeviceValues.Count - 1].X;
-                    if (minDate == XDate.JulDayMax) 
+                    if (minDate == XDate.JulDayMax) //The max valid Julian Day, which corresponds to January 1st, 4713 B.C
                     {
                         minDate = firstDate;
                     }
@@ -183,7 +183,7 @@ namespace LinqExample
                         minDate = firstDate;
                     }
 
-                    if (maxDate == XDate.JulDayMin)
+                    if (maxDate == XDate.JulDayMin)//The minimum valid Julian Day, which corresponds to January 1st, 4713 B.C
                     {
                         maxDate = lastDate;
                     }
@@ -232,7 +232,10 @@ namespace LinqExample
             PointPair pt = curve[iPt];
           
             curve.Label.Text = curve.Label.Text.Replace(" ", String.Empty);//remove whitespaces from device name
-            return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units at Time: " + pt.X.ToString("f1") + " ";
+
+            XDate the_date = new XDate(pt.X);//Replace the pair double to date
+            return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units at Time: " + the_date.DateTime.TimeOfDay + " ";
+           
            
         }
 
@@ -286,7 +289,7 @@ namespace LinqExample
                 
                 while (measurementsReader.Read())
                 {
-                    DateTime x = measurementsReader.GetDateTime(0);
+                    DateTime x = measurementsReader.GetDateTime(0);//time
                     listValues.Add(
                       new XDate(x),
                         measurementsReader.GetInt32(1) //value

@@ -10,12 +10,12 @@ namespace LinqExample
     class RTDataGenerator
     {
         
-        static String[] deviceNames = new String[] { "Printer 3", "Printer 11", "Printer 21" };
+        static String[] deviceNames = new String[] { "Printer 1", "Printer 2", "Printer 3" };
         static String[] deviceTypes = new String[] { "Printer" };
         static int minValue = 0;
         static int maxValue = 200;
         static int[] thresholdTypes = new int[] { 1, 2, 3 };
-        static int interval = 500;
+        static int interval = 1000;//one sec
 
         
         private SqlConnection dbConnection;
@@ -97,7 +97,9 @@ namespace LinqExample
                 insertSimulatedMeasurementCmd.ExecuteNonQuery();
 
                 System.Threading.Thread.Sleep(interval);
-
+               
+               
+ 
             }
 
 
