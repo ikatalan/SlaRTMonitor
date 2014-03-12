@@ -72,6 +72,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database1DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +131,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SLA_RT_monitoringDataSetThreshold.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SLA_RT_monitoringDevicesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SLA_RT_monitoringDevicesDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="StartScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +179,9 @@
     <Compile Include="UserManagement.Designer.cs">
       <DependentUpon>UserManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Graphs.resx">
       <DependentUpon>Graphs.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,6 +305,17 @@
     </None>
     <None Include="SLA_RT_monitoringDataSetThreshold.xss">
       <DependentUpon>SLA_RT_monitoringDataSetThreshold.xsd</DependentUpon>
+    </None>
+    <None Include="SLA_RT_monitoringDevicesDataSet.xsc">
+      <DependentUpon>SLA_RT_monitoringDevicesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SLA_RT_monitoringDevicesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SLA_RT_monitoringDevicesDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SLA_RT_monitoringDevicesDataSet.xss">
+      <DependentUpon>SLA_RT_monitoringDevicesDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

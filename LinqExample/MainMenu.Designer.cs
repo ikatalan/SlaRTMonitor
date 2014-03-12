@@ -34,6 +34,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btnOpenGraphForm = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.btnDashboard = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -72,9 +73,9 @@
             // btnOpenGraphForm
             // 
             this.btnOpenGraphForm.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnOpenGraphForm.Location = new System.Drawing.Point(378, 234);
+            this.btnOpenGraphForm.Location = new System.Drawing.Point(479, 234);
             this.btnOpenGraphForm.Name = "btnOpenGraphForm";
-            this.btnOpenGraphForm.Size = new System.Drawing.Size(227, 142);
+            this.btnOpenGraphForm.Size = new System.Drawing.Size(126, 74);
             this.btnOpenGraphForm.TabIndex = 3;
             this.btnOpenGraphForm.Text = "Graphs";
             this.btnOpenGraphForm.UseVisualStyleBackColor = true;
@@ -90,12 +91,24 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // btnDashboard
+            // 
+            this.btnDashboard.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnDashboard.Location = new System.Drawing.Point(327, 234);
+            this.btnDashboard.Name = "btnDashboard";
+            this.btnDashboard.Size = new System.Drawing.Size(126, 74);
+            this.btnDashboard.TabIndex = 3;
+            this.btnDashboard.Text = "Dashboards";
+            this.btnDashboard.UseVisualStyleBackColor = true;
+            this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 450);
             this.Controls.Add(this.button5);
+            this.Controls.Add(this.btnDashboard);
             this.Controls.Add(this.btnOpenGraphForm);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -118,5 +131,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnOpenGraphForm;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnDashboard;
     }
 }

@@ -26,9 +26,7 @@ namespace LinqExample
         public StartScreen()
         {
             InitializeComponent(); //Initializes this form
-          //  this.ag1 = new AGauge();//Test for Gauge
-            //this.ag1.Name = "aGauge1";
-           // this.Controls.Add(this.ag1);
+
     
             cmbUserType.MaxLength = 20;
             txtPassword.PasswordChar='*';//show * insted of clear password

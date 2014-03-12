@@ -79,6 +79,14 @@ namespace LinqExample
             frmDataLoader.Show(); //show child
             this.Hide(); //hide parent
         }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            Dashboard frmDataLoader = new Dashboard();
+            frmDataLoader.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            frmDataLoader.Show(); //show child
+            this.Hide(); //hide parent
+        }
        
 
       

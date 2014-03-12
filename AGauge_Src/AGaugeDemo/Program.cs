@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace LinqExample
+namespace AGaugeDemo
 {
     static class Program
     {
@@ -15,10 +15,7 @@ namespace LinqExample
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new SimulatedDataLoader());
-            Application.Run(new Dashboard());
-            //Application.Run(new StartScreen());
-
+            Application.Run(new MainForm());
         }
     }
 }
