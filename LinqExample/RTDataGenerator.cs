@@ -10,10 +10,10 @@ namespace LinqExample
     class RTDataGenerator
     {
         static int minValue = 0;
-        static int maxValue = 200;
-        static int[] deviceIds = new int[] { 1, 2 };
+        static int maxValue = 100;
+        static int[] deviceIds = new int[] { 1, 2,3 };
         static int[] thresholdTypes = new int[] { 1, 2, 3 };
-        static int interval = 1000;//one sec
+        static int interval = 2000;//one sec
 
         
         private SqlConnection dbConnection;

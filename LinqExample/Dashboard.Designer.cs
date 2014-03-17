@@ -29,6 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.AGaugeRange aGaugeRange1 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange2 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange3 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange4 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange5 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange6 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange7 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange8 = new System.Windows.Forms.AGaugeRange();
+            System.Windows.Forms.AGaugeRange aGaugeRange9 = new System.Windows.Forms.AGaugeRange();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.gauge1 = new System.Windows.Forms.AGauge();
             this.gauge2 = new System.Windows.Forms.AGauge();
@@ -47,12 +57,38 @@
             // 
             // gauge1
             // 
+            this.gauge1.BackColor = System.Drawing.SystemColors.Control;
             this.gauge1.BaseArcColor = System.Drawing.Color.Gray;
             this.gauge1.BaseArcRadius = 80;
             this.gauge1.BaseArcStart = 175;
             this.gauge1.BaseArcSweep = 190;
             this.gauge1.BaseArcWidth = 2;
             this.gauge1.Center = new System.Drawing.Point(100, 100);
+            this.gauge1.Cursor = System.Windows.Forms.Cursors.Hand;
+            aGaugeRange1.Color = System.Drawing.Color.Red;
+            aGaugeRange1.EndValue = 100F;
+            aGaugeRange1.InnerRadius = 70;
+            aGaugeRange1.InRange = false;
+            aGaugeRange1.Name = "CritRange";
+            aGaugeRange1.OuterRadius = 80;
+            aGaugeRange1.StartValue = 90F;
+            aGaugeRange2.Color = System.Drawing.Color.Green;
+            aGaugeRange2.EndValue = 70F;
+            aGaugeRange2.InnerRadius = 70;
+            aGaugeRange2.InRange = false;
+            aGaugeRange2.Name = "OkRange";
+            aGaugeRange2.OuterRadius = 80;
+            aGaugeRange2.StartValue = 0F;
+            aGaugeRange3.Color = System.Drawing.Color.Yellow;
+            aGaugeRange3.EndValue = 90F;
+            aGaugeRange3.InnerRadius = 70;
+            aGaugeRange3.InRange = false;
+            aGaugeRange3.Name = "WarnRange";
+            aGaugeRange3.OuterRadius = 80;
+            aGaugeRange3.StartValue = 70F;
+            this.gauge1.GaugeRanges.Add(aGaugeRange1);
+            this.gauge1.GaugeRanges.Add(aGaugeRange2);
+            this.gauge1.GaugeRanges.Add(aGaugeRange3);
             this.gauge1.Location = new System.Drawing.Point(318, 12);
             this.gauge1.MaxValue = 100F;
             this.gauge1.MinValue = 0F;
@@ -71,7 +107,7 @@
             this.gauge1.ScaleLinesMajorOuterRadius = 80;
             this.gauge1.ScaleLinesMajorStepValue = 20F;
             this.gauge1.ScaleLinesMajorWidth = 2;
-            this.gauge1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.gauge1.ScaleLinesMinorColor = System.Drawing.Color.Black;
             this.gauge1.ScaleLinesMinorInnerRadius = 75;
             this.gauge1.ScaleLinesMinorOuterRadius = 80;
             this.gauge1.ScaleLinesMinorTicks = 9;
@@ -94,6 +130,31 @@
             this.gauge2.BaseArcSweep = 190;
             this.gauge2.BaseArcWidth = 2;
             this.gauge2.Center = new System.Drawing.Point(100, 100);
+            this.gauge2.Cursor = System.Windows.Forms.Cursors.Hand;
+            aGaugeRange4.Color = System.Drawing.Color.Red;
+            aGaugeRange4.EndValue = 100F;
+            aGaugeRange4.InnerRadius = 70;
+            aGaugeRange4.InRange = false;
+            aGaugeRange4.Name = "CritRange";
+            aGaugeRange4.OuterRadius = 80;
+            aGaugeRange4.StartValue = 90F;
+            aGaugeRange5.Color = System.Drawing.Color.Green;
+            aGaugeRange5.EndValue = 70F;
+            aGaugeRange5.InnerRadius = 70;
+            aGaugeRange5.InRange = false;
+            aGaugeRange5.Name = "OkRange";
+            aGaugeRange5.OuterRadius = 80;
+            aGaugeRange5.StartValue = 0F;
+            aGaugeRange6.Color = System.Drawing.Color.Yellow;
+            aGaugeRange6.EndValue = 90F;
+            aGaugeRange6.InnerRadius = 70;
+            aGaugeRange6.InRange = false;
+            aGaugeRange6.Name = "WarnRange";
+            aGaugeRange6.OuterRadius = 80;
+            aGaugeRange6.StartValue = 70F;
+            this.gauge2.GaugeRanges.Add(aGaugeRange4);
+            this.gauge2.GaugeRanges.Add(aGaugeRange5);
+            this.gauge2.GaugeRanges.Add(aGaugeRange6);
             this.gauge2.Location = new System.Drawing.Point(558, 12);
             this.gauge2.MaxValue = 100F;
             this.gauge2.MinValue = 0F;
@@ -112,7 +173,7 @@
             this.gauge2.ScaleLinesMajorOuterRadius = 80;
             this.gauge2.ScaleLinesMajorStepValue = 20F;
             this.gauge2.ScaleLinesMajorWidth = 2;
-            this.gauge2.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.gauge2.ScaleLinesMinorColor = System.Drawing.Color.Black;
             this.gauge2.ScaleLinesMinorInnerRadius = 75;
             this.gauge2.ScaleLinesMinorOuterRadius = 80;
             this.gauge2.ScaleLinesMinorTicks = 9;
@@ -135,6 +196,31 @@
             this.gauge3.BaseArcSweep = 190;
             this.gauge3.BaseArcWidth = 2;
             this.gauge3.Center = new System.Drawing.Point(100, 100);
+            this.gauge3.Cursor = System.Windows.Forms.Cursors.Hand;
+            aGaugeRange7.Color = System.Drawing.Color.Yellow;
+            aGaugeRange7.EndValue = 90F;
+            aGaugeRange7.InnerRadius = 70;
+            aGaugeRange7.InRange = false;
+            aGaugeRange7.Name = "WarnRange";
+            aGaugeRange7.OuterRadius = 80;
+            aGaugeRange7.StartValue = 70F;
+            aGaugeRange8.Color = System.Drawing.Color.Red;
+            aGaugeRange8.EndValue = 100F;
+            aGaugeRange8.InnerRadius = 70;
+            aGaugeRange8.InRange = false;
+            aGaugeRange8.Name = "CritRange";
+            aGaugeRange8.OuterRadius = 80;
+            aGaugeRange8.StartValue = 90F;
+            aGaugeRange9.Color = System.Drawing.Color.Green;
+            aGaugeRange9.EndValue = 70F;
+            aGaugeRange9.InnerRadius = 70;
+            aGaugeRange9.InRange = false;
+            aGaugeRange9.Name = "OkRange";
+            aGaugeRange9.OuterRadius = 80;
+            aGaugeRange9.StartValue = 0F;
+            this.gauge3.GaugeRanges.Add(aGaugeRange7);
+            this.gauge3.GaugeRanges.Add(aGaugeRange8);
+            this.gauge3.GaugeRanges.Add(aGaugeRange9);
             this.gauge3.Location = new System.Drawing.Point(794, 12);
             this.gauge3.MaxValue = 100F;
             this.gauge3.MinValue = 0F;
@@ -153,7 +239,7 @@
             this.gauge3.ScaleLinesMajorOuterRadius = 80;
             this.gauge3.ScaleLinesMajorStepValue = 20F;
             this.gauge3.ScaleLinesMajorWidth = 2;
-            this.gauge3.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.gauge3.ScaleLinesMinorColor = System.Drawing.Color.Black;
             this.gauge3.ScaleLinesMinorInnerRadius = 75;
             this.gauge3.ScaleLinesMinorOuterRadius = 80;
             this.gauge3.ScaleLinesMinorTicks = 9;
@@ -194,7 +280,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(46, 13);
+            this.lblDevices.Size = new System.Drawing.Size(45, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -204,18 +290,18 @@
             // 
             // lblGuage1
             // 
-            this.lblGuage1.Location = new System.Drawing.Point(376, 135);
+            this.lblGuage1.Location = new System.Drawing.Point(364, 135);
             this.lblGuage1.Name = "lblGuage1";
-            this.lblGuage1.Size = new System.Drawing.Size(91, 13);
+            this.lblGuage1.Size = new System.Drawing.Size(109, 13);
             this.lblGuage1.TabIndex = 4;
             this.lblGuage1.Text = "Guage 1";
             this.lblGuage1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblGuage2
             // 
-            this.lblGuage2.Location = new System.Drawing.Point(618, 135);
+            this.lblGuage2.Location = new System.Drawing.Point(605, 135);
             this.lblGuage2.Name = "lblGuage2";
-            this.lblGuage2.Size = new System.Drawing.Size(91, 13);
+            this.lblGuage2.Size = new System.Drawing.Size(109, 13);
             this.lblGuage2.TabIndex = 4;
             this.lblGuage2.Text = "Guage 2";
             this.lblGuage2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -224,7 +310,7 @@
             // 
             this.lblGuage3.Location = new System.Drawing.Point(851, 135);
             this.lblGuage3.Name = "lblGuage3";
-            this.lblGuage3.Size = new System.Drawing.Size(91, 13);
+            this.lblGuage3.Size = new System.Drawing.Size(109, 13);
             this.lblGuage3.TabIndex = 4;
             this.lblGuage3.Text = "Guage 3";
             this.lblGuage3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -242,7 +328,10 @@
             this.Controls.Add(this.gauge3);
             this.Controls.Add(this.gauge2);
             this.Controls.Add(this.gauge1);
+            this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Dashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dashboard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Dashboard_FormClosing);
             this.Load += new System.EventHandler(this.Dashboard_Load);

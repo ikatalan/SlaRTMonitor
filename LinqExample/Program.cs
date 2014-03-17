@@ -16,8 +16,8 @@ namespace LinqExample
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new SimulatedDataLoader());
-            Application.Run(new Dashboard());
-            //Application.Run(new StartScreen());
+            //Application.Run(new Dashboard());
+            Application.Run(new StartScreen());
 
         }
     }

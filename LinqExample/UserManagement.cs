@@ -54,12 +54,13 @@ namespace LinqExample
                 this.usersBindingSource.EndEdit();
                 this.usersTableAdapter.Update(this.sLA_RT_monitoringDataSet.Users);
                 SystemSounds.Hand.Play();
-                MessageBox.Show("Update successful");
+                MessageBox.Show("Update Successfully", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (System.Exception )
             {
                 SystemSounds.Exclamation.Play();
-                MessageBox.Show("Update failed");
+                MessageBox.Show("Update failed", "Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
             }
             btnSave.Enabled = true;   
   
@@ -89,7 +90,8 @@ namespace LinqExample
             DataRow dr = drv.Row;  //Get it out of the Row View so I can grab an array
             dr.Delete();
             this.usersTableAdapter.Update(this.sLA_RT_monitoringDataSet.Users);
-            System.Windows.Forms.MessageBox.Show("Line Deleted From Database");
+            MessageBox.Show("Delete Successfully", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //System.Windows.Forms.MessageBox.Show("Line Deleted From Database");
            
         }
 

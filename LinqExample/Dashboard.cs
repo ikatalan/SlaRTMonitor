@@ -48,10 +48,10 @@ namespace LinqExample
 
             // Used for filling list of items (device_name) per threshold_id            
             devicesMeasurmentsCommand = new SqlCommand(
-                @"SELECT DISTINCT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
+                @"SELECT DISTINCT  a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id " 
-                + @"WHERE device_id=@device_id "
-                + @"ORDER BY timestamp " ,
+                + @"WHERE device_id= @device_id "
+                + @"ORDER BY timestamp  ",
                 dbConnection);
 
 
@@ -69,9 +69,11 @@ namespace LinqExample
             {
                 deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
+          
 
         }
 
@@ -93,7 +95,7 @@ namespace LinqExample
                 me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
 
                 SqlDataReader reader =  me.devicesMeasurmentsCommand.ExecuteReader();
-
+                float value = 0;//add all the time the value
                 int idx = 1;
                 while (reader.Read())
                 {
@@ -105,8 +107,8 @@ namespace LinqExample
                     string thresholdName = reader.GetString(5);
 
 
-
-                    float value = ((float)thresholdValue)/(maxValue-minValue) * 100;
+                    //check here
+                    value = value+ (((float)thresholdValue)/(maxValue-minValue) * 100);
 
                     switch (idx)
                     {
@@ -134,6 +136,7 @@ namespace LinqExample
                 }
 
                 reader.Close();
+                
 
             }
 
@@ -157,6 +160,7 @@ namespace LinqExample
             {
                 SetGuageValueCallback d = new SetGuageValueCallback(SetGuageValue);
                 this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, value});
+                //AGauge currGuage, Label currLabel, string thresholdName, float value
             }
             else
             {
