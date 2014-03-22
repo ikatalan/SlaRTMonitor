@@ -87,6 +87,20 @@ namespace LinqExample
             frmDataLoader.Show(); //show child
             this.Hide(); //hide parent
         }
+
+        private void SlaManager_Click(object sender, EventArgs e)
+        {
+            SLAManagerContract managerContract = new SLAManagerContract();
+            managerContract.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            managerContract.Show(); //show child
+            this.Hide(); //hide parent
+            
+            //SLAManager manager = new SLAManager();
+            //manager.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            //manager.Show(); //show child
+            //this.Hide(); //hide parent
+
+        }
        
 
       

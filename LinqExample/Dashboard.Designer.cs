@@ -51,6 +51,7 @@
             this.lblGuage1 = new System.Windows.Forms.Label();
             this.lblGuage2 = new System.Windows.Forms.Label();
             this.lblGuage3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
             this.SuspendLayout();
@@ -261,7 +262,7 @@
             this.listDevices.FormattingEnabled = true;
             this.listDevices.Location = new System.Drawing.Point(13, 52);
             this.listDevices.Name = "listDevices";
-            this.listDevices.Size = new System.Drawing.Size(205, 394);
+            this.listDevices.Size = new System.Drawing.Size(205, 368);
             this.listDevices.TabIndex = 2;
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -315,11 +316,22 @@
             this.lblGuage3.Text = "Guage 3";
             this.lblGuage3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(13, 432);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Back To MainMenu";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1021, 467);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblGuage3);
             this.Controls.Add(this.lblGuage2);
             this.Controls.Add(this.lblGuage1);
@@ -356,6 +368,7 @@
         private System.Windows.Forms.Label lblGuage1;
         private System.Windows.Forms.Label lblGuage2;
         private System.Windows.Forms.Label lblGuage3;
+        private System.Windows.Forms.Button button1;
 
                     
     }

@@ -108,6 +108,12 @@
       <DependentUpon>SimulatedDataLoader.cs</DependentUpon>
     </Compile>
     <Compile Include="SingleTonUser.cs" />
+    <Compile Include="SLAManagerContract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SLAManagerContract.Designer.cs">
+      <DependentUpon>SLAManagerContract.cs</DependentUpon>
+    </Compile>
     <Compile Include="SLA_RT_monitoringDataSet1.cs">
       <DependentUpon>SLA_RT_monitoringDataSet1.xsd</DependentUpon>
     </Compile>
@@ -125,6 +131,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SLA_RT_monitoringDataSetMeasurements.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SLA_RT_monitoringDataSetSlaContracts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SLA_RT_monitoringDataSetSlaContracts.xsd</DependentUpon>
     </Compile>
     <Compile Include="SLA_RT_monitoringDataSetThreshold.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -190,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SLAManager.resx">
       <DependentUpon>SLAManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SLAManagerContract.resx">
+      <DependentUpon>SLAManagerContract.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserManagement.resx">
       <DependentUpon>UserManagement.cs</DependentUpon>
@@ -294,6 +308,17 @@
     </None>
     <None Include="SLA_RT_monitoringDataSetMeasurements.xss">
       <DependentUpon>SLA_RT_monitoringDataSetMeasurements.xsd</DependentUpon>
+    </None>
+    <None Include="SLA_RT_monitoringDataSetSlaContracts.xsc">
+      <DependentUpon>SLA_RT_monitoringDataSetSlaContracts.xsd</DependentUpon>
+    </None>
+    <None Include="SLA_RT_monitoringDataSetSlaContracts.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SLA_RT_monitoringDataSetSlaContracts.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SLA_RT_monitoringDataSetSlaContracts.xss">
+      <DependentUpon>SLA_RT_monitoringDataSetSlaContracts.xsd</DependentUpon>
     </None>
     <None Include="SLA_RT_monitoringDataSetThreshold.xsc">
       <DependentUpon>SLA_RT_monitoringDataSetThreshold.xsd</DependentUpon>
