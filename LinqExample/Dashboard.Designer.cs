@@ -52,8 +52,19 @@
             this.lblGuage2 = new System.Windows.Forms.Label();
             this.lblGuage3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.zg1 = new ZedGraph.ZedGraphControl();
+            this.zg2 = new ZedGraph.ZedGraphControl();
+            this.zg3 = new ZedGraph.ZedGraphControl();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.device_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.device_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.threshold_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // gauge1
@@ -90,7 +101,7 @@
             this.gauge1.GaugeRanges.Add(aGaugeRange1);
             this.gauge1.GaugeRanges.Add(aGaugeRange2);
             this.gauge1.GaugeRanges.Add(aGaugeRange3);
-            this.gauge1.Location = new System.Drawing.Point(318, 12);
+            this.gauge1.Location = new System.Drawing.Point(214, 65);
             this.gauge1.MaxValue = 100F;
             this.gauge1.MinValue = 0F;
             this.gauge1.Name = "gauge1";
@@ -156,7 +167,7 @@
             this.gauge2.GaugeRanges.Add(aGaugeRange4);
             this.gauge2.GaugeRanges.Add(aGaugeRange5);
             this.gauge2.GaugeRanges.Add(aGaugeRange6);
-            this.gauge2.Location = new System.Drawing.Point(558, 12);
+            this.gauge2.Location = new System.Drawing.Point(557, 65);
             this.gauge2.MaxValue = 100F;
             this.gauge2.MinValue = 0F;
             this.gauge2.Name = "gauge2";
@@ -222,7 +233,7 @@
             this.gauge3.GaugeRanges.Add(aGaugeRange7);
             this.gauge3.GaugeRanges.Add(aGaugeRange8);
             this.gauge3.GaugeRanges.Add(aGaugeRange9);
-            this.gauge3.Location = new System.Drawing.Point(794, 12);
+            this.gauge3.Location = new System.Drawing.Point(904, 65);
             this.gauge3.MaxValue = 100F;
             this.gauge3.MinValue = 0F;
             this.gauge3.Name = "gauge3";
@@ -262,7 +273,7 @@
             this.listDevices.FormattingEnabled = true;
             this.listDevices.Location = new System.Drawing.Point(13, 52);
             this.listDevices.Name = "listDevices";
-            this.listDevices.Size = new System.Drawing.Size(205, 368);
+            this.listDevices.Size = new System.Drawing.Size(116, 342);
             this.listDevices.TabIndex = 2;
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -281,7 +292,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(45, 13);
+            this.lblDevices.Size = new System.Drawing.Size(46, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -291,7 +302,7 @@
             // 
             // lblGuage1
             // 
-            this.lblGuage1.Location = new System.Drawing.Point(364, 135);
+            this.lblGuage1.Location = new System.Drawing.Point(260, 188);
             this.lblGuage1.Name = "lblGuage1";
             this.lblGuage1.Size = new System.Drawing.Size(109, 13);
             this.lblGuage1.TabIndex = 4;
@@ -300,7 +311,7 @@
             // 
             // lblGuage2
             // 
-            this.lblGuage2.Location = new System.Drawing.Point(605, 135);
+            this.lblGuage2.Location = new System.Drawing.Point(604, 188);
             this.lblGuage2.Name = "lblGuage2";
             this.lblGuage2.Size = new System.Drawing.Size(109, 13);
             this.lblGuage2.TabIndex = 4;
@@ -309,7 +320,7 @@
             // 
             // lblGuage3
             // 
-            this.lblGuage3.Location = new System.Drawing.Point(851, 135);
+            this.lblGuage3.Location = new System.Drawing.Point(950, 188);
             this.lblGuage3.Name = "lblGuage3";
             this.lblGuage3.Size = new System.Drawing.Size(109, 13);
             this.lblGuage3.TabIndex = 4;
@@ -318,7 +329,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 432);
+            this.button1.Location = new System.Drawing.Point(16, 417);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 23);
             this.button1.TabIndex = 5;
@@ -326,11 +337,116 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // zg1
+            // 
+            this.zg1.EditButtons = System.Windows.Forms.MouseButtons.Left;
+            this.zg1.Location = new System.Drawing.Point(155, 258);
+            this.zg1.Name = "zg1";
+            this.zg1.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
+            this.zg1.ScrollGrace = 0D;
+            this.zg1.ScrollMaxX = 0D;
+            this.zg1.ScrollMaxY = 0D;
+            this.zg1.ScrollMaxY2 = 0D;
+            this.zg1.ScrollMinX = 0D;
+            this.zg1.ScrollMinY = 0D;
+            this.zg1.ScrollMinY2 = 0D;
+            this.zg1.Size = new System.Drawing.Size(321, 182);
+            this.zg1.TabIndex = 0;
+            // 
+            // zg2
+            // 
+            this.zg2.EditButtons = System.Windows.Forms.MouseButtons.Left;
+            this.zg2.Location = new System.Drawing.Point(505, 258);
+            this.zg2.Name = "zg2";
+            this.zg2.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
+            this.zg2.ScrollGrace = 0D;
+            this.zg2.ScrollMaxX = 0D;
+            this.zg2.ScrollMaxY = 0D;
+            this.zg2.ScrollMaxY2 = 0D;
+            this.zg2.ScrollMinX = 0D;
+            this.zg2.ScrollMinY = 0D;
+            this.zg2.ScrollMinY2 = 0D;
+            this.zg2.Size = new System.Drawing.Size(321, 182);
+            this.zg2.TabIndex = 0;
+            // 
+            // zg3
+            // 
+            this.zg3.EditButtons = System.Windows.Forms.MouseButtons.Left;
+            this.zg3.Location = new System.Drawing.Point(856, 258);
+            this.zg3.Name = "zg3";
+            this.zg3.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
+            this.zg3.ScrollGrace = 0D;
+            this.zg3.ScrollMaxX = 0D;
+            this.zg3.ScrollMaxY = 0D;
+            this.zg3.ScrollMaxY2 = 0D;
+            this.zg3.ScrollMinX = 0D;
+            this.zg3.ScrollMinY = 0D;
+            this.zg3.ScrollMinY2 = 0D;
+            this.zg3.Size = new System.Drawing.Size(321, 182);
+            this.zg3.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.device_name,
+            this.device_type,
+            this.threshold_text,
+            this.value,
+            this.timestamp});
+            this.dataGridView1.Location = new System.Drawing.Point(1204, 65);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(316, 375);
+            this.dataGridView1.TabIndex = 6;
+            // 
+            // device_name
+            // 
+            this.device_name.HeaderText = "DeviceName";
+            this.device_name.Name = "device_name";
+            // 
+            // device_type
+            // 
+            this.device_type.HeaderText = "DeviceType";
+            this.device_type.Name = "device_type";
+            // 
+            // threshold_text
+            // 
+            this.threshold_text.HeaderText = "Threshold Text";
+            this.threshold_text.Name = "threshold_text";
+            // 
+            // value
+            // 
+            this.value.HeaderText = "Value";
+            this.value.Name = "value";
+            // 
+            // timestamp
+            // 
+            this.timestamp.HeaderText = "Time";
+            this.timestamp.Name = "timestamp";
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.label1.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label1.Location = new System.Drawing.Point(1204, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(316, 38);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Current Incidents";
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 467);
+            this.ClientSize = new System.Drawing.Size(1532, 468);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblGuage3);
             this.Controls.Add(this.lblGuage2);
@@ -340,6 +456,9 @@
             this.Controls.Add(this.gauge3);
             this.Controls.Add(this.gauge2);
             this.Controls.Add(this.gauge1);
+            this.Controls.Add(this.zg1);
+            this.Controls.Add(this.zg2);
+            this.Controls.Add(this.zg3);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Dashboard";
@@ -349,6 +468,7 @@
             this.Load += new System.EventHandler(this.Dashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,6 +489,18 @@
         private System.Windows.Forms.Label lblGuage2;
         private System.Windows.Forms.Label lblGuage3;
         private System.Windows.Forms.Button button1;
+
+        private ZedGraph.ZedGraphControl zg1;
+        private ZedGraph.ZedGraphControl zg2;
+        private ZedGraph.ZedGraphControl zg3;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn device_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn device_type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn threshold_text;
+        private System.Windows.Forms.DataGridViewTextBoxColumn value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timestamp;
+        private System.Windows.Forms.Label label1;
+
 
                     
     }

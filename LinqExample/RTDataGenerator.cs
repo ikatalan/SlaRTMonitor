@@ -11,7 +11,7 @@ namespace LinqExample
     {
         static int minValue = 0;
         static int maxValue = 100;
-        static int[] deviceIds = new int[] { 1, 2,3 };
+        static int[] deviceIds = new int[] { 1, 2 };
         static int[] thresholdTypes = new int[] { 1, 2, 3 };
         static int interval = 2000;//one sec
 
