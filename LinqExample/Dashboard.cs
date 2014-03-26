@@ -31,7 +31,6 @@ namespace LinqExample
 
         private int deviceId;
         private String deviceType;
-        private static int time = 1; 
         bool shouldContinue;
 
 
@@ -198,23 +197,7 @@ namespace LinqExample
                     int maxValue = reader.GetInt32(4);
                     string thresholdName = reader.GetString(5);
 
-
-                    //excpection from contract 
-                    //if (thresholdValue > 15)
-                    
-                    //{
-                      //  value = 1;
-                        value = (((float)thresholdValue) / (maxValue - minValue) * 100);
-                       // value =  (value/time)*100;
-                   // }
-                    
-                   // else
-                   // {
-                   //      value = (((float)thresholdValue) / (maxValue - minValue) * 100);
-
-                   //}
-                    //time++;
-               
+                    value = (((float)thresholdValue) / (maxValue - minValue) * 100);
 
                     switch (idx)
                     {

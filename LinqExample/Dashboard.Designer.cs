@@ -61,7 +61,6 @@
             this.threshold_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -101,7 +100,7 @@
             this.gauge1.GaugeRanges.Add(aGaugeRange1);
             this.gauge1.GaugeRanges.Add(aGaugeRange2);
             this.gauge1.GaugeRanges.Add(aGaugeRange3);
-            this.gauge1.Location = new System.Drawing.Point(182, 65);
+            this.gauge1.Location = new System.Drawing.Point(182, 16);
             this.gauge1.MaxValue = 100F;
             this.gauge1.MinValue = 0F;
             this.gauge1.Name = "gauge1";
@@ -167,7 +166,7 @@
             this.gauge2.GaugeRanges.Add(aGaugeRange4);
             this.gauge2.GaugeRanges.Add(aGaugeRange5);
             this.gauge2.GaugeRanges.Add(aGaugeRange6);
-            this.gauge2.Location = new System.Drawing.Point(525, 65);
+            this.gauge2.Location = new System.Drawing.Point(525, 16);
             this.gauge2.MaxValue = 100F;
             this.gauge2.MinValue = 0F;
             this.gauge2.Name = "gauge2";
@@ -233,7 +232,7 @@
             this.gauge3.GaugeRanges.Add(aGaugeRange7);
             this.gauge3.GaugeRanges.Add(aGaugeRange8);
             this.gauge3.GaugeRanges.Add(aGaugeRange9);
-            this.gauge3.Location = new System.Drawing.Point(872, 65);
+            this.gauge3.Location = new System.Drawing.Point(872, 16);
             this.gauge3.MaxValue = 100F;
             this.gauge3.MinValue = 0F;
             this.gauge3.Name = "gauge3";
@@ -292,7 +291,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(45, 13);
+            this.lblDevices.Size = new System.Drawing.Size(46, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -302,7 +301,7 @@
             // 
             // lblGuage1
             // 
-            this.lblGuage1.Location = new System.Drawing.Point(228, 188);
+            this.lblGuage1.Location = new System.Drawing.Point(228, 139);
             this.lblGuage1.Name = "lblGuage1";
             this.lblGuage1.Size = new System.Drawing.Size(109, 13);
             this.lblGuage1.TabIndex = 4;
@@ -312,7 +311,7 @@
             // 
             // lblGuage2
             // 
-            this.lblGuage2.Location = new System.Drawing.Point(572, 188);
+            this.lblGuage2.Location = new System.Drawing.Point(572, 139);
             this.lblGuage2.Name = "lblGuage2";
             this.lblGuage2.Size = new System.Drawing.Size(109, 13);
             this.lblGuage2.TabIndex = 4;
@@ -321,7 +320,7 @@
             // 
             // lblGuage3
             // 
-            this.lblGuage3.Location = new System.Drawing.Point(918, 188);
+            this.lblGuage3.Location = new System.Drawing.Point(918, 139);
             this.lblGuage3.Name = "lblGuage3";
             this.lblGuage3.Size = new System.Drawing.Size(109, 13);
             this.lblGuage3.TabIndex = 4;
@@ -330,7 +329,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(4, 417);
+            this.button1.Location = new System.Drawing.Point(9, 786);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 23);
             this.button1.TabIndex = 5;
@@ -341,7 +340,7 @@
             // zg1
             // 
             this.zg1.EditButtons = System.Windows.Forms.MouseButtons.Left;
-            this.zg1.Location = new System.Drawing.Point(123, 258);
+            this.zg1.Location = new System.Drawing.Point(123, 204);
             this.zg1.Name = "zg1";
             this.zg1.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
             this.zg1.ScrollGrace = 0D;
@@ -357,7 +356,7 @@
             // zg2
             // 
             this.zg2.EditButtons = System.Windows.Forms.MouseButtons.Left;
-            this.zg2.Location = new System.Drawing.Point(473, 258);
+            this.zg2.Location = new System.Drawing.Point(473, 204);
             this.zg2.Name = "zg2";
             this.zg2.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
             this.zg2.ScrollGrace = 0D;
@@ -373,7 +372,7 @@
             // zg3
             // 
             this.zg3.EditButtons = System.Windows.Forms.MouseButtons.Left;
-            this.zg3.Location = new System.Drawing.Point(824, 258);
+            this.zg3.Location = new System.Drawing.Point(824, 204);
             this.zg3.Name = "zg3";
             this.zg3.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
             this.zg3.ScrollGrace = 0D;
@@ -391,6 +390,8 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -399,10 +400,10 @@
             this.threshold_text,
             this.value,
             this.timestamp});
-            this.dataGridView1.Location = new System.Drawing.Point(1159, 65);
+            this.dataGridView1.Location = new System.Drawing.Point(128, 417);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(316, 375);
+            this.dataGridView1.Size = new System.Drawing.Size(1017, 392);
             this.dataGridView1.TabIndex = 6;
             // 
             // device_name
@@ -430,22 +431,11 @@
             this.timestamp.HeaderText = "Time";
             this.timestamp.Name = "timestamp";
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label1.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label1.Location = new System.Drawing.Point(1204, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 38);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Current Incidents";
-            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 468);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1228, 834);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblGuage3);
@@ -460,6 +450,7 @@
             this.Controls.Add(this.zg2);
             this.Controls.Add(this.zg3);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Dashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -499,7 +490,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn threshold_text;
         private System.Windows.Forms.DataGridViewTextBoxColumn value;
         private System.Windows.Forms.DataGridViewTextBoxColumn timestamp;
-        private System.Windows.Forms.Label label1;
 
 
                     
