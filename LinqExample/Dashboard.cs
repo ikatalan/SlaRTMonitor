@@ -31,6 +31,7 @@ namespace LinqExample
 
         private int deviceId;
         private String deviceType;
+        private static int time = 1; 
         bool shouldContinue;
 
 
@@ -159,8 +160,16 @@ namespace LinqExample
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
-            deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString(); 
+            try
+            {
+                deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
+                deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString();
+            }
+            catch (Exception ex )
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
 
@@ -178,6 +187,7 @@ namespace LinqExample
 
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
+                
                 int idx = 1;
                 while (reader.Read())
                 {
@@ -189,8 +199,22 @@ namespace LinqExample
                     string thresholdName = reader.GetString(5);
 
 
-                    //check here
-                    value = value + (((float)thresholdValue) / (maxValue - minValue) * 100);
+                    //excpection from contract 
+                    //if (thresholdValue > 15)
+                    
+                    //{
+                      //  value = 1;
+                        value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+                       // value =  (value/time)*100;
+                   // }
+                    
+                   // else
+                   // {
+                   //      value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+
+                   //}
+                    //time++;
+               
 
                     switch (idx)
                     {
@@ -198,7 +222,7 @@ namespace LinqExample
                             {
                                 me.SetGuageValue(me.gauge1, me.lblGuage1, thresholdName, value);
                                 //Fetch Graph Data for Graph1.
-                                me.FillGraphWithData(me.zg1, thresholdId, deviceId, deviceType);
+                                me.FillGraphWithData(me.zg1, thresholdId, deviceId, deviceType,thresholdName);
 
 
                             } break;
@@ -206,13 +230,13 @@ namespace LinqExample
                             {
                                 me.SetGuageValue(me.gauge2, me.lblGuage2, thresholdName, value);
                                 //Fetch Graph Data for Graph2.
-                                me.FillGraphWithData(me.zg2, thresholdId, deviceId, deviceType);
+                                me.FillGraphWithData(me.zg2, thresholdId, deviceId, deviceType,thresholdName);
                             } break;
                         case 3:
                             {
                                 me.SetGuageValue(me.gauge3, me.lblGuage3, thresholdName, value);
                                 //Fetch Graph Data for Graph3.
-                                me.FillGraphWithData(me.zg3, thresholdId, deviceId, deviceType);
+                                me.FillGraphWithData(me.zg3, thresholdId, deviceId, deviceType,thresholdName);
                             } break;
                     }
 
@@ -260,18 +284,30 @@ namespace LinqExample
             }
         }
 
-        private void FillGraphWithData(ZedGraph.ZedGraphControl zgc, int thresholdId, int deviceId, string deviceType)
+        private void FillGraphWithData(ZedGraph.ZedGraphControl zgc, int thresholdId, int deviceId, string deviceType, string thresholdName)
         {
             
             GraphPane myPane = zgc.GraphPane;
+            
 
             // Set the titles and axis labels per selection
-            myPane.Title.Text = "last 24 hours";
+            thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
+            myPane.Title.Text = thresholdName + " - " + "last 24 hours";
+           // myPane.Title.Text = "last 24 hours";
+            myPane.XAxis.Title.Text = "Time (Sec)";
+            myPane.YAxis.Title.Text = "%";
+
             // Change the color of the title
             //  myPane.Title.FontSpec.FontColor = Color.Blue;
 
-            myPane.XAxis.Title.Text = "Time (Sec)";
-            myPane.YAxis.Title.Text = "%";
+            //Set the font size 
+            myPane.Title.FontSpec.Size = 20.0f; 
+            myPane.YAxis.Title.FontSpec.Size = 20.0f;
+            myPane.YAxis.Scale.FontSpec.Size = 20.0f;
+            myPane.XAxis.Title.FontSpec.Size = 20.0f;
+            myPane.XAxis.Scale.FontSpec.Size = 20.0f;
+
+          
 
             myPane.CurveList.Clear();// clear the graph
 
@@ -284,7 +320,7 @@ namespace LinqExample
             PointPairList listDeviceValues = GetValuesForDevice(deviceId, thresholdId);
 
             //use this to add line width 3.0F
-            LineItem myCurve = new LineItem("", listDeviceValues, Color.Red, SymbolType.XCross);
+            LineItem myCurve = new LineItem("", listDeviceValues, Color.Blue, SymbolType.XCross);
             myPane.CurveList.Add(myCurve);
 
             if (listDeviceValues.Count > 0)
@@ -434,7 +470,17 @@ namespace LinqExample
 
         private void button1_Click(object sender, EventArgs e)
         {
+           //need to fix the inovke issue
+            
+            shouldContinue = false;
             this.Close();
+
+           
+        }
+
+        private void lblGuage1_Click(object sender, EventArgs e)
+        {
+
         }
 
 

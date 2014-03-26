@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SLAManagerContract));
             this.dataGridViewSLAManger = new System.Windows.Forms.DataGridView();
-            this.threshold_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.devicetypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.thresholdidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.threshold_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.slaContractsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.sLA_RT_monitoringDataSetSlaContracts = new LinqExample.SLA_RT_monitoringDataSetSlaContracts();
+            this.button1 = new System.Windows.Forms.Button();
             this.slaContractsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -62,22 +62,6 @@
             this.dataGridViewSLAManger.Size = new System.Drawing.Size(693, 364);
             this.dataGridViewSLAManger.TabIndex = 0;
             // 
-            // threshold_name
-            // 
-            this.threshold_name.HeaderText = "Threshold Name";
-            this.threshold_name.Name = "threshold_name";
-            this.threshold_name.Width = 163;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 420);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Back To MainMenu";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.backMainMenu_Click);
-            // 
             // devicetypeDataGridViewTextBoxColumn
             // 
             this.devicetypeDataGridViewTextBoxColumn.DataPropertyName = "device_type";
@@ -91,6 +75,12 @@
             this.thresholdidDataGridViewTextBoxColumn.HeaderText = "Threshold ID";
             this.thresholdidDataGridViewTextBoxColumn.Name = "thresholdidDataGridViewTextBoxColumn";
             this.thresholdidDataGridViewTextBoxColumn.Width = 162;
+            // 
+            // threshold_name
+            // 
+            this.threshold_name.HeaderText = "Threshold Name";
+            this.threshold_name.Name = "threshold_name";
+            this.threshold_name.Width = 163;
             // 
             // valueDataGridViewTextBoxColumn
             // 
@@ -108,6 +98,16 @@
             // 
             this.sLA_RT_monitoringDataSetSlaContracts.DataSetName = "SLA_RT_monitoringDataSetSlaContracts";
             this.sLA_RT_monitoringDataSetSlaContracts.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 420);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Back To MainMenu";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.backMainMenu_Click);
             // 
             // slaContractsTableAdapter
             // 

@@ -159,7 +159,7 @@ namespace LinqExample
             // Set the titles and axis labels per selection
             myPane.Title.Text = cmbBoxThresholdTypes.GetItemText(cmbBoxThresholdTypes.SelectedItem);
             // Change the color of the title
-          //  myPane.Title.FontSpec.FontColor = Color.Blue;
+         //   myPane.Title.FontSpec.Size = 10.0f * (this.Size.Width / 100); 
 
             myPane.XAxis.Title.Text = "Time (Sec)";
             myPane.YAxis.Title.Text = "Threshold";

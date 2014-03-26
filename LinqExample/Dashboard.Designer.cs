@@ -101,7 +101,7 @@
             this.gauge1.GaugeRanges.Add(aGaugeRange1);
             this.gauge1.GaugeRanges.Add(aGaugeRange2);
             this.gauge1.GaugeRanges.Add(aGaugeRange3);
-            this.gauge1.Location = new System.Drawing.Point(214, 65);
+            this.gauge1.Location = new System.Drawing.Point(182, 65);
             this.gauge1.MaxValue = 100F;
             this.gauge1.MinValue = 0F;
             this.gauge1.Name = "gauge1";
@@ -167,7 +167,7 @@
             this.gauge2.GaugeRanges.Add(aGaugeRange4);
             this.gauge2.GaugeRanges.Add(aGaugeRange5);
             this.gauge2.GaugeRanges.Add(aGaugeRange6);
-            this.gauge2.Location = new System.Drawing.Point(557, 65);
+            this.gauge2.Location = new System.Drawing.Point(525, 65);
             this.gauge2.MaxValue = 100F;
             this.gauge2.MinValue = 0F;
             this.gauge2.Name = "gauge2";
@@ -233,7 +233,7 @@
             this.gauge3.GaugeRanges.Add(aGaugeRange7);
             this.gauge3.GaugeRanges.Add(aGaugeRange8);
             this.gauge3.GaugeRanges.Add(aGaugeRange9);
-            this.gauge3.Location = new System.Drawing.Point(904, 65);
+            this.gauge3.Location = new System.Drawing.Point(872, 65);
             this.gauge3.MaxValue = 100F;
             this.gauge3.MinValue = 0F;
             this.gauge3.Name = "gauge3";
@@ -273,7 +273,7 @@
             this.listDevices.FormattingEnabled = true;
             this.listDevices.Location = new System.Drawing.Point(13, 52);
             this.listDevices.Name = "listDevices";
-            this.listDevices.Size = new System.Drawing.Size(116, 342);
+            this.listDevices.Size = new System.Drawing.Size(93, 342);
             this.listDevices.TabIndex = 2;
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -292,7 +292,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(46, 13);
+            this.lblDevices.Size = new System.Drawing.Size(45, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -302,16 +302,17 @@
             // 
             // lblGuage1
             // 
-            this.lblGuage1.Location = new System.Drawing.Point(260, 188);
+            this.lblGuage1.Location = new System.Drawing.Point(228, 188);
             this.lblGuage1.Name = "lblGuage1";
             this.lblGuage1.Size = new System.Drawing.Size(109, 13);
             this.lblGuage1.TabIndex = 4;
             this.lblGuage1.Text = "Guage 1";
             this.lblGuage1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGuage1.Click += new System.EventHandler(this.lblGuage1_Click);
             // 
             // lblGuage2
             // 
-            this.lblGuage2.Location = new System.Drawing.Point(604, 188);
+            this.lblGuage2.Location = new System.Drawing.Point(572, 188);
             this.lblGuage2.Name = "lblGuage2";
             this.lblGuage2.Size = new System.Drawing.Size(109, 13);
             this.lblGuage2.TabIndex = 4;
@@ -320,7 +321,7 @@
             // 
             // lblGuage3
             // 
-            this.lblGuage3.Location = new System.Drawing.Point(950, 188);
+            this.lblGuage3.Location = new System.Drawing.Point(918, 188);
             this.lblGuage3.Name = "lblGuage3";
             this.lblGuage3.Size = new System.Drawing.Size(109, 13);
             this.lblGuage3.TabIndex = 4;
@@ -329,7 +330,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 417);
+            this.button1.Location = new System.Drawing.Point(4, 417);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 23);
             this.button1.TabIndex = 5;
@@ -340,7 +341,7 @@
             // zg1
             // 
             this.zg1.EditButtons = System.Windows.Forms.MouseButtons.Left;
-            this.zg1.Location = new System.Drawing.Point(155, 258);
+            this.zg1.Location = new System.Drawing.Point(123, 258);
             this.zg1.Name = "zg1";
             this.zg1.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
             this.zg1.ScrollGrace = 0D;
@@ -356,7 +357,7 @@
             // zg2
             // 
             this.zg2.EditButtons = System.Windows.Forms.MouseButtons.Left;
-            this.zg2.Location = new System.Drawing.Point(505, 258);
+            this.zg2.Location = new System.Drawing.Point(473, 258);
             this.zg2.Name = "zg2";
             this.zg2.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
             this.zg2.ScrollGrace = 0D;
@@ -372,7 +373,7 @@
             // zg3
             // 
             this.zg3.EditButtons = System.Windows.Forms.MouseButtons.Left;
-            this.zg3.Location = new System.Drawing.Point(856, 258);
+            this.zg3.Location = new System.Drawing.Point(824, 258);
             this.zg3.Name = "zg3";
             this.zg3.PanModifierKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.None)));
             this.zg3.ScrollGrace = 0D;
@@ -389,7 +390,6 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -399,7 +399,7 @@
             this.threshold_text,
             this.value,
             this.timestamp});
-            this.dataGridView1.Location = new System.Drawing.Point(1204, 65);
+            this.dataGridView1.Location = new System.Drawing.Point(1159, 65);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(316, 375);
@@ -444,7 +444,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1532, 468);
+            this.ClientSize = new System.Drawing.Size(1284, 468);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
