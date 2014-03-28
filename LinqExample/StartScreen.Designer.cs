@@ -39,10 +39,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.toolTip1_Info = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip2_Error = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.ag1 = new System.Windows.Forms.AGauge();//Gauge
-         //   this.zg1 = new ZedGraph.ZedGraphControl();
+            this.toolTip2_Error = new System.Windows.Forms.ToolTip(this.components);
+            this.ag1 = new System.Windows.Forms.AGauge();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,14 +138,6 @@
             this.toolTip1_Info.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1_Info.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Info_Popup);
             // 
-            // toolTip2_Error
-            // 
-            this.toolTip2_Error.AutoPopDelay = 5000;
-            this.toolTip2_Error.InitialDelay = 200;
-            this.toolTip2_Error.ReshowDelay = 100;
-            this.toolTip2_Error.ShowAlways = true;
-            this.toolTip2_Error.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Error;
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -159,8 +150,58 @@
             this.toolTip1_Info.SetToolTip(this.linkLabel1, "Send me my password to my configured email");
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // toolTip2_Error
+            // 
+            this.toolTip2_Error.AutoPopDelay = 5000;
+            this.toolTip2_Error.InitialDelay = 200;
+            this.toolTip2_Error.ReshowDelay = 100;
+            this.toolTip2_Error.ShowAlways = true;
+            this.toolTip2_Error.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Error;
+            // 
+            // ag1
+            // 
+            this.ag1.BaseArcColor = System.Drawing.Color.Gray;
+            this.ag1.BaseArcRadius = 80;
+            this.ag1.BaseArcStart = 135;
+            this.ag1.BaseArcSweep = 270;
+            this.ag1.BaseArcWidth = 2;
+            this.ag1.Center = new System.Drawing.Point(100, 100);
+            this.ag1.Location = new System.Drawing.Point(0, 0);
+            this.ag1.MaxValue = 400F;
+            this.ag1.MinValue = -100F;
+            this.ag1.Name = "ag1";
+            this.ag1.NeedleColor1 = System.Windows.Forms.AGaugeNeedleColor.Gray;
+            this.ag1.NeedleColor2 = System.Drawing.Color.DimGray;
+            this.ag1.NeedleRadius = 80;
+            this.ag1.NeedleType = System.Windows.Forms.NeedleType.Advance;
+            this.ag1.NeedleWidth = 2;
+            this.ag1.ScaleLinesInterColor = System.Drawing.Color.Black;
+            this.ag1.ScaleLinesInterInnerRadius = 73;
+            this.ag1.ScaleLinesInterOuterRadius = 80;
+            this.ag1.ScaleLinesInterWidth = 1;
+            this.ag1.ScaleLinesMajorColor = System.Drawing.Color.Black;
+            this.ag1.ScaleLinesMajorInnerRadius = 70;
+            this.ag1.ScaleLinesMajorOuterRadius = 80;
+            this.ag1.ScaleLinesMajorStepValue = 50F;
+            this.ag1.ScaleLinesMajorWidth = 2;
+            this.ag1.ScaleLinesMinorColor = System.Drawing.Color.Gray;
+            this.ag1.ScaleLinesMinorInnerRadius = 75;
+            this.ag1.ScaleLinesMinorOuterRadius = 80;
+            this.ag1.ScaleLinesMinorTicks = 9;
+            this.ag1.ScaleLinesMinorWidth = 1;
+            this.ag1.ScaleNumbersColor = System.Drawing.Color.Black;
+            this.ag1.ScaleNumbersFormat = null;
+            this.ag1.ScaleNumbersRadius = 95;
+            this.ag1.ScaleNumbersRotation = 0;
+            this.ag1.ScaleNumbersStartScaleLine = 0;
+            this.ag1.ScaleNumbersStepScaleLines = 1;
+            this.ag1.Size = new System.Drawing.Size(205, 180);
+            this.ag1.TabIndex = 0;
+            this.ag1.Value = 0F;
+            // 
             // StartScreen
             // 
+            this.AcceptButton = this.btnEnter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 450);

@@ -132,10 +132,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SLA_RT_monitoringDataSetMeasurements.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SLA_RT_monitoringDataSetSlaContracts.cs">
+      <DependentUpon>SLA_RT_monitoringDataSetSlaContracts.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SLA_RT_monitoringDataSetSlaContracts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SLA_RT_monitoringDataSetSlaContracts.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SLA_RT_monitoringDataSetThreshold.cs">
+      <DependentUpon>SLA_RT_monitoringDataSetThreshold.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SLA_RT_monitoringDataSetThreshold.Designer.cs">
       <AutoGen>True</AutoGen>

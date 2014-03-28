@@ -8,11 +8,20 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 
+//Handle the SLA contract
 namespace LinqExample
-{
+{   
     public partial class SLAManagerContract : Form
     {
+
+        Dictionary<int, String> thresholdIdToName;
+        SqlConnection thresholdConnection;
+        SqlCommand allthreshold;
+
+        static int OldContractExist = 0;
+        private bool AlreadySaved =false;
         private bool changed=false;
         public SLAManagerContract()
         {
@@ -24,6 +33,32 @@ namespace LinqExample
         {
             changed = false;
             this.slaContractsTableAdapter.Fill(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
+            //-----------------Need to find the Threshold name per threshold ID 
+            thresholdConnection = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
+            allthreshold = new SqlCommand("SELECT id, name FROM [dbo].[Thresholds]", thresholdConnection);
+
+            if (((allthreshold.Connection.State & global::System.Data.ConnectionState.Open)
+             != global::System.Data.ConnectionState.Open))
+            {
+                allthreshold.Connection.Open();
+            }
+
+            SqlDataReader thresholdReader = allthreshold.ExecuteReader();
+
+            thresholdIdToName = new Dictionary<int, string>();
+
+            while (thresholdReader.Read())
+            {
+                thresholdIdToName[thresholdReader.GetInt32(0)] = thresholdReader.GetString(1);
+                int typeId = thresholdReader.GetInt32(0);
+                string typeName = thresholdReader.GetString(1);
+
+                thresholdIdToName[typeId] = typeName;
+            }
+
+            //----------------
+
+            if (dataGridViewSLAManger.Rows.Count >= 1) { OldContractExist = 1; }// need to know if we have contract in the database
 
             BindingSource SBind = new BindingSource();
             SBind.DataSource = this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts;
@@ -36,22 +71,27 @@ namespace LinqExample
                 if (i != 3)
                 {
                     dataGridViewSLAManger.Columns[i - 1].DataPropertyName = this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts.Columns[i].Caption;
+                    //dataGridViewSLAManger.Columns[3].DataPropertyName = thresholdIdToName[];
+                   
                 }
             }
 
             dataGridViewSLAManger.DataSource = SBind;
             dataGridViewSLAManger.Refresh();
 
+          
         }
 
         private void backMainMenu_Click(object sender, EventArgs e)
         {
-            if (changed)
+              
+            if (changed && AlreadySaved == false)
             {
-                DialogResult result = MessageBox.Show("Save Data?", "Back to main menu", MessageBoxButtons.YesNoCancel);
+                DialogResult result = MessageBox.Show("Update new contract?", "Back to MainMenu", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                  //  btnSave_Click(null, null);// still need to work on 
+                    OldContractExist = 1;
+                    btnSave_Click(null, null);
                     this.Close();
                 }
                 else if (result == DialogResult.No)
@@ -72,6 +112,8 @@ namespace LinqExample
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            dataGridViewSLAManger.AllowUserToAddRows = true;
+            dataGridViewSLAManger.AllowUserToDeleteRows = true;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             openFileDialog1.InitialDirectory = "c:\\Users\\%USERNAME%";//Go to Desktop
@@ -107,10 +149,12 @@ namespace LinqExample
                     dataGridViewSLAManger.DataSource = SBind;
                     dataGridViewSLAManger.Refresh();
                     changed = true;
+                    btnSave.Enabled = true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
                 }
             }
 
@@ -140,17 +184,20 @@ namespace LinqExample
 
         private void btnUnlock_Click(object sender, EventArgs e)
         {
-            // Need to open a Confirm Dialog for p/W protection.
+            // Open a Confirm Dialog for password protection.
             if (btnUnlock.Text == "Lock")
             {
+                dataGridViewSLAManger.AllowUserToAddRows = false;
+                dataGridViewSLAManger.AllowUserToDeleteRows = false;
                 btnSave.Visible = false;
                 btnLoad.Visible = false;
+
                 btnUnlock.Text = "Unlock";
                 return;
             }
        
             String input = string.Empty; // will hold the passowrd
-            input = "1234";
+            input = "1234";// need to have the specfic user password that login 
 
             InputBox.InputBoxValidation validation = delegate(string password)
             {
@@ -160,8 +207,8 @@ namespace LinqExample
                 }
                 if (password == input)
                 {
-                    dataGridViewSLAManger.AllowUserToAddRows = true;
-                    dataGridViewSLAManger.AllowUserToDeleteRows = true;
+                   // dataGridViewSLAManger.AllowUserToAddRows = true;
+                   // dataGridViewSLAManger.AllowUserToDeleteRows = true;
                     btnSave.Visible = true;
                     btnLoad.Visible = true;
                 }
@@ -181,28 +228,49 @@ namespace LinqExample
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            return;//still need to work on this
-            if (DialogResult.Cancel == MessageBox.Show("Are you sure you want to replace the current SLA agreemnet", "SLA Agreement change", MessageBoxButtons.OKCancel))
+            
+            if (OldContractExist == 1) //checks if we didn't have cotract before 
             {
-                return;
+                if (DialogResult.Cancel == MessageBox.Show("Are you sure you want to replace the current SLA contract", "SLA contract change", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+                {
+                    
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("New contract updated", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AlreadySaved = true;
+
+                }
             }
+            else
+            {
+                MessageBox.Show("New contract updated", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AlreadySaved = true;
+           
+            }
+        
+             LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter adapter1
+               = new SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
 
-            LinqExample.SLA_RT_monitoringDataSet1TableAdapters.SlaAgreementTableAdapter adapter1
-                = new SLA_RT_monitoringDataSet1TableAdapters.SlaAgreementTableAdapter();
+            adapter1.DeleteAll();// Delete the old contract before applying new one 
 
-            adapter1.DeleteAll();
+         
+             LinqExample.SLA_RT_monitoringDataSetSlaContracts.SlaContractsDataTable s = new SLA_RT_monitoringDataSetSlaContracts.SlaContractsDataTable();
 
-            LinqExample.SLA_RT_monitoringDataSet1.SlaAgreementDataTable s = new SLA_RT_monitoringDataSet1.SlaAgreementDataTable();
 
-            DataTable data = (DataTable)((BindingSource)this.dataGridViewSLAManger.DataSource).DataSource;
+             DataTable data = (DataTable)((BindingSource)this.dataGridViewSLAManger.DataSource).DataSource;
             foreach (DataRow row in data.Rows)
             {
-                s.AddSlaAgreementRow((string)row[0], (string)row[1], (string)row[2], ((System.Int32)row[3]).ToString());
+              
+                s.AddSlaContractsRow((string)row[0], ((System.Int32)row[1]), ((System.Int32)row[2]));
+            
             }
 
             int rowsAffected = adapter1.Update(s);
 
             data.AcceptChanges();
+            btnSave.Enabled = false;
         }
     }
 }

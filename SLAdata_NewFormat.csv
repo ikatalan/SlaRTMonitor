@@ -1,3 +1,13 @@
-Device type,Threshold id,Value
-Printer,1,30
-Disk,4,70
+Device Type,Threshold ID,Value
+Printer,1,14
+Printer,2,79
+Printer,3,29
+Storage,4,29
+Storage,7,29
+Storage,8,100
+Storage,2,100
+Server,2,100
+Server,7,50
+Network,9,69
+Network,10,99
+Network,2,99

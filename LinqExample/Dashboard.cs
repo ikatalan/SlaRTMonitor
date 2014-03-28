@@ -52,7 +52,13 @@ namespace LinqExample
 
             fetcherThread = new Thread(new ParameterizedThreadStart(GuageDataFetcher));
             shouldContinue = true;
+            //need to check why this fail from time to time
+        //   if  (!fetcherThread.IsAlive == true)
+         //  {
+
             fetcherThread.Start(this);
+
+         //  }
 
             dbConnection = new global::System.Data.SqlClient.SqlConnection();
             dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
@@ -80,7 +86,7 @@ namespace LinqExample
                 dbConnection2 = new global::System.Data.SqlClient.SqlConnection();
                 dbConnection2.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
-                // Used for filling list of items (device_name) per threshold_id            
+                // Used for filling list of items (device_name) per threshold_id   (last 24 hours)        
                 devicesMeasurmentsByThresholdCommand = new SqlCommand(
                     @"SELECT DISTINCT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
                     + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
@@ -182,8 +188,17 @@ namespace LinqExample
                 int deviceId = me.deviceId;
                 string deviceType = me.deviceType;
 
-                me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
+                //sometime some null values arrived 
+                try
+                {
+                    me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                    
+                }
 
+                //sometime some null values arrived 
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
                 
@@ -451,18 +466,20 @@ namespace LinqExample
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-           //need to fix the inovke issue
-            
-            shouldContinue = false;
-            this.Close();
-
-           
-        }
+       
 
         private void lblGuage1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+             //fixed  the inovke issue cauing the system to crash
+            
+            fetcherThread.Abort(this);
+            shouldContinue = false;
+            this.Close();
 
         }
 

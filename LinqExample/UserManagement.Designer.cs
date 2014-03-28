@@ -135,9 +135,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(238, 397);
+            this.btnSave.Location = new System.Drawing.Point(289, 397);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(96, 32);
+            this.btnSave.Size = new System.Drawing.Size(96, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Update";
             this.toolTip1.SetToolTip(this.btnSave, "Insert or Update Row");
@@ -161,9 +161,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(340, 397);
+            this.btnDelete.Location = new System.Drawing.Point(412, 397);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(96, 32);
+            this.btnDelete.Size = new System.Drawing.Size(96, 23);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Delete";
             this.toolTip1.SetToolTip(this.btnDelete, "Delete Row");

@@ -38,10 +38,11 @@
             this.slaContractsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.sLA_RT_monitoringDataSetSlaContracts = new LinqExample.SLA_RT_monitoringDataSetSlaContracts();
             this.button1 = new System.Windows.Forms.Button();
-            this.slaContractsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnUnlock = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.slaContractsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSLAManger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slaContractsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetSlaContracts)).BeginInit();
@@ -49,6 +50,8 @@
             // 
             // dataGridViewSLAManger
             // 
+            this.dataGridViewSLAManger.AllowUserToAddRows = false;
+            this.dataGridViewSLAManger.AllowUserToDeleteRows = false;
             this.dataGridViewSLAManger.AutoGenerateColumns = false;
             this.dataGridViewSLAManger.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.devicetypeDataGridViewTextBoxColumn,
@@ -109,10 +112,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.backMainMenu_Click);
             // 
-            // slaContractsTableAdapter
-            // 
-            this.slaContractsTableAdapter.ClearBeforeFill = true;
-            // 
             // btnLoad
             // 
             this.btnLoad.Location = new System.Drawing.Point(187, 420);
@@ -126,6 +125,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(341, 420);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(155, 23);
@@ -145,12 +145,27 @@
             this.btnUnlock.UseVisualStyleBackColor = true;
             this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label1.Location = new System.Drawing.Point(13, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Current Active Contract";
+            // 
+            // slaContractsTableAdapter
+            // 
+            this.slaContractsTableAdapter.ClearBeforeFill = true;
+            // 
             // SLAManagerContract
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 464);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnUnlock);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnLoad);
@@ -165,6 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.slaContractsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetSlaContracts)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -182,5 +198,6 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnUnlock;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -152,7 +152,7 @@ namespace LinqExample
                                 measurmentsAdapter.InsertCommand.Parameters[3].Value = DateTime.Now;
                            }
                            
-                            //Crash on disk
+                           
                             int returnValue = measurmentsAdapter.InsertCommand.ExecuteNonQuery();
 
 

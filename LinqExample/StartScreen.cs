@@ -231,7 +231,7 @@ namespace LinqExample
 
             private void StartScreen_Load(object sender, EventArgs e)
             {
-           
+               
 
 
             }

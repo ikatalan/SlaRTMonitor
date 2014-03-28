@@ -51,7 +51,6 @@
             this.lblGuage1 = new System.Windows.Forms.Label();
             this.lblGuage2 = new System.Windows.Forms.Label();
             this.lblGuage3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.zg2 = new ZedGraph.ZedGraphControl();
             this.zg3 = new ZedGraph.ZedGraphControl();
@@ -61,6 +60,8 @@
             this.threshold_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -291,7 +292,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(46, 13);
+            this.lblDevices.Size = new System.Drawing.Size(45, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -326,16 +327,6 @@
             this.lblGuage3.TabIndex = 4;
             this.lblGuage3.Text = "Guage 3";
             this.lblGuage3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(9, 786);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Back To MainMenu";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // zg1
             // 
@@ -400,10 +391,10 @@
             this.threshold_text,
             this.value,
             this.timestamp});
-            this.dataGridView1.Location = new System.Drawing.Point(128, 417);
+            this.dataGridView1.Location = new System.Drawing.Point(123, 441);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1017, 392);
+            this.dataGridView1.Size = new System.Drawing.Size(1022, 218);
             this.dataGridView1.TabIndex = 6;
             // 
             // device_name
@@ -431,13 +422,37 @@
             this.timestamp.HeaderText = "Time";
             this.timestamp.Name = "timestamp";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(464, 390);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(285, 47);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Current Incidents";
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(4, 613);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(115, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Back To MainMenu";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 834);
+            this.ClientSize = new System.Drawing.Size(1228, 639);
+            this.ControlBox = false;
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblGuage3);
             this.Controls.Add(this.lblGuage2);
             this.Controls.Add(this.lblGuage1);
@@ -479,7 +494,6 @@
         private System.Windows.Forms.Label lblGuage1;
         private System.Windows.Forms.Label lblGuage2;
         private System.Windows.Forms.Label lblGuage3;
-        private System.Windows.Forms.Button button1;
 
         private ZedGraph.ZedGraphControl zg1;
         private ZedGraph.ZedGraphControl zg2;
@@ -490,6 +504,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn threshold_text;
         private System.Windows.Forms.DataGridViewTextBoxColumn value;
         private System.Windows.Forms.DataGridViewTextBoxColumn timestamp;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
 
 
                     

@@ -737,6 +737,8 @@ namespace LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters {
     public partial class SlaContractsTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+
+        private System.Data.SqlClient.SqlCommand DeleteAllCommand;
         
         private global::System.Data.SqlClient.SqlConnection _connection;
         
@@ -1005,6 +1007,48 @@ SELECT contract_id, device_type, threshold_id, value FROM SlaContracts WHERE (co
                 }
             }
         }
+
+        //Add special delete to remove all from Contract database table
+        public virtual int DeleteAll()
+        {
+            if (this.DeleteAllCommand == null)
+            {
+                
+                this.DeleteAllCommand = new global::System.Data.SqlClient.SqlCommand();
+                this.DeleteAllCommand.Connection = this.Connection;
+                this.DeleteAllCommand.CommandText = @"DELETE FROM [dbo].[SlaContracts]";
+                this.DeleteAllCommand.CommandType = global::System.Data.CommandType.Text;
+            }
+
+            global::System.Data.ConnectionState previousConnectionState = this.DeleteAllCommand.Connection.State;
+            if (((this.DeleteAllCommand.Connection.State & global::System.Data.ConnectionState.Open)
+                        != global::System.Data.ConnectionState.Open))
+            {
+                this.DeleteAllCommand.Connection.Open();
+            }
+            try
+            {
+                int returnValue = this.DeleteAllCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally
+            {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed))
+                {
+                    this.DeleteAllCommand.Connection.Close();
+                }
+            }
+
+        }
+
+
+
+        //
+
+
+
+
+
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
