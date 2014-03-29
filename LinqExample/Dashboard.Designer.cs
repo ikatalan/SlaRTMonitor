@@ -54,7 +54,7 @@
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.zg2 = new ZedGraph.ZedGraphControl();
             this.zg3 = new ZedGraph.ZedGraphControl();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridIncidents = new System.Windows.Forms.DataGridView();
             this.device_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.device_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.threshold_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,7 +64,7 @@
             this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridIncidents)).BeginInit();
             this.SuspendLayout();
             // 
             // gauge1
@@ -273,7 +273,7 @@
             this.listDevices.FormattingEnabled = true;
             this.listDevices.Location = new System.Drawing.Point(13, 52);
             this.listDevices.Name = "listDevices";
-            this.listDevices.Size = new System.Drawing.Size(93, 342);
+            this.listDevices.Size = new System.Drawing.Size(93, 537);
             this.listDevices.TabIndex = 2;
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -292,7 +292,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(45, 13);
+            this.lblDevices.Size = new System.Drawing.Size(46, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -376,26 +376,26 @@
             this.zg3.Size = new System.Drawing.Size(321, 182);
             this.zg3.TabIndex = 0;
             // 
-            // dataGridView1
+            // dataGridIncidents
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridIncidents.AllowUserToAddRows = false;
+            this.dataGridIncidents.AllowUserToDeleteRows = false;
+            this.dataGridIncidents.AllowUserToResizeRows = false;
+            this.dataGridIncidents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridIncidents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridIncidents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridIncidents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.device_name,
             this.device_type,
             this.threshold_text,
             this.value,
             this.timestamp});
-            this.dataGridView1.Location = new System.Drawing.Point(123, 441);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1022, 218);
-            this.dataGridView1.TabIndex = 6;
+            this.dataGridIncidents.Location = new System.Drawing.Point(123, 441);
+            this.dataGridIncidents.Name = "dataGridIncidents";
+            this.dataGridIncidents.RowHeadersVisible = false;
+            this.dataGridIncidents.Size = new System.Drawing.Size(1022, 194);
+            this.dataGridIncidents.TabIndex = 6;
             // 
             // device_name
             // 
@@ -427,7 +427,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(464, 390);
+            this.label1.Location = new System.Drawing.Point(493, 389);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(285, 47);
             this.label1.TabIndex = 7;
@@ -436,7 +436,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(4, 613);
+            this.button2.Location = new System.Drawing.Point(2, 612);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(115, 23);
             this.button2.TabIndex = 8;
@@ -448,11 +448,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 639);
+            this.ClientSize = new System.Drawing.Size(1228, 652);
             this.ControlBox = false;
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridIncidents);
             this.Controls.Add(this.lblGuage3);
             this.Controls.Add(this.lblGuage2);
             this.Controls.Add(this.lblGuage1);
@@ -474,7 +474,7 @@
             this.Load += new System.EventHandler(this.Dashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridIncidents)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -498,7 +498,7 @@
         private ZedGraph.ZedGraphControl zg1;
         private ZedGraph.ZedGraphControl zg2;
         private ZedGraph.ZedGraphControl zg3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridIncidents;
         private System.Windows.Forms.DataGridViewTextBoxColumn device_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn device_type;
         private System.Windows.Forms.DataGridViewTextBoxColumn threshold_text;

@@ -109,12 +109,7 @@ namespace LinqExample
                 txtPassword.Text ="";
                 txtPassword.Focus();//Set the focus to the password field for second chance.
                 con.Close();//close the connection
-               
-               
-            
             }
-  
-            
         }
         void child_FormClosed(object sender, FormClosedEventArgs e)//handles the forms
         {

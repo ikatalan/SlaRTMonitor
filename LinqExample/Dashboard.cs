@@ -33,10 +33,16 @@ namespace LinqExample
         private String deviceType;
         bool shouldContinue;
 
+        DashboardIncidentsProvider incidentsProvider;
+
 
         // This delegate enables asynchronous calls for setting
         // the text property on a TextBox control.
         delegate void SetGuageValueCallback(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value);
+
+
+        // delegate to clear all guages and graph data.
+        delegate void ClearDataCallback(int index);
         
 
         public Dashboard()
@@ -47,6 +53,9 @@ namespace LinqExample
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
+            incidentsProvider = new DashboardIncidentsProvider();
+
+
             // TODO: This line of code loads data into the 'sLA_RT_monitoringDevicesDataSet.Devices' table. You can move, or remove it, as needed.
             this.devicesTableAdapter.Fill(this.sLA_RT_monitoringDevicesDataSet.Devices);
 
@@ -68,7 +77,7 @@ namespace LinqExample
                 @"SELECT DISTINCT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
                 + @"WHERE device_id= @device_id "
-                + @"ORDER BY timestamp",
+                + @"ORDER BY timestamp DESC",
                 dbConnection);
 
 
@@ -149,7 +158,13 @@ namespace LinqExample
                 contractIdCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 contractIdCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             }
-            
+
+
+            /// Init graphs layout.
+            /// 
+            InitGraph(zg1);
+            InitGraph(zg2);
+            InitGraph(zg3);
 
 
             try
@@ -161,6 +176,46 @@ namespace LinqExample
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void InitGraph(ZedGraph.ZedGraphControl zgc)
+        {
+            GraphPane myPane = zgc.GraphPane;
+
+            myPane.XAxis.Title.Text = "Time (Sec)";
+            myPane.YAxis.Title.Text = "%";
+
+            // Change the color of the title
+            //  myPane.Title.FontSpec.FontColor = Color.Blue;
+
+            //Set the font size 
+            myPane.Title.FontSpec.Size = 20.0f;
+            myPane.YAxis.Title.FontSpec.Size = 20.0f;
+            myPane.YAxis.Scale.FontSpec.Size = 20.0f;
+            myPane.XAxis.Title.FontSpec.Size = 20.0f;
+            myPane.XAxis.Scale.FontSpec.Size = 20.0f;
+
+            myPane.Legend.IsVisible = false;
+
+            //Create Random colors to show on Graph
+
+            // Fill the axis background with a color gradient
+            myPane.Chart.Fill = new Fill(Color.White, Color.LightGoldenrodYellow, 45F);
+
+            // Fill the pane background with a color gradient
+            myPane.Fill = new Fill(Color.White, Color.FromArgb(220, 220, 255), 45F);
+
+            //This informs ZedGraph to use the labels supplied by the user in Axis.Scale.TextLabels
+            Axis.Default.Type = AxisType.Text;
+
+            // Set the XAxis to date type
+            myPane.XAxis.Type = AxisType.Date;
+
+            myPane.YAxis.MajorGrid.IsVisible = true;
+            myPane.YAxis.MinorGrid.IsVisible = true;
+
+            // Calculate the Axis Scale Ranges
+            axisChangeZedGraph(zgc); //refrsh the graph
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,14 +232,14 @@ namespace LinqExample
 
         }
 
-
-
         static private void GuageDataFetcher(object arg)
         {
             Dashboard me = (Dashboard)arg;
 
             while (me.shouldContinue)
             {
+                DataTable incidentsTable = new DataTable();
+
                 int deviceId = me.deviceId;
                 string deviceType = me.deviceType;
 
@@ -201,6 +256,8 @@ namespace LinqExample
                 //sometime some null values arrived 
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
+
+                List<int> alreadyFoundthresholdIds = new List<int>();
                 
                 int idx = 1;
                 while (reader.Read())
@@ -212,7 +269,15 @@ namespace LinqExample
                     int maxValue = reader.GetInt32(4);
                     string thresholdName = reader.GetString(5);
 
+                    if (alreadyFoundthresholdIds.Contains(thresholdId))
+                    {
+                        continue;
+                    }
+                    alreadyFoundthresholdIds.Add(thresholdId);
+
                     value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+
+                    me.incidentsProvider.GetIncedentsFor(thresholdId, deviceId, ref incidentsTable);
 
                     switch (idx)
                     {
@@ -221,8 +286,6 @@ namespace LinqExample
                                 me.SetGuageValue(me.gauge1, me.lblGuage1, thresholdName, value);
                                 //Fetch Graph Data for Graph1.
                                 me.FillGraphWithData(me.zg1, thresholdId, deviceId, deviceType,thresholdName);
-
-
                             } break;
                         case 2:
                             {
@@ -238,17 +301,34 @@ namespace LinqExample
                             } break;
                     }
 
-                    if (idx == 3)
+
+                    idx++;
+
+                    if (idx == 4)
                     {
                         break;
                     }
 
-                    idx++;
+                }
+
+                switch (idx)
+                {
+                    case 0:
+                    case 1:
+                        me.ClearGauge(1);
+                        me.ClearGauge(2);
+                        me.ClearGauge(3);
+                        break;
+                    case 2:
+                        me.ClearGauge(2);
+                        me.ClearGauge(3);
+                        break;
+                    case 3:
+                        me.ClearGauge(3);
+                        break;
                 }
 
                 reader.Close();
-
-
             }
         }
 
@@ -360,9 +440,9 @@ namespace LinqExample
             //This informs ZedGraph to use the labels supplied by the user in Axis.Scale.TextLabels
             Axis.Default.Type = AxisType.Text;
 
-            //Show tooltips when the mouse hovers over a point
-            zgc.IsShowPointValues = true;
-            zgc.PointValueEvent += new ZedGraphControl.PointValueHandler(MyPointValueHandler);
+            ////Show tooltips when the mouse hovers over a point
+            //zgc.IsShowPointValues = true;
+            //zgc.PointValueEvent += new ZedGraphControl.PointValueHandler(MyPointValueHandler);
 
             // Set the XAxis to date type
             myPane.XAxis.Type = AxisType.Date;
@@ -466,7 +546,60 @@ namespace LinqExample
             }
         }
 
-       
+        private void ClearGauge(int idx)
+        {
+            if (lblGuage1.InvokeRequired)
+            {
+                ClearDataCallback d = new ClearDataCallback(ClearGauge);
+                this.Invoke(d, new object[] {idx});
+            }
+            else
+            {
+                ZedGraph.ZedGraphControl currZG = null;
+                System.Windows.Forms.Label currLabel = null;
+                System.Windows.Forms.AGauge currGauge = null;
+
+                if (idx == 1)
+                {
+                    currZG = zg1;
+                    currLabel = lblGuage1;
+                    currGauge = gauge1;
+                }
+
+                if (idx == 2)
+                {
+                    currZG = zg2;
+                    currLabel = lblGuage2;
+                    currGauge = gauge2;
+                }
+
+                if (idx == 3)
+                {
+                    currZG = zg3;
+                    currLabel = lblGuage3;
+                    currGauge = gauge3;
+                }
+
+                if (currZG != null)
+                {
+                    GraphPane myPane = currZG.GraphPane;
+                    myPane.Title.Text = "No data.";
+                    myPane.CurveList.Clear();// clear the graph
+                    currZG.Invalidate();
+                    currZG.Refresh();
+                }
+
+                if (currLabel != null)
+                {
+                    currLabel.Text = "No data";
+                }
+
+                if (currGauge != null)
+                {
+                    currGauge.Value = 0;
+                }
+            }
+        }
 
         private void lblGuage1_Click(object sender, EventArgs e)
         {
