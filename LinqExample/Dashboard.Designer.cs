@@ -392,10 +392,10 @@
             this.value,
             this.timestamp});
             this.dataGridIncidents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridIncidents.Location = new System.Drawing.Point(123, 441);
+            this.dataGridIncidents.Location = new System.Drawing.Point(123, 439);
             this.dataGridIncidents.Name = "dataGridIncidents";
             this.dataGridIncidents.RowHeadersVisible = false;
-            this.dataGridIncidents.Size = new System.Drawing.Size(1022, 194);
+            this.dataGridIncidents.Size = new System.Drawing.Size(1022, 196);
             this.dataGridIncidents.TabIndex = 6;
             // 
             // label1

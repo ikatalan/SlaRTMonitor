@@ -42,7 +42,7 @@ namespace LinqExample
         //static int[] thresholdTypes = new int[] { 1, 2, 3 };
       //    static int[] deviceIds = new int[] { 4, 5 ,6};
       //    static int[] thresholdTypes = new int[] { 7, 8 ,10 };
-        static int interval = 300;//Three sec
+        static int interval = 8700;//Three sec
 
         char[] trailingSpace = { ' ' };
         private List<DeviceData> devicesData = new List<DeviceData>();
@@ -197,7 +197,7 @@ namespace LinqExample
 
                 if (theChosenThresholdId == -1)
                 {
-                    Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId);
+                    //Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId);
                     continue;
                 }
                 Range theChosenRange = thresholds[theChosenThresholdId];
@@ -207,7 +207,7 @@ namespace LinqExample
                 insertSimulatedMeasurementCmd.Parameters[2].Value = randGenerator.NextDouble() * (theChosenRange.maxVal - theChosenRange.minVal + 1) + theChosenRange.minVal;
                 insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
-              //  Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
+                Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
 
                 insertSimulatedMeasurementCmd.ExecuteNonQuery();
 

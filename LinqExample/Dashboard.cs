@@ -37,6 +37,8 @@ namespace LinqExample
         DateTime lastIncidentsCheck;
         DashboardIncidentsProvider incidentsProvider;
 
+        Dictionary<int, int> thresholdForGauge;
+
 
         // This delegate enables asynchronous calls for setting
         // the text property on a TextBox control.
@@ -56,6 +58,9 @@ namespace LinqExample
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
+            thresholdForGauge = new Dictionary<int, int>();
+            //dataGridIncidents.Sort(dataGridIncidents.Columns["timestamp"], ListSortDirection.Descending);
+            
             isStartedReadingValues = false;
             lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3,0,0));
             incidentsProvider = new DashboardIncidentsProvider();
@@ -79,7 +84,8 @@ namespace LinqExample
 
             // Used for filling list of items (device_name) per threshold_id            
             devicesMeasurmentsCommand = new SqlCommand(
-                @"SELECT DISTINCT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
+                @"SELECT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name " 
+                + @"FROM [dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
                 + @"WHERE device_id= @device_id "
                 + @"ORDER BY timestamp DESC",
@@ -225,16 +231,15 @@ namespace LinqExample
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            lock (thresholdForGauge)
+            {
+                thresholdForGauge.Clear();
+            }
+            if (listDevices.SelectedItem != null)
             {
                 deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
                 deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString();
             }
-            catch (Exception ex )
-            {
-                Console.WriteLine(ex.Message);
-            }
-
         }
 
         static private void GuageDataFetcher(object arg)
@@ -255,63 +260,120 @@ namespace LinqExample
                     
                 }
 
-                //sometime some null values arrived 
-                SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
-                float value = 0;//add all the time the value
-
-                List<int> alreadyFoundthresholdIds = new List<int>();
-                
                 int idx = 1;
-                while (reader.Read())
+
+                lock (me.thresholdForGauge)
                 {
-                    int thresholdId = reader.GetInt32(0);
-                    int thresholdValue = reader.GetInt32(1);
-                    //timestamp = reader.Get...(2)
-                    int minValue = reader.GetInt32(3);
-                    int maxValue = reader.GetInt32(4);
-                    string thresholdName = reader.GetString(5);
-
-                    if (alreadyFoundthresholdIds.Contains(thresholdId))
+                    //sometime some null values arrived 
+                    SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
+                    float value = 0;//add all the time the value
+                    List<int> alreadyFoundthresholdIds = new List<int>();
+                    bool isFillByOrder = me.thresholdForGauge.Count == 0;
+                    while (reader.Read())
                     {
-                        continue;
-                    }
-                    alreadyFoundthresholdIds.Add(thresholdId);
+                        int thresholdId = reader.GetInt32(0);
+                        int thresholdValue = reader.GetInt32(1);
+                        //timestamp = reader.Get...(2)
+                        int minValue = reader.GetInt32(3);
+                        int maxValue = reader.GetInt32(4);
+                        string thresholdName = reader.GetString(5);
 
-                    value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+                        if (alreadyFoundthresholdIds.Contains(thresholdId))
+                        {
+                            continue;
+                        }
+                        alreadyFoundthresholdIds.Add(thresholdId);
 
-                    switch (idx)
-                    {
-                        case 1:
+                        value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+
+                        if (isFillByOrder)
+                        {
+                            switch (idx)
                             {
-                                me.SetGuageValue(me.gauge1, me.lblGuage1, thresholdName, value);
-                                //Fetch Graph Data for Graph1.
-                                me.FillGraphWithData(me.zg1, thresholdId, deviceId, deviceType,thresholdName);
-                            } break;
-                        case 2:
+                                case 1:
+                                    {
+                                        me.SetGuageValue(me.gauge1, me.lblGuage1, thresholdName, value);
+                                        //Fetch Graph Data for Graph1.
+                                        me.FillGraphWithData(me.zg1, thresholdId, deviceId, deviceType, thresholdName);
+                                        me.thresholdForGauge[thresholdId] = 1;
+                                    } break;
+                                case 2:
+                                    {
+                                        me.SetGuageValue(me.gauge2, me.lblGuage2, thresholdName, value);
+                                        //Fetch Graph Data for Graph2.
+                                        me.FillGraphWithData(me.zg2, thresholdId, deviceId, deviceType, thresholdName);
+                                        me.thresholdForGauge[thresholdId] = 2;
+                                    } break;
+                                case 3:
+                                    {
+                                        me.SetGuageValue(me.gauge3, me.lblGuage3, thresholdName, value);
+                                        //Fetch Graph Data for Graph3.
+                                        me.FillGraphWithData(me.zg3, thresholdId, deviceId, deviceType, thresholdName);
+                                        me.thresholdForGauge[thresholdId] = 3;
+                                    } break;
+                            }
+                        }
+                        else
+                        {
+                            ZedGraphControl zgc = null;
+                            AGauge aguage = null;
+                            System.Windows.Forms.Label lbl = null;
+                            if (me.thresholdForGauge.ContainsKey(thresholdId))
                             {
-                                me.SetGuageValue(me.gauge2, me.lblGuage2, thresholdName, value);
-                                //Fetch Graph Data for Graph2.
-                                me.FillGraphWithData(me.zg2, thresholdId, deviceId, deviceType,thresholdName);
-                            } break;
-                        case 3:
+
+                                switch (me.thresholdForGauge[thresholdId])
+                                {
+                                    case 1:
+                                        zgc = me.zg1;
+                                        aguage = me.gauge1;
+                                        lbl = me.lblGuage1;
+                                        break;
+                                    case 2:
+                                        zgc = me.zg2;
+                                        aguage = me.gauge2;
+                                        lbl = me.lblGuage2;
+                                        break;
+                                    case 3:
+                                        zgc = me.zg3;
+                                        aguage = me.gauge3;
+                                        lbl = me.lblGuage3;
+                                        break;
+                                }
+                            }
+                            else
                             {
-                                me.SetGuageValue(me.gauge3, me.lblGuage3, thresholdName, value);
-                                //Fetch Graph Data for Graph3.
-                                me.FillGraphWithData(me.zg3, thresholdId, deviceId, deviceType,thresholdName);
-                            } break;
+                                if (me.thresholdForGauge.Count == 1)
+                                {
+                                    zgc = me.zg2;
+                                    aguage = me.gauge2;
+                                    me.thresholdForGauge[thresholdId] = 2;
+                                }
+                                else if (me.thresholdForGauge.Count == 2)
+                                {
+                                    zgc = me.zg3;
+                                    aguage = me.gauge3;
+                                    me.thresholdForGauge[thresholdId] = 3;
+                                }
+                            }
+
+                            me.SetGuageValue(aguage, lbl, thresholdName, value);
+                            //Fetch Graph Data for Graph1.
+                            me.FillGraphWithData(zgc, thresholdId, deviceId, deviceType, thresholdName);
+                        }
+
+
+                        idx++;
+
+                        if (idx == 4)
+                        {
+                            break;
+                        }
+
                     }
-
-
-                    idx++;
-
-                    if (idx == 4)
-                    {
-                        break;
-                    }
-
+                    reader.Close();
                 }
-                reader.Close();
 
+                
                 switch (idx)
                 {
                     case 0:
@@ -330,7 +392,7 @@ namespace LinqExample
                 }
 
                 me.ReadIncidentsFromDB();
-                
+             
             }
         }
 
@@ -338,31 +400,46 @@ namespace LinqExample
         {
             DataTable incidentsTable = new DataTable();
 
+            List<int> deviceIds = new List<int>();
+
             foreach (DataRowView listItem in listDevices.Items)
             {
-                int deviceId = (Int32)listItem[0];
+                deviceIds.Add((Int32)listItem[0]);
+            }
 
+            foreach( int deviceId in deviceIds) 
+            {
                 //sometime some null values arrived 
                 devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
 
                 //sometime some null values arrived 
                 SqlDataReader reader2 = devicesMeasurmentsCommand.ExecuteReader();
+
+                List<int> listThresholds = new List<int>();
                 while (reader2.Read())
                 {
                     isStartedReadingValues = true;
 
                     int thresholdId = reader2.GetInt32(0);
 
-                    incidentsProvider.GetIncedentsFor(thresholdId, deviceId, lastIncidentsCheck, ref incidentsTable);
+                    if (!listThresholds.Contains(thresholdId))
+                    {
+                        listThresholds.Add(thresholdId);
+                        incidentsProvider.GetIncedentsFor(thresholdId, deviceId, lastIncidentsCheck, ref incidentsTable);
+                    }
                 }
                 reader2.Close();
                 reader2 = null;
-                if (isStartedReadingValues)
-                {
-                    lastIncidentsCheck = DateTime.Now;
-                }
+            }
+
+            if (isStartedReadingValues)
+            {
+                lastIncidentsCheck = DateTime.Now;
+            }
+
+            if (incidentsTable.Rows.Count != 0)
+            {
                 SetIncidentsData(incidentsTable);
-                
             }
         }
 
@@ -601,9 +678,8 @@ namespace LinqExample
                 DataTable incidentsCurrentData = ((DataTable)dataGridIncidents.DataSource);
                 incidentsCurrentData.Merge(incidentsTable);
 
-                dataGridIncidents.DataSource = incidentsCurrentData;
-
-                dataGridIncidents.Refresh();
+                //dataGridIncidents.DataSource = incidentsCurrentData;
+                //dataGridIncidents.Refresh();
             }
         }
 
