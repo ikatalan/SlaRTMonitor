@@ -33,6 +33,8 @@ namespace LinqExample
         private String deviceType;
         bool shouldContinue;
 
+        bool isStartedReadingValues;
+        DateTime lastIncidentsCheck;
         DashboardIncidentsProvider incidentsProvider;
 
 
@@ -40,6 +42,7 @@ namespace LinqExample
         // the text property on a TextBox control.
         delegate void SetGuageValueCallback(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value);
 
+        delegate void FillIncidentsCallBack(DataTable table);
 
         // delegate to clear all guages and graph data.
         delegate void ClearDataCallback(int index);
@@ -53,6 +56,8 @@ namespace LinqExample
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
+            isStartedReadingValues = false;
+            lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3,0,0));
             incidentsProvider = new DashboardIncidentsProvider();
 
 
@@ -238,8 +243,6 @@ namespace LinqExample
 
             while (me.shouldContinue)
             {
-                DataTable incidentsTable = new DataTable();
-
                 int deviceId = me.deviceId;
                 string deviceType = me.deviceType;
 
@@ -249,7 +252,6 @@ namespace LinqExample
                     me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
                 }
                 catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
                     
                 }
 
@@ -276,8 +278,6 @@ namespace LinqExample
                     alreadyFoundthresholdIds.Add(thresholdId);
 
                     value = (((float)thresholdValue) / (maxValue - minValue) * 100);
-
-                    me.incidentsProvider.GetIncedentsFor(thresholdId, deviceId, ref incidentsTable);
 
                     switch (idx)
                     {
@@ -310,6 +310,7 @@ namespace LinqExample
                     }
 
                 }
+                reader.Close();
 
                 switch (idx)
                 {
@@ -328,7 +329,40 @@ namespace LinqExample
                         break;
                 }
 
-                reader.Close();
+                me.ReadIncidentsFromDB();
+                
+            }
+        }
+
+        private void ReadIncidentsFromDB()
+        {
+            DataTable incidentsTable = new DataTable();
+
+            foreach (DataRowView listItem in listDevices.Items)
+            {
+                int deviceId = (Int32)listItem[0];
+
+                //sometime some null values arrived 
+                devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
+
+                //sometime some null values arrived 
+                SqlDataReader reader2 = devicesMeasurmentsCommand.ExecuteReader();
+                while (reader2.Read())
+                {
+                    isStartedReadingValues = true;
+
+                    int thresholdId = reader2.GetInt32(0);
+
+                    incidentsProvider.GetIncedentsFor(thresholdId, deviceId, lastIncidentsCheck, ref incidentsTable);
+                }
+                reader2.Close();
+                reader2 = null;
+                if (isStartedReadingValues)
+                {
+                    lastIncidentsCheck = DateTime.Now;
+                }
+                SetIncidentsData(incidentsTable);
+                
             }
         }
 
@@ -543,6 +577,33 @@ namespace LinqExample
 
                 thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
                 currLabel.Text = thresholdName + " - " + value + "%";
+            }
+        }
+
+        private void SetIncidentsData(DataTable incidentsTable)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (dataGridIncidents.InvokeRequired)
+            {
+                FillIncidentsCallBack d = new FillIncidentsCallBack(SetIncidentsData);
+                this.Invoke(d, new object[] { incidentsTable });
+            }
+            else
+            {
+                if (dataGridIncidents.DataSource == null)
+                {
+                    dataGridIncidents.AutoGenerateColumns = true;
+                    dataGridIncidents.DataSource = new DataTable(); 
+
+                }
+                DataTable incidentsCurrentData = ((DataTable)dataGridIncidents.DataSource);
+                incidentsCurrentData.Merge(incidentsTable);
+
+                dataGridIncidents.DataSource = incidentsCurrentData;
+
+                dataGridIncidents.Refresh();
             }
         }
 

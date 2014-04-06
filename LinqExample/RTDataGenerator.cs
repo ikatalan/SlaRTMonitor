@@ -207,7 +207,7 @@ namespace LinqExample
                 insertSimulatedMeasurementCmd.Parameters[2].Value = randGenerator.NextDouble() * (theChosenRange.maxVal - theChosenRange.minVal + 1) + theChosenRange.minVal;
                 insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
-                Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
+              //  Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
 
                 insertSimulatedMeasurementCmd.ExecuteNonQuery();
 
