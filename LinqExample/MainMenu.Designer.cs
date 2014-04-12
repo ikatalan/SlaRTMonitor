@@ -41,6 +41,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -65,7 +66,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(126, 74);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Reports";
+            this.button2.Text = "Reports By Time";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
@@ -94,12 +95,13 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.button5.Location = new System.Drawing.Point(173, 24);
+            this.button5.Location = new System.Drawing.Point(394, 183);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(126, 74);
             this.button5.TabIndex = 4;
             this.button5.Text = "Start simulated data";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // btnDashboard
@@ -154,8 +156,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(33, 159);
             this.groupBox2.Name = "groupBox2";
@@ -176,11 +178,22 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Management";
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.button4.Location = new System.Drawing.Point(173, 24);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(126, 74);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "Prediction Report";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button3);
@@ -215,5 +228,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button4;
     }
 }

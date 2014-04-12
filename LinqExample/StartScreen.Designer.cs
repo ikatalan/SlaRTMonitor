@@ -221,7 +221,7 @@
             this.MinimizeBox = false;
             this.Name = "StartScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SLA Real Time Monitoring";
+            this.Text = "Login Screen";
             this.Load += new System.EventHandler(this.StartScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

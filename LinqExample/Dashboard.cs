@@ -59,7 +59,8 @@ namespace LinqExample
         private void Dashboard_Load(object sender, EventArgs e)
         {
             thresholdForGauge = new Dictionary<int, int>();
-            //dataGridIncidents.Sort(dataGridIncidents.Columns["timestamp"], ListSortDirection.Descending);
+            //Sort the datagrid by time ,show the most updated line
+            dataGridIncidents.Sort(dataGridIncidents.Columns[4], ListSortDirection.Descending);
             
             isStartedReadingValues = false;
             lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3,0,0));
@@ -71,13 +72,8 @@ namespace LinqExample
 
             fetcherThread = new Thread(new ParameterizedThreadStart(GuageDataFetcher));
             shouldContinue = true;
-            //need to check why this fail from time to time
-        //   if  (!fetcherThread.IsAlive == true)
-         //  {
 
             fetcherThread.Start(this);
-
-         //  }
 
             dbConnection = new global::System.Data.SqlClient.SqlConnection();
             dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
@@ -231,10 +227,10 @@ namespace LinqExample
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lock (thresholdForGauge)
-            {
+           // lock (thresholdForGauge)
+           // {
                 thresholdForGauge.Clear();
-            }
+          //  }
             if (listDevices.SelectedItem != null)
             {
                 deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
@@ -264,7 +260,7 @@ namespace LinqExample
 
                 lock (me.thresholdForGauge)
                 {
-                    //sometime some null values arrived 
+                     
                     SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                     float value = 0;//add all the time the value
                     List<int> alreadyFoundthresholdIds = new List<int>();
@@ -277,6 +273,7 @@ namespace LinqExample
                         int minValue = reader.GetInt32(3);
                         int maxValue = reader.GetInt32(4);
                         string thresholdName = reader.GetString(5);
+                        thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
 
                         if (alreadyFoundthresholdIds.Contains(thresholdId))
                         {

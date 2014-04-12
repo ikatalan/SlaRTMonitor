@@ -42,7 +42,7 @@ namespace LinqExample
         //static int[] thresholdTypes = new int[] { 1, 2, 3 };
       //    static int[] deviceIds = new int[] { 4, 5 ,6};
       //    static int[] thresholdTypes = new int[] { 7, 8 ,10 };
-        static int interval = 8700;//Three sec
+        static int interval = 3000;//Three sec
 
         char[] trailingSpace = { ' ' };
         private List<DeviceData> devicesData = new List<DeviceData>();
