@@ -40,8 +40,8 @@
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -68,6 +68,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Reports By Time";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -166,6 +167,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Reports";
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.button4.Location = new System.Drawing.Point(173, 24);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(126, 74);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "Prediction Report";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.button1);
@@ -178,21 +189,11 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Management";
             // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 11.25F);
-            this.button4.Location = new System.Drawing.Point(173, 24);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(126, 74);
-            this.button4.TabIndex = 14;
-            this.button4.Text = "Prediction Report";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(703, 450);
+            this.ClientSize = new System.Drawing.Size(556, 450);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

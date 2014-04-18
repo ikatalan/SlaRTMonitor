@@ -42,7 +42,7 @@ namespace LinqExample
         //static int[] thresholdTypes = new int[] { 1, 2, 3 };
       //    static int[] deviceIds = new int[] { 4, 5 ,6};
       //    static int[] thresholdTypes = new int[] { 7, 8 ,10 };
-        static int interval = 3000;//Three sec
+        static int interval = 300;//Three sec
 
         char[] trailingSpace = { ' ' };
         private List<DeviceData> devicesData = new List<DeviceData>();
@@ -80,6 +80,7 @@ namespace LinqExample
 
             dbConnectionDevices = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
+            //Get All devices currently in the system
             allDevices = new SqlCommand("SELECT id, type FROM [dbo].[Devices]", dbConnectionDevices);
 
             if (((allDevices.Connection.State & global::System.Data.ConnectionState.Open) != global::System.Data.ConnectionState.Open))
@@ -89,6 +90,7 @@ namespace LinqExample
 
             SqlDataReader devicesReader = allDevices.ExecuteReader();
 
+            //Init device data vector with ID and TYPE
             devicesData = new List<DeviceData>();
             while (devicesReader.Read())
             {
@@ -97,6 +99,7 @@ namespace LinqExample
 
             dbConnectionThresholdTypes = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
+            // fetch all threshold ids with min/max values
             allThresholdTypes = new SqlCommand("SELECT id, minValue, maxValue FROM [dbo].[Thresholds]", dbConnectionThresholdTypes);
 
             if (((allThresholdTypes.Connection.State & global::System.Data.ConnectionState.Open) != global::System.Data.ConnectionState.Open))
@@ -222,7 +225,11 @@ namespace LinqExample
                 return -1;
             }
             List<int> thresholdForDevice = thresholdForDeviceType[deviceType];
-            return thresholdForDevice[(int)(randGenerator.NextDouble() * (thresholdForDevice.Count()))];
+            if (thresholdForDevice.Count > 0)
+            {
+                return thresholdForDevice[(int)(randGenerator.NextDouble() * (thresholdForDevice.Count()))];
+            }
+            return -1;
         }
 
     }

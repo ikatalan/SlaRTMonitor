@@ -450,7 +450,7 @@ namespace LinqExample {
                 this.columncontract_id.AllowDBNull = false;
                 this.columncontract_id.ReadOnly = true;
                 this.columncontract_id.Unique = true;
-                this.columndevice_type.MaxLength = 10;
+                this.columndevice_type.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

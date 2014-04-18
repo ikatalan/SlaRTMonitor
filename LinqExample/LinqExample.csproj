@@ -101,6 +101,12 @@
       <DependentUpon>Graphs.cs</DependentUpon>
     </Compile>
     <Compile Include="InputBox.cs" />
+    <Compile Include="ReportsByTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportsByTime.Designer.cs">
+      <DependentUpon>ReportsByTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="RTDataGenerator.cs" />
     <Compile Include="SimulatedDataLoader.cs">
       <SubType>Form</SubType>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graphs.resx">
       <DependentUpon>Graphs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsByTime.resx">
+      <DependentUpon>ReportsByTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SimulatedDataLoader.resx">
       <DependentUpon>SimulatedDataLoader.cs</DependentUpon>

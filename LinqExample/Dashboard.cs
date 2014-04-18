@@ -227,10 +227,10 @@ namespace LinqExample
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           // lock (thresholdForGauge)
-           // {
+            lock (thresholdForGauge)
+            {
                 thresholdForGauge.Clear();
-          //  }
+            }
             if (listDevices.SelectedItem != null)
             {
                 deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
@@ -257,64 +257,63 @@ namespace LinqExample
                 }
 
                 int idx = 1;
-
-                lock (me.thresholdForGauge)
+     
+                SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
+                float value = 0;//add all the time the value
+                List<int> alreadyFoundthresholdIds = new List<int>();
+                bool isFillByOrder = me.thresholdForGauge.Count == 0;
+                while (reader.Read())
                 {
-                     
-                    SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
-                    float value = 0;//add all the time the value
-                    List<int> alreadyFoundthresholdIds = new List<int>();
-                    bool isFillByOrder = me.thresholdForGauge.Count == 0;
-                    while (reader.Read())
+                    int thresholdId = reader.GetInt32(0);
+                    int thresholdValue = reader.GetInt32(1);
+                    //timestamp = reader.Get...(2)
+                    int minValue = reader.GetInt32(3);
+                    int maxValue = reader.GetInt32(4);
+                    string thresholdName = reader.GetString(5);
+                    thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
+
+                    if (alreadyFoundthresholdIds.Contains(thresholdId))
                     {
-                        int thresholdId = reader.GetInt32(0);
-                        int thresholdValue = reader.GetInt32(1);
-                        //timestamp = reader.Get...(2)
-                        int minValue = reader.GetInt32(3);
-                        int maxValue = reader.GetInt32(4);
-                        string thresholdName = reader.GetString(5);
-                        thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
+                        continue;
+                    }
+                    alreadyFoundthresholdIds.Add(thresholdId);
 
-                        if (alreadyFoundthresholdIds.Contains(thresholdId))
-                        {
-                            continue;
-                        }
-                        alreadyFoundthresholdIds.Add(thresholdId);
+                    value = (((float)thresholdValue) / (maxValue - minValue) * 100);
 
-                        value = (((float)thresholdValue) / (maxValue - minValue) * 100);
-
+                    ZedGraphControl zgc = null;
+                    AGauge aguage = null;
+                    System.Windows.Forms.Label lbl = null;
+                    lock(me.thresholdForGauge) 
+                    {
                         if (isFillByOrder)
                         {
                             switch (idx)
                             {
                                 case 1:
                                     {
-                                        me.SetGuageValue(me.gauge1, me.lblGuage1, thresholdName, value);
-                                        //Fetch Graph Data for Graph1.
-                                        me.FillGraphWithData(me.zg1, thresholdId, deviceId, deviceType, thresholdName);
+                                        zgc = me.zg1;
+                                        aguage = me.gauge1;
+                                        lbl = me.lblGuage1;
                                         me.thresholdForGauge[thresholdId] = 1;
                                     } break;
                                 case 2:
                                     {
-                                        me.SetGuageValue(me.gauge2, me.lblGuage2, thresholdName, value);
-                                        //Fetch Graph Data for Graph2.
-                                        me.FillGraphWithData(me.zg2, thresholdId, deviceId, deviceType, thresholdName);
+                                        zgc = me.zg2;
+                                        aguage = me.gauge2;
+                                        lbl = me.lblGuage2;
                                         me.thresholdForGauge[thresholdId] = 2;
                                     } break;
                                 case 3:
                                     {
-                                        me.SetGuageValue(me.gauge3, me.lblGuage3, thresholdName, value);
-                                        //Fetch Graph Data for Graph3.
-                                        me.FillGraphWithData(me.zg3, thresholdId, deviceId, deviceType, thresholdName);
+                                        zgc = me.zg3;
+                                        aguage = me.gauge3;
+                                        lbl = me.lblGuage3;
                                         me.thresholdForGauge[thresholdId] = 3;
                                     } break;
                             }
                         }
                         else
                         {
-                            ZedGraphControl zgc = null;
-                            AGauge aguage = null;
-                            System.Windows.Forms.Label lbl = null;
                             if (me.thresholdForGauge.ContainsKey(thresholdId))
                             {
 
@@ -339,37 +338,45 @@ namespace LinqExample
                             }
                             else
                             {
-                                if (me.thresholdForGauge.Count == 1)
+                                if (me.thresholdForGauge.Count == 0)
+                                {
+                                    zgc = me.zg1;
+                                    aguage = me.gauge1;
+                                    lbl = me.lblGuage1;
+                                    me.thresholdForGauge[thresholdId] = 1;
+                                }
+                                else if (me.thresholdForGauge.Count == 1)
                                 {
                                     zgc = me.zg2;
                                     aguage = me.gauge2;
+                                    lbl = me.lblGuage2;
                                     me.thresholdForGauge[thresholdId] = 2;
                                 }
                                 else if (me.thresholdForGauge.Count == 2)
                                 {
                                     zgc = me.zg3;
                                     aguage = me.gauge3;
+                                    lbl = me.lblGuage3;
                                     me.thresholdForGauge[thresholdId] = 3;
                                 }
                             }
-
-                            me.SetGuageValue(aguage, lbl, thresholdName, value);
-                            //Fetch Graph Data for Graph1.
-                            me.FillGraphWithData(zgc, thresholdId, deviceId, deviceType, thresholdName);
                         }
-
-
-                        idx++;
-
-                        if (idx == 4)
-                        {
-                            break;
-                        }
-
                     }
-                    reader.Close();
-                }
 
+                    me.SetGuageValue(aguage, lbl, thresholdName, value);
+                    //Fetch Graph Data for Graph1.
+                    me.FillGraphWithData(zgc, thresholdId, deviceId, deviceType, thresholdName);
+                        
+                    idx++;
+
+                    if (idx == 4)
+                    {
+                        break;
+                    }
+
+                }
+                reader.Close();
+            
                 
                 switch (idx)
                 {

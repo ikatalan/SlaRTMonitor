@@ -101,6 +101,14 @@ namespace LinqExample
             //this.Hide(); //hide parent
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ReportsByTime reportByTime = new ReportsByTime();
+            reportByTime.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            reportByTime.Show(); //show child
+            this.Hide(); //hide parent
+        }
        
 
       
