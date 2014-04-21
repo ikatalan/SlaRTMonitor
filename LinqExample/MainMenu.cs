@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace LinqExample
 {
     public partial class MainMenu : Form
@@ -15,7 +16,8 @@ namespace LinqExample
         public MainMenu()
         {
             InitializeComponent();
-            this.Closing += new CancelEventHandler(this.Form1_Closing);
+            this.FormClosing +=  MainMenu_FormClosing;
+           
            
           
         }
@@ -51,16 +53,12 @@ namespace LinqExample
          
         }
 
-        private void Form1_Closing(Object sender, CancelEventArgs e)
-        {
-            MessageBox.Show("Goodbye....Closing");
-            this.Hide();
-                  
-        }
+       
 
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            
 
         }
 
@@ -95,10 +93,6 @@ namespace LinqExample
             managerContract.Show(); //show child
             this.Hide(); //hide parent
             
-            //SLAManager manager = new SLAManager();
-            //manager.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
-            //manager.Show(); //show child
-            //this.Hide(); //hide parent
 
         }
 
@@ -109,6 +103,68 @@ namespace LinqExample
             reportByTime.Show(); //show child
             this.Hide(); //hide parent
         }
+
+
+
+
+
+        //protected override void OnFormClosing(FormClosingEventArgs e)
+        //{
+
+        //    base.OnFormClosing(e);
+
+        //    if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+        //    // Confirm user wants to close
+        //    switch (MessageBox.Show(this, "Are you sure you want to close?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+        //    {
+        //        case DialogResult.No:
+        //            e.Cancel = true;
+        //            break;
+        //        default:
+        //            e.Cancel = false;
+        //            break;
+
+        //    }
+
+        //}
+
+        //Need to fix 
+        //FormClosingEventArgs e
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            // Display a MsgBox asking the user to save changes or abort. 
+            if (MessageBox.Show("Are you sure you want to close?", "Closing",
+               MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                // Cancel the Closing event from closing the form.
+                e.Cancel = true;
+                // Call method to save file...
+            }
+
+
+
+            //In case windows is trying to shut down, don't hold the process up
+       //     if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+      
+            //    // Assume that X has been clicked and act accordingly.
+            //    // Confirm user wants to close
+            //switch (MessageBox.Show(this, "Are you sure you want to close?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            //    {
+            //        //Stay on this form
+            //        case DialogResult.No:
+            //            e.Cancel = true;
+            //            break;
+            //        default:
+            //            break;
+            //    }
+           
+
+        }
+
+     
        
 
       

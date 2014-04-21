@@ -9,29 +9,26 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Data.SqlClient;//SQL
 using System.Net.Mail;//for email sending
-using System.Security.Cryptography;
+using System.Security.Cryptography; //secure password
+
 namespace LinqExample
 {
     public partial class StartScreen : Form
     {
         static RTDataGenerator x;//The second thrad that create the simulated data
-       
-       
+
         //connect to SQL
         SqlConnection con = new SqlConnection();
-        SqlCommand cmd=new SqlCommand();
+        SqlCommand cmd = new SqlCommand();
         SqlDataReader dr;
         static int flag = 0;
-        static string  UserPass = "";
+        static string UserPass = "";
         public StartScreen()
         {
             InitializeComponent(); //Initializes this form
-
-    
             cmbUserType.MaxLength = 20;
-            txtPassword.PasswordChar='*';//show * insted of clear password
+            txtPassword.PasswordChar = '*';//show * insted of clear password
             txtPassword.MaxLength = 20;
-       
             InitCmb();//Intial function 
         }
         //Load data from database for user 
@@ -40,11 +37,12 @@ namespace LinqExample
             cmd.CommandText = "SELECT username FROM users";
             con.Open();
             dr = cmd.ExecuteReader();
-            if (dr.HasRows) {
+            if (dr.HasRows)
+            {
                 while (dr.Read())
                 {
                     cmbUserType.Items.Add(dr[0].ToString());
-                    
+
                 }
             }
             dr.Close();
@@ -52,40 +50,34 @@ namespace LinqExample
             if (cmbUserType.Items.Count > 0)
             {
                 cmbUserType.SelectedIndex = 0;//Take the first value and show on the dropdownlist
-                
+
             }
-           
+
         }
 
         private void InitCmb()
         {
-          // con.ConnectionString = "Data Source=SHELLEE07YANIV\\SQLEXPRESS;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
-            con.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;// "Data Source=THE_RAIN;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
-            
+            // con.ConnectionString = "Data Source=SHELLEE07YANIV\\SQLEXPRESS;Initial Catalog=SLA_RT_monitoring;Integrated Security=True";
+            con.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
             cmd.Connection = con;
             loaddata();
-           
+
         }
-        
+
         private void btnEnter_Click(object sender, EventArgs e)
         {
             //Password Validation
-          
-            
             if (flag == 0)
             {
                 cmd.Parameters.AddWithValue("@username", cmbUserType.SelectedItem.ToString());
                 cmd.CommandText = "SELECT password FROM users WHERE username = @username";
                 con.Open();
                 dr = cmd.ExecuteReader();
-               
+
                 if (dr.Read())
                     UserPass = dr.GetString(0);
 
-                UserPass = UserPass.Replace(" ", String.Empty);//remove whitespaces
-               
-               
-                    
+                UserPass = UserPass.Replace(" ", String.Empty);//remove whitespaces      
             }
             flag = 1;
             bool result = string.Equals(txtPassword.Text, UserPass);
@@ -106,7 +98,7 @@ namespace LinqExample
             else
             {
                 MessageBox.Show("Wrong Password", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPassword.Text ="";
+                txtPassword.Text = "";
                 txtPassword.Focus();//Set the focus to the password field for second chance.
                 con.Close();//close the connection
             }
@@ -124,10 +116,10 @@ namespace LinqExample
 
         private void txtPassword_MouseHover(object sender, EventArgs e)
         {
-            this.toolTip1_Info.ToolTipTitle =("Password");
+            this.toolTip1_Info.ToolTipTitle = ("Password");
             this.toolTip1_Info.SetToolTip(this.txtPassword, "Maximum 20 Characters");
-          
-            
+
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -143,51 +135,58 @@ namespace LinqExample
         //Send email if user forget his password
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                MessageBox.Show("No Internet Connection Available, Connect to the internet and try again", "Forget Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             cmd.Parameters.Clear();
-            linkLabel1.Enabled= false;//disable the link until the email sent
-            var email="";
+            linkLabel1.Enabled = false;//disable the link until the email sent
+            var email = "";
             string password = "";
             string user = cmbUserType.SelectedItem.ToString().Replace(" ", String.Empty);//remove whitespaces  
-        
+
             cmd.Parameters.AddWithValue("@username", cmbUserType.SelectedItem.ToString());
             cmd.CommandText = "SELECT email_address , password,id FROM users WHERE username = @username";
             con.Open();
             dr = cmd.ExecuteReader();
 
             if (dr.Read() && !dr.IsDBNull(0))//handle users without email
-                {
-                    email = dr.GetString(0);
-                    password = dr.GetString(1);
-                    password = password.Replace(" ", String.Empty);//remove whitespaces
-                }
-                else
-                {
-                    MessageBox.Show("No email configured for user" + " " + user + " Contact ynsk4@hotmail.com" );
-                    linkLabel1.Enabled = true;
-                    cmd.Parameters.RemoveAt(0);
-                    con.Close();
-                    return;
-                }
-                 
+            {
+                email = dr.GetString(0);
+                password = dr.GetString(1);
+                password = password.Replace(" ", String.Empty);//remove whitespaces
+            }
+            else
+            {
+                MessageBox.Show("No email configured for user" + " " + user + " Contact ynsk4@hotmail.com", "Forget Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                linkLabel1.Enabled = true;
+                cmd.Parameters.RemoveAt(0);
+                con.Close();
+                return;
+            }
+
             try
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                 mail.From = new MailAddress("ynsk44@gmail.com");
                 mail.To.Add(email);
-                mail.Subject = "Forget my password sent from SLA Real Time Monitoring" ;
+                mail.Subject = "Forget my password sent from SLA Real Time Monitoring";
                 mail.Body = "The password for user" + " " + user + " is " + password;
 
                 SmtpServer.Port = 587;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("ynsk44@gmail.com", "shellee1!");
                 SmtpServer.EnableSsl = true;
-                
+
                 SmtpServer.Send(mail);
 
-                MessageBox.Show("Email with password Send to user" + " " + user + " at " + email);
+
+                MessageBox.Show("Email with password send to user" + " " + user + " at " + email, "Forget Password", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 linkLabel1.Enabled = true;
                 txtPassword.Focus();
-               
+
             }
             catch (Exception ex)
             {
@@ -218,27 +217,25 @@ namespace LinqExample
 
             return strBuilder.ToString();
         }
-        
-            private void toolTip1_Info_Popup(object sender, PopupEventArgs e)
-            {
 
-            }
+        private void toolTip1_Info_Popup(object sender, PopupEventArgs e)
+        {
 
-            private void StartScreen_Load(object sender, EventArgs e)
-            {
-               
-
-
-            }
-
-            private void txtPassword_TextChanged(object sender, EventArgs e)
-            {
-
-            }
-
-           
-   
-     
-      
         }
+
+        private void StartScreen_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+    }
 }
