@@ -15,7 +15,8 @@ namespace LinqExample
 {   
     public partial class SLAManagerContract : Form
     {
-
+        private SqlConnection dbConnection;
+        private SqlCommand ThresholdNamePerContractCommand;
         Dictionary<int, String> thresholdIdToName;
         SqlConnection thresholdConnection;
         SqlCommand allthreshold;
@@ -31,32 +32,40 @@ namespace LinqExample
 
         private void SLAManagerContract_Load(object sender, EventArgs e)
         {
-            changed = false;
-            this.slaContractsTableAdapter.Fill(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
-            //-----------------Need to find the Threshold name per threshold ID 
-            thresholdConnection = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
-            allthreshold = new SqlCommand("SELECT id, name FROM [dbo].[Thresholds]", thresholdConnection);
+          changed = false;
+          this.slaContractsTableAdapter.Fill(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
 
-            if (((allthreshold.Connection.State & global::System.Data.ConnectionState.Open)
-             != global::System.Data.ConnectionState.Open))
-            {
-                allthreshold.Connection.Open();
-            }
+          
+             //Open contract per threshold per device
+               dbConnection = new global::System.Data.SqlClient.SqlConnection();
+               dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
-            SqlDataReader thresholdReader = allthreshold.ExecuteReader();
+                // Used for having the contract threshold values per contract ID           
+                ThresholdNamePerContractCommand = new SqlCommand(
+                       @"SELECT DISTINCT a.threshold_id , b.name " 
+                      + @"FROM [SLA_RT_monitoring].[dbo].[SlaContracts] a "  
+                      + @"JOIN [SLA_RT_monitoring].[dbo].[Thresholds] b ON a.threshold_id=b.id " ,
+                          dbConnection);
 
-            thresholdIdToName = new Dictionary<int, string>();
 
-            while (thresholdReader.Read())
-            {
-                thresholdIdToName[thresholdReader.GetInt32(0)] = thresholdReader.GetString(1);
-                int typeId = thresholdReader.GetInt32(0);
-                string typeName = thresholdReader.GetString(1);
+                if (((ThresholdNamePerContractCommand.Connection.State & global::System.Data.ConnectionState.Open)
+                            != global::System.Data.ConnectionState.Open))
+                {
+                    ThresholdNamePerContractCommand.Connection.Open();
+                }
 
-                thresholdIdToName[typeId] = typeName;
-            }
+                SqlDataReader devicesReader = ThresholdNamePerContractCommand.ExecuteReader();
 
-            //----------------
+                thresholdIdToName = new Dictionary<int, string>();
+
+                while (devicesReader.Read())
+                {
+                    thresholdIdToName[devicesReader.GetInt32(0)] = devicesReader.GetString(1);
+                    int typeId = devicesReader.GetInt32(0);
+                    string typeName = devicesReader.GetString(1);
+                    thresholdIdToName[typeId] = typeName;
+                }
+
 
             if (dataGridViewSLAManger.Rows.Count >= 1) { OldContractExist = 1; }// need to know if we have contract in the database
 
@@ -74,6 +83,10 @@ namespace LinqExample
                     //dataGridViewSLAManger.Columns[3].DataPropertyName = thresholdIdToName[];
                    
                 }
+                //else if (i == 3)
+                //{
+                //    dataGridViewSLAManger.Columns[i - 1].DataPropertyName =  thresholdIdToName[i];
+                //}
             }
 
             dataGridViewSLAManger.DataSource = SBind;
@@ -133,16 +146,18 @@ namespace LinqExample
                     dataGridViewSLAManger.AutoGenerateColumns = false;
                     dataGridViewSLAManger.DataSource = slaData;
 
+                    //Load all the information from the execl to the datagrid
                     for (int i = 0; i < dataGridViewSLAManger.ColumnCount; ++i)
                     {
-                      //  dataGridViewSLAManger.Columns[i].DataPropertyName = slaData.Columns[i - 1].Caption;
-                        if (i != 2 && i != 3 )
+                        //  dataGridViewSLAManger.Columns[i].DataPropertyName = slaData.Columns[i - 1].Caption;
+                        if (i != 2 && i != 3)
                         {
                             dataGridViewSLAManger.Columns[i].DataPropertyName = slaData.Columns[i].Caption;
                         }
                         else if (i == 2)
                         {
-                            dataGridViewSLAManger.Columns[i+1].DataPropertyName = slaData.Columns[i].Caption;
+                            dataGridViewSLAManger.Columns[i + 1].DataPropertyName = slaData.Columns[i].Caption;
+                           
                         }
                     }
 
@@ -168,6 +183,25 @@ namespace LinqExample
 
             string sql = @"SELECT * FROM [" + fileName + "]";
 
+            ////////////
+            //SqlDataReader devicesReader = ThresholdNamePerContractCommand.ExecuteReader();
+
+            //Dictionary<int, string> typeValues = new Dictionary<int, string>();
+            //while (devicesReader.Read())
+            //{
+            //    int typeId = devicesReader.GetInt32(0);
+            //    string typeName = devicesReader.GetString(2);
+
+            //    typeValues[typeId] = typeName;
+            //}
+
+
+
+
+            /////////////
+
+
+
             using (OleDbConnection connection = new OleDbConnection(
                       @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathOnly +
                       ";Extended Properties=\"Text;HDR=" + header + "\""))
@@ -182,6 +216,7 @@ namespace LinqExample
             }
         }
 
+        //Unlock with user password before doing any change
         private void btnUnlock_Click(object sender, EventArgs e)
         {
             // Open a Confirm Dialog for password protection.
@@ -207,8 +242,7 @@ namespace LinqExample
                 }
                 if (password == input)
                 {
-                   // dataGridViewSLAManger.AllowUserToAddRows = true;
-                   // dataGridViewSLAManger.AllowUserToDeleteRows = true;
+                  
                     btnSave.Visible = true;
                     btnLoad.Visible = true;
                 }

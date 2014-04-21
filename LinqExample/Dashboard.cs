@@ -56,18 +56,24 @@ namespace LinqExample
    
         }
 
+        //When the form Load
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            thresholdForGauge = new Dictionary<int, int>();
+            //Need to add check to see if a contract is avaliable if not , need to leave this window
+            
+    
+                
+             thresholdForGauge = new Dictionary<int, int>();
             //Sort the datagrid by time ,show the most updated line
             dataGridIncidents.Sort(dataGridIncidents.Columns[4], ListSortDirection.Descending);
-            
+
             isStartedReadingValues = false;
-            lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3,0,0));
+            lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3, 0, 0));
+            //Provide the incident numbers and will fill the IncidentDataGrid
             incidentsProvider = new DashboardIncidentsProvider();
 
 
-            // TODO: This line of code loads data into the 'sLA_RT_monitoringDevicesDataSet.Devices' table. You can move, or remove it, as needed.
+            // Fill the list of devices
             this.devicesTableAdapter.Fill(this.sLA_RT_monitoringDevicesDataSet.Devices);
 
             fetcherThread = new Thread(new ParameterizedThreadStart(GuageDataFetcher));
@@ -75,19 +81,20 @@ namespace LinqExample
 
             fetcherThread.Start(this);
 
+            //Open connections for devices table
             dbConnection = new global::System.Data.SqlClient.SqlConnection();
             dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
-            // Used for filling list of items (device_name) per threshold_id            
+            // Used for having all the information per Device ID       
             devicesMeasurmentsCommand = new SqlCommand(
-                @"SELECT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name " 
+                @"SELECT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name "
                 + @"FROM [dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
-                + @"WHERE device_id= @device_id "
+                + @"WHERE a.device_id= @device_id "
                 + @"ORDER BY timestamp DESC",
                 dbConnection);
 
-
+            global::System.Data.ConnectionState previousConnectionState = devicesMeasurmentsCommand.Connection.State;
             if (((devicesMeasurmentsCommand.Connection.State & global::System.Data.ConnectionState.Open)
                         != global::System.Data.ConnectionState.Open))
             {
@@ -98,7 +105,7 @@ namespace LinqExample
             devicesMeasurmentsCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
 
-            { //Init graph fetching data select command.
+            { //Open values for this device.
                 dbConnection2 = new global::System.Data.SqlClient.SqlConnection();
                 dbConnection2.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
@@ -107,8 +114,9 @@ namespace LinqExample
                     @"SELECT DISTINCT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
                     + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
                     + @"WHERE (device_id= @device_id) AND (threshold_id=@threshold_id) AND (timestamp > DATEADD(DAY, -1, GETUTCDATE())) "
-                    + @"ORDER BY timestamp",
+                    + @"ORDER BY timestamp ",
                     dbConnection2);
+
 
                 if (((devicesMeasurmentsByThresholdCommand.Connection.State & global::System.Data.ConnectionState.Open)
                             != global::System.Data.ConnectionState.Open))
@@ -124,10 +132,11 @@ namespace LinqExample
 
 
             {
+                //Open contract per threshold per device
                 dbConnection3 = new global::System.Data.SqlClient.SqlConnection();
                 dbConnection3.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
-                // Used for filling list of items (device_name) per threshold_id            
+                // Used for having the contract threshold values per contract ID           
                 thresholdContractCommand = new SqlCommand(
                     @"SELECT value "
                     + @"FROM [dbo].[SlaContracts] "
@@ -145,10 +154,11 @@ namespace LinqExample
             }
 
             {
+                //Open contract id for deviceType and thresholdId
                 dbConnection4 = new global::System.Data.SqlClient.SqlConnection();
                 dbConnection4.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
-                // Used for filling list of items (device_name) per threshold_id            
+                // Used for having contract ID per  threshold_id and  device_type          
                 contractIdCommand = new SqlCommand(
                     @"SELECT contract_id "
                     + @"FROM [dbo].[SlaContracts] "
@@ -176,15 +186,18 @@ namespace LinqExample
 
             try
             {
-                deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
-                deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString(); 
+                if (listDevices.SelectedItem != null)
+                {
+                    deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
+                    deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-        }
 
+        }
         private void InitGraph(ZedGraph.ZedGraphControl zgc)
         {
             GraphPane myPane = zgc.GraphPane;
@@ -250,13 +263,25 @@ namespace LinqExample
                 //sometime some null values arrived 
                 try
                 {
-                    me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
-                }
+                    if (deviceId >= 0)
+                    {
+                        me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
+                    }
+                  
+                }          
+               
                 catch (Exception ex) {
                     
                 }
 
                 int idx = 1;
+
+                //In some cases the reader is closed the program is crashed.
+                if (((me.devicesMeasurmentsCommand.Connection.State & global::System.Data.ConnectionState.Open)
+                       != global::System.Data.ConnectionState.Open))
+                {
+                    me.devicesMeasurmentsCommand.Connection.Open();
+                }
      
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
@@ -417,6 +442,14 @@ namespace LinqExample
                 devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
 
                 //sometime some null values arrived 
+                //In some cases the reader is closed the program is crashed.
+                if (((devicesMeasurmentsCommand.Connection.State & global::System.Data.ConnectionState.Open)
+                       != global::System.Data.ConnectionState.Open))
+                {
+                    devicesMeasurmentsCommand.Connection.Open();
+                }
+
+
                 SqlDataReader reader2 = devicesMeasurmentsCommand.ExecuteReader();
 
                 List<int> listThresholds = new List<int>();
@@ -742,16 +775,12 @@ namespace LinqExample
             }
         }
 
-        private void lblGuage1_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void button2_Click(object sender, EventArgs e)
         {
-             //fixed  the inovke issue cauing the system to crash
-            
-            fetcherThread.Abort(this);
+           
+            fetcherThread.Abort(this);//Kiil the thread
             shouldContinue = false;
             this.Close();
 

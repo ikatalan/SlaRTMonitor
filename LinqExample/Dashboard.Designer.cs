@@ -308,7 +308,7 @@
             this.lblGuage1.TabIndex = 4;
             this.lblGuage1.Text = "Guage 1";
             this.lblGuage1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblGuage1.Click += new System.EventHandler(this.lblGuage1_Click);
+           
             // 
             // lblGuage2
             // 

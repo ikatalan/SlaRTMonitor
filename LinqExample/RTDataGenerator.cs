@@ -189,12 +189,12 @@ namespace LinqExample
 
             while (shouldContinue)
             {
-                DeviceData theChosenDevice = devicesData[(int)(randGenerator.NextDouble() * (devicesData.Count()))];
+                DeviceData theChosenDevice = devicesData[(int)(randGenerator.NextDouble() * (devicesData.Count()))]; 
                 int theChosenThresholdId = GetRandomThresholdIdForDeviceType(randGenerator, theChosenDevice.type);
 
                 if (theChosenThresholdId == -1)
                 {
-                    //Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId);
+                    Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + theChosenThresholdId);
                     continue;
                 }
                 Range theChosenRange = thresholds[theChosenThresholdId];
@@ -222,6 +222,7 @@ namespace LinqExample
             if (thresholdForDevice.Count > 0)
             {
                 return thresholdForDevice[(int)(randGenerator.NextDouble() * (thresholdForDevice.Count()))];
+                
             }
             return -1;
         }
