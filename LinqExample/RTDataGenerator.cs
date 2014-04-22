@@ -133,7 +133,8 @@ namespace LinqExample
                 }
                 else
                 {
-                    thresholdForDeviceType.Add(currDeviceType, new List<int>(contractsReader.GetInt32(1)));
+                    thresholdForDeviceType.Add(currDeviceType, new List<int>());
+                    thresholdForDeviceType[currDeviceType].Add(contractsReader.GetInt32(1));
                 }
             }
 

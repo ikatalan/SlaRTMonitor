@@ -72,10 +72,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dashboard.cs">
+    <Compile Include="Forms\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dashboard.Designer.cs">
+    <Compile Include="Forms\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="DashboardIncidentsProvider.cs" />
@@ -94,31 +94,37 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses2.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Graphs.cs">
+    <Compile Include="Forms\Graphs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graphs.Designer.cs">
+    <Compile Include="Forms\Graphs.Designer.cs">
       <DependentUpon>Graphs.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputBox.cs" />
-    <Compile Include="ReportsByTime.cs">
+    <Compile Include="Forms\PredictionReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReportsByTime.Designer.cs">
+    <Compile Include="Forms\PredictionReport.Designer.cs">
+      <DependentUpon>PredictionReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox.cs" />
+    <Compile Include="Forms\ReportsByTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReportsByTime.Designer.cs">
       <DependentUpon>ReportsByTime.cs</DependentUpon>
     </Compile>
     <Compile Include="RTDataGenerator.cs" />
-    <Compile Include="SimulatedDataLoader.cs">
+    <Compile Include="Forms\SimulatedDataLoader.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SimulatedDataLoader.Designer.cs">
+    <Compile Include="Forms\SimulatedDataLoader.Designer.cs">
       <DependentUpon>SimulatedDataLoader.cs</DependentUpon>
     </Compile>
     <Compile Include="SingleTonUser.cs" />
-    <Compile Include="SLAManagerContract.cs">
+    <Compile Include="Forms\SLAManagerContract.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SLAManagerContract.Designer.cs">
+    <Compile Include="Forms\SLAManagerContract.Designer.cs">
       <DependentUpon>SLAManagerContract.cs</DependentUpon>
     </Compile>
     <Compile Include="SLA_RT_monitoringDataSet1.cs">
@@ -162,24 +168,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SLA_RT_monitoringDevicesDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="StartScreen.cs">
+    <Compile Include="Forms\StartScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StartScreen.Designer.cs">
+    <Compile Include="Forms\StartScreen.Designer.cs">
       <DependentUpon>StartScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.cs">
+    <Compile Include="Forms\MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainMenu.Designer.cs">
+    <Compile Include="Forms\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SLAManager.cs">
+    <Compile Include="Forms\SLAManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SLAManager.Designer.cs">
+    <Compile Include="Forms\SLAManager.Designer.cs">
       <DependentUpon>SLAManager.cs</DependentUpon>
     </Compile>
     <Compile Include="SLA_RT_monitoringDataSet.Designer.cs">
@@ -199,31 +205,34 @@
     <Compile Include="UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserManagement.cs">
+    <Compile Include="Forms\UserManagement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserManagement.Designer.cs">
+    <Compile Include="Forms\UserManagement.Designer.cs">
       <DependentUpon>UserManagement.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Dashboard.resx">
+    <EmbeddedResource Include="Forms\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graphs.resx">
+    <EmbeddedResource Include="Forms\Graphs.resx">
       <DependentUpon>Graphs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReportsByTime.resx">
+    <EmbeddedResource Include="Forms\PredictionReport.resx">
+      <DependentUpon>PredictionReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReportsByTime.resx">
       <DependentUpon>ReportsByTime.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SimulatedDataLoader.resx">
+    <EmbeddedResource Include="Forms\SimulatedDataLoader.resx">
       <DependentUpon>SimulatedDataLoader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SLAManager.resx">
+    <EmbeddedResource Include="Forms\SLAManager.resx">
       <DependentUpon>SLAManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SLAManagerContract.resx">
+    <EmbeddedResource Include="Forms\SLAManagerContract.resx">
       <DependentUpon>SLAManagerContract.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserManagement.resx">
+    <EmbeddedResource Include="Forms\UserManagement.resx">
       <DependentUpon>UserManagement.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -234,11 +243,11 @@
     <None Include="DataClasses2.dbml.layout">
       <DependentUpon>DataClasses2.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="StartScreen.resx">
+    <EmbeddedResource Include="Forms\StartScreen.resx">
       <DependentUpon>StartScreen.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainMenu.resx">
+    <EmbeddedResource Include="Forms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

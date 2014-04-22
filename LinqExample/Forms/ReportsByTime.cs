@@ -113,7 +113,7 @@ namespace LinqExample
             singleThresholdValueAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
 
-            cmbBoxThresholdTypes_SelectedIndexChanged(null, null);//Show the first value
+            cmbBoxThresholdTypes_SelectedIndexChanged(this.cmbBoxThresholdTypes, null);//Show the first value
 
             dateTimePicker1.Value = DateTime.Now.Subtract(new TimeSpan(5, 0, 0));
                 

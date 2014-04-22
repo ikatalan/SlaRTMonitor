@@ -92,8 +92,6 @@ namespace LinqExample
             managerContract.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
             managerContract.Show(); //show child
             this.Hide(); //hide parent
-            
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -104,8 +102,13 @@ namespace LinqExample
             this.Hide(); //hide parent
         }
 
-
-
+        private void button4_Click(object sender, EventArgs e)
+        {
+            PredictionReport reportByTime = new PredictionReport();
+            reportByTime.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            reportByTime.Show(); //show child
+            this.Hide(); //hide parent
+        }
 
 
         //protected override void OnFormClosing(FormClosingEventArgs e)
@@ -163,6 +166,7 @@ namespace LinqExample
            
 
         }
+
 
      
        

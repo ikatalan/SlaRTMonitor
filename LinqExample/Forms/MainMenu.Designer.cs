@@ -176,6 +176,7 @@
             this.button4.TabIndex = 14;
             this.button4.Text = "Prediction Report";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // groupBox3
             // 
