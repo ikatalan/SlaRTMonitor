@@ -80,7 +80,8 @@ namespace LinqExample
                 @"SELECT [timestamp], [value]  " 
                 + @"FROM [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Devices] b ON a.device_id=b.id "
-                + @"WHERE b.name=@device_name "
+                + @"WHERE [timestamp] > DATEADD(HOUR, -4, GETDATE()) "
+                + @"AND b.name=@device_name "
                 + @"AND a.threshold_id=@threshold_id "
                 + @"ORDER BY [timestamp] ASC; ",
                 dbConnection4);
@@ -103,7 +104,8 @@ namespace LinqExample
                 @"SELECT timestamp, value  "
                 + @" FROM [dbo].[SimulatedMeasurements] a"
                 + @" JOIN [dbo].[Devices] b ON a.device_id=b.id "
-                + @" WHERE b.name=@device_name "
+                + @" WHERE [timestamp] > DATEADD(HOUR, -4, GETDATE()) "
+                + @" AND b.name=@device_name "
                 + @" AND a.threshold_id=@threshold_id "
                 + @" ORDER BY timestamp;",
                 dbConnection2);
