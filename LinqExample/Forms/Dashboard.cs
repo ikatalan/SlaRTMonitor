@@ -44,6 +44,7 @@ namespace LinqExample
         // the text property on a TextBox control.
         delegate void SetGuageValueCallback(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value);
 
+        //delegate to fill the incident datagrid
         delegate void FillIncidentsCallBack(DataTable table);
 
         // delegate to clear all guages and graph data.
@@ -61,7 +62,6 @@ namespace LinqExample
         {
             //Need to add check to see if a contract is avaliable if not , need to leave this window
             
-    
                 
              thresholdForGauge = new Dictionary<int, int>();
             //Sort the datagrid by time ,show the most updated line
@@ -271,6 +271,7 @@ namespace LinqExample
                 }          
                
                 catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
                     
                 }
 
@@ -285,6 +286,7 @@ namespace LinqExample
      
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
+               // double value = 0;//add all the time the value
                 List<int> alreadyFoundthresholdIds = new List<int>();
                 bool isFillByOrder = me.thresholdForGauge.Count == 0;
                 while (reader.Read())
@@ -303,7 +305,9 @@ namespace LinqExample
                     }
                     alreadyFoundthresholdIds.Add(thresholdId);
 
-                    value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+                  value = (((float)thresholdValue) / (maxValue - minValue) * 100);
+                  value = (float)Math.Round(value); //fix a bug that prevent from values to show in label
+                  
 
                     ZedGraphControl zgc = null;
                     AGauge aguage = null;
@@ -439,8 +443,10 @@ namespace LinqExample
             foreach( int deviceId in deviceIds) 
             {
                 //sometime some null values arrived 
-                devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
-
+                if (deviceId >= 0)
+                {
+                    devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
+                }
                 //sometime some null values arrived 
                 //In some cases the reader is closed the program is crashed.
                 if (((devicesMeasurmentsCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -610,8 +616,12 @@ namespace LinqExample
             {
                 SqlDataReader measurementsReader = null;
 
-                devicesMeasurmentsByThresholdCommand.Parameters["@device_id"].Value = deviceId;
-                devicesMeasurmentsByThresholdCommand.Parameters["@threshold_id"].Value = thresholdId;
+                if (deviceId >= 0)
+                {
+                    devicesMeasurmentsByThresholdCommand.Parameters["@device_id"].Value = deviceId;
+                    devicesMeasurmentsByThresholdCommand.Parameters["@threshold_id"].Value = thresholdId;
+                }
+                     
 
                 global::System.Data.ConnectionState previousConnectionState = devicesMeasurmentsByThresholdCommand.Connection.State;
                 if (((devicesMeasurmentsByThresholdCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -675,22 +685,28 @@ namespace LinqExample
 
 
         private void SetGuageValue(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value)
+       // private void SetGuageValue(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, double value)
         {
+            if (currLabel == null) { return; }
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
             if (currGuage.InvokeRequired)
             {
                 SetGuageValueCallback d = new SetGuageValueCallback(SetGuageValue);
-                this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, value});
+                thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
+                //this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, value});
+                this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, value });
                 //AGauge currGuage, Label currLabel, string thresholdName, float value
             }
             else
             {
                 currGuage.Value = value;
-
+               //need to fix values but for now lets not go over 100%
+                if (value > 100) { value = 100; }
                 thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
                 currLabel.Text = thresholdName + " - " + value + "%";
+               
             }
         }
 
@@ -702,7 +718,7 @@ namespace LinqExample
             if (dataGridIncidents.InvokeRequired)
             {
                 FillIncidentsCallBack d = new FillIncidentsCallBack(SetIncidentsData);
-                this.Invoke(d, new object[] { incidentsTable });
+                this.BeginInvoke(d, new object[] { incidentsTable });
             }
             else
             {

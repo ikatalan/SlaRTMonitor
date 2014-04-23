@@ -211,7 +211,7 @@ namespace LinqExample
 
 
                 PointPairList listDevicePredictions = GetPredictionForDevice(currDeviceName, GetSelectedThresholdId());
-                LineItem predictionCurve = new LineItem("predicted", listDevicePredictions, Color.Red, SymbolType.XCross);
+                LineItem predictionCurve = new LineItem("Predicted", listDevicePredictions, Color.Red, SymbolType.XCross);
                 myPane.CurveList.Add(predictionCurve);
           
                 PointPairList listDeviceValues = GetValuesForDevice(currDeviceName, GetSelectedThresholdId());

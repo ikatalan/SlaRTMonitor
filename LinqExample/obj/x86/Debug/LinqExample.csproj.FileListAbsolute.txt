@@ -146,6 +146,7 @@ C:\Users\ynsk4\Desktop\SlaRTMonitor-master\SlaRTMonitor-master\LinqExample\obj\x
 C:\Users\ynsk4\Desktop\SlaRTMonitor-master\SlaRTMonitor-master\LinqExample\obj\x86\Debug\LinqExample.pdb
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SLAManagerContract.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.ReportsByTime.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.PredictionReport.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\Database1.mdf
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\Database1_log.ldf
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\LinqExample.exe.config
@@ -156,6 +157,7 @@ C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\ZedGraph.dll
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.csprojResolveAssemblyReference.cache
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Dashboard.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Graphs.resources
+C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.PredictionReport.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.ReportsByTime.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SimulatedDataLoader.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SLAManager.resources
@@ -167,4 +169,3 @@ C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExamp
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.csproj.GenerateResource.Cache
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.exe
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.pdb
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.PredictionReport.resources
