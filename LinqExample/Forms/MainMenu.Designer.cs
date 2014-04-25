@@ -42,6 +42,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnSlaComparison = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -131,7 +132,7 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 450);
+            this.splitter1.Size = new System.Drawing.Size(3, 581);
             this.splitter1.TabIndex = 7;
             this.splitter1.TabStop = false;
             // 
@@ -139,7 +140,7 @@
             // 
             this.splitter2.Location = new System.Drawing.Point(3, 0);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 450);
+            this.splitter2.Size = new System.Drawing.Size(3, 581);
             this.splitter2.TabIndex = 8;
             this.splitter2.TabStop = false;
             // 
@@ -190,11 +191,22 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Management";
             // 
+            // btnSlaComparison
+            // 
+            this.btnSlaComparison.Location = new System.Drawing.Point(146, 470);
+            this.btnSlaComparison.Name = "btnSlaComparison";
+            this.btnSlaComparison.Size = new System.Drawing.Size(141, 71);
+            this.btnSlaComparison.TabIndex = 14;
+            this.btnSlaComparison.Text = "SLA Comparison";
+            this.btnSlaComparison.UseVisualStyleBackColor = true;
+            this.btnSlaComparison.Click += new System.EventHandler(this.btnSlaComparison_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 450);
+            this.ClientSize = new System.Drawing.Size(736, 581);
+            this.Controls.Add(this.btnSlaComparison);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -232,5 +244,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnSlaComparison;
     }
 }

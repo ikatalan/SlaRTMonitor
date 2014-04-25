@@ -18,8 +18,6 @@ namespace LinqExample
         private SqlConnection dbConnection;
         private SqlCommand ThresholdNamePerContractCommand;
         Dictionary<int, String> thresholdIdToName;
-        SqlConnection thresholdConnection;
-        SqlCommand allthreshold;
 
         static int OldContractExist = 0;
         private bool AlreadySaved =false;

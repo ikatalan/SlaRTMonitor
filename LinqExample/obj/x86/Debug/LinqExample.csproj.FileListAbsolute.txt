@@ -169,3 +169,4 @@ C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExamp
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.csproj.GenerateResource.Cache
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.exe
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.pdb
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Forms.SLAComparison.resources

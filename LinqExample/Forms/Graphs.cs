@@ -19,7 +19,7 @@ namespace LinqExample
         private SqlCommand measurmentsSqlCommand;//used for filling list of items (device_name) per threshold_id      
         private SqlDataAdapter measurmentsValuesAdapter; // used for getting measurements valus for a specific device.
         private SqlDataAdapter singleThresholdValueAdapter;// used for getting threshold value from Contracts
-        private LineItem myCurve;
+        
 
         public Graphs()
         {
@@ -181,8 +181,10 @@ namespace LinqExample
                 int b = (int)(randGenerator.NextDouble() * 255);
                 
                 //use this to add line width 3.0F
-                myCurve = new LineItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b), SymbolType.XCross);
-                myPane.CurveList.Add(myCurve);
+                //myCurve = new LineItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b), SymbolType.XCross);
+                //myPane.CurveList.Add(myCurve);
+                
+                myPane.CurveList.Add(new BarItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b)));
              
                 if ( listDeviceValues.Count > 0 )
                 {

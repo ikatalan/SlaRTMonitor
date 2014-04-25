@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqExample.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -104,12 +105,20 @@ namespace LinqExample
 
         private void button4_Click(object sender, EventArgs e)
         {
-            PredictionReport reportByTime = new PredictionReport();
-            reportByTime.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
-            reportByTime.Show(); //show child
+            PredictionReport predictionReport = new PredictionReport();
+            predictionReport.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            predictionReport.Show(); //show child
             this.Hide(); //hide parent
         }
 
+        private void btnSlaComparison_Click(object sender, EventArgs e)
+        {
+            SLAComparison slaComparison = new SLAComparison();
+            slaComparison.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            slaComparison.Show(); //show child
+            this.Hide(); //hide parent
+
+        }
 
         //protected override void OnFormClosing(FormClosingEventArgs e)
         //{
@@ -166,6 +175,8 @@ namespace LinqExample
            
 
         }
+
+
 
 
      

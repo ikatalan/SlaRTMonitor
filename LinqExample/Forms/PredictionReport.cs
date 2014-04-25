@@ -211,14 +211,14 @@ namespace LinqExample
 
 
                 PointPairList listDevicePredictions = GetPredictionForDevice(currDeviceName, GetSelectedThresholdId());
-                LineItem predictionCurve = new LineItem("Predicted", listDevicePredictions, Color.Red, SymbolType.XCross);
+                LineItem predictionCurve = new LineItem("Predicted", listDevicePredictions, Color.Red, SymbolType.Diamond, 2.0f);
                 myPane.CurveList.Add(predictionCurve);
           
                 PointPairList listDeviceValues = GetValuesForDevice(currDeviceName, GetSelectedThresholdId());
 
                 
                 //use this to add line width 3.0F
-                myCurve = new LineItem(currDeviceName, listDeviceValues, Color.Black, SymbolType.XCross);
+                myCurve = new LineItem(currDeviceName, listDeviceValues, Color.Black, SymbolType.None);
                 myPane.CurveList.Add(myCurve);
              
                 if ( listDeviceValues.Count > 0 )
