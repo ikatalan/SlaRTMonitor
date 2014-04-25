@@ -50,6 +50,7 @@
             // 
             this.cmbBoxThresholdTypes.DataSource = this.sLA_RT_monitoringDataSetThreshold;
             this.cmbBoxThresholdTypes.DisplayMember = "Thresholds.name";
+            this.cmbBoxThresholdTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBoxThresholdTypes.FormattingEnabled = true;
             this.cmbBoxThresholdTypes.Location = new System.Drawing.Point(13, 31);
             this.cmbBoxThresholdTypes.Name = "cmbBoxThresholdTypes";
@@ -79,7 +80,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "ThresholdTypes";
             // 
@@ -88,7 +89,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Devices";
             // 
@@ -114,7 +115,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(178, 31);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(123, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(123, 22);
             this.dateTimePicker1.TabIndex = 6;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.cmbBoxThresholdTypes_SelectedIndexChanged);
             // 
@@ -147,7 +148,7 @@
             this.dateTimePicker2.MinDate = new System.DateTime(2005, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.ShowUpDown = true;
-            this.dateTimePicker2.Size = new System.Drawing.Size(123, 20);
+            this.dateTimePicker2.Size = new System.Drawing.Size(123, 22);
             this.dateTimePicker2.TabIndex = 6;
             this.dateTimePicker2.ValueChanged += new System.EventHandler(this.cmbBoxThresholdTypes_SelectedIndexChanged);
             // 

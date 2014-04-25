@@ -46,6 +46,7 @@
             // 
             // cmbBoxDeviceType
             // 
+            this.cmbBoxDeviceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBoxDeviceType.FormattingEnabled = true;
             this.cmbBoxDeviceType.Location = new System.Drawing.Point(13, 99);
             this.cmbBoxDeviceType.Name = "cmbBoxDeviceType";
@@ -75,7 +76,7 @@
             this.cmbDeviceType.AutoSize = true;
             this.cmbDeviceType.Location = new System.Drawing.Point(13, 83);
             this.cmbDeviceType.Name = "cmbDeviceType";
-            this.cmbDeviceType.Size = new System.Drawing.Size(68, 13);
+            this.cmbDeviceType.Size = new System.Drawing.Size(66, 13);
             this.cmbDeviceType.TabIndex = 2;
             this.cmbDeviceType.Text = "Device Type";
             // 
@@ -84,7 +85,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 133);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Devices";
             // 
@@ -134,6 +135,7 @@
             // 
             // cmbBoxTimeScope
             // 
+            this.cmbBoxTimeScope.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBoxTimeScope.FormattingEnabled = true;
             this.cmbBoxTimeScope.Items.AddRange(new object[] {
             "last 12 hours",

@@ -74,7 +74,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.button3.Location = new System.Drawing.Point(394, 332);
+            this.button3.Location = new System.Drawing.Point(394, 404);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(126, 74);
             this.button3.TabIndex = 2;
@@ -158,12 +158,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnSlaComparison);
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(33, 159);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(328, 123);
+            this.groupBox2.Size = new System.Drawing.Size(328, 217);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Reports";
@@ -184,7 +185,7 @@
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.SlaManager);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(33, 306);
+            this.groupBox3.Location = new System.Drawing.Point(33, 403);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(328, 118);
             this.groupBox3.TabIndex = 13;
@@ -193,9 +194,10 @@
             // 
             // btnSlaComparison
             // 
-            this.btnSlaComparison.Location = new System.Drawing.Point(146, 470);
+            this.btnSlaComparison.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.btnSlaComparison.Location = new System.Drawing.Point(14, 125);
             this.btnSlaComparison.Name = "btnSlaComparison";
-            this.btnSlaComparison.Size = new System.Drawing.Size(141, 71);
+            this.btnSlaComparison.Size = new System.Drawing.Size(126, 74);
             this.btnSlaComparison.TabIndex = 14;
             this.btnSlaComparison.Text = "SLA Comparison";
             this.btnSlaComparison.UseVisualStyleBackColor = true;
@@ -206,7 +208,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 581);
-            this.Controls.Add(this.btnSlaComparison);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

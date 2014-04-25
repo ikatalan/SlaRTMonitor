@@ -76,7 +76,7 @@ namespace LinqExample.Forms
             {
             }
 
-            // Used for filling list of items (device_name) per threshold_id            
+            //         
             devicesSqlCommand = new SqlCommand(
                 @"SELECT id, name FROM [dbo].[Devices] "
               + @"WHERE type=@device_type ",

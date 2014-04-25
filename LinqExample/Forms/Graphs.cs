@@ -76,6 +76,7 @@ namespace LinqExample
                 + @" JOIN [dbo].[Devices] b ON a.device_id=b.id "
                 + @" WHERE b.name=@device_name "
                 + @" AND a.threshold_id=@threshold_id "
+                + @" AND [timestamp] >= DATEADD(HOUR, -4, GETDATE())  " // showing the last 4 hours since it become diffcult to read
                 + @" ORDER BY timestamp;",
                 dbConnection2);
             
@@ -181,10 +182,10 @@ namespace LinqExample
                 int b = (int)(randGenerator.NextDouble() * 255);
                 
                 //use this to add line width 3.0F
-                //myCurve = new LineItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b), SymbolType.XCross);
-                //myPane.CurveList.Add(myCurve);
+                LineItem myCurve = new LineItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b), SymbolType.XCross);
+                myPane.CurveList.Add(myCurve);
                 
-                myPane.CurveList.Add(new BarItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b)));
+            //    myPane.CurveList.Add(new BarItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b)));
              
                 if ( listDeviceValues.Count > 0 )
                 {
