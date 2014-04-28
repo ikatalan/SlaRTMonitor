@@ -123,10 +123,11 @@ namespace LinqExample.Forms
             // used for getting measurements valus for a specific device.
             calculatedMeasurementsSqlCommand = new SqlCommand(
                 @"SELECT threshold_id, AVG(value)  "
-                + @" FROM [dbo].[SimulatedMeasurements] "
+                + @" FROM [dbo].[SimulatedMeasurements] a"
                 + @" WHERE device_id=@device_id "
                 + @" AND timestamp>=@timestamp "
-                + @" GROUP BY threshold_id",
+                + @" GROUP BY threshold_id "
+                + @" ORDER BY threshold_id ",
                 dbConnection4);
 
             if (((calculatedMeasurementsSqlCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -235,7 +236,8 @@ namespace LinqExample.Forms
             thresholdTypeSqlCommand = new SqlCommand(
                 @"SELECT id, name, threshold_type_id, b.value FROM [dbo].[Thresholds] a "
               + @"JOIN [dbo].[SlaContracts] b ON b.threshold_id = a.id "
-              + @"WHERE b.device_type=@device_type ",
+              + @"WHERE b.device_type=@device_type "
+              + @"ORDER BY a.id ASC",
                 dbConnection4);
 
             if (((thresholdTypeSqlCommand.Connection.State & global::System.Data.ConnectionState.Open)
@@ -293,13 +295,28 @@ namespace LinqExample.Forms
           
             // Set the titles and axis labels per selection
             myPane.Title.Text = cmbBoxDeviceType.GetItemText(cmbBoxDeviceType.SelectedItem);
-            
+
             myPane.XAxis.Title.Text = "Thresholds";
             myPane.YAxis.Title.Text = "";
 
             myPane.CurveList.Clear();// clear the graph
 
-            
+            for ( int i =0; i < listCurrentThresholds.Count(); ++i ) 
+            {
+                ThresholdItem item = listCurrentThresholds[i];
+                LineItem myLine = new LineItem(item.name, 
+                    new double[] { 
+                        ((float)(i * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
+                        ((float)(i * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) }, 
+                    new double[] { item.value, item.value }, 
+                    Color.Black, 
+                    SymbolType.Diamond, 3.0f);
+                myLine.IsX2Axis = true;
+                myPane.CurveList.Add(myLine);
+            }
+
+            List<BarItem> listBarItems = new List<BarItem>();
+
             //Create Random colors to show on Graph
             Random randGenerator = new Random();
             foreach (object objDevice in listDevices.SelectedItems)
@@ -316,10 +333,33 @@ namespace LinqExample.Forms
                 //use this to add line width 3.0F
 
                 BarItem myCurve = new BarItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b));
-                myPane.CurveList.Add(myCurve);
+                listBarItems.Add(myCurve);
              
             }
 
+            
+            for (int idx = 0; idx < listCurrentThresholds.Count(); ++idx)
+            {
+                ThresholdItem item = listCurrentThresholds[idx];
+                //myPane.CurveList.Average
+                double avg = listBarItems.Select(v => v.Points[idx].Y ).Average();
+                double stdDev = Math.Sqrt(listBarItems.Select(v => v.Points[idx].Y).Average(v => Math.Pow(v - avg, 2)));
+                //MessageBox.Show("i:" + idx + " stdDev: " + stdDev);
+                LineItem myLine = new LineItem(item.name,
+                    new double[] { 
+                        ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
+                        ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) },
+                    new double[] { stdDev, stdDev },
+                    Color.GreenYellow,
+                    SymbolType.Diamond, 3.0f);
+                                myLine.IsX2Axis = true;
+                myPane.CurveList.Add(myLine);
+
+            }
+
+            myPane.CurveList.AddRange(listBarItems);
+            
+            
             // Fill the axis background with a color gradient
             myPane.Chart.Fill = new Fill(Color.White, Color.LightGoldenrodYellow, 45F);
 
@@ -327,7 +367,7 @@ namespace LinqExample.Forms
             myPane.Fill = new Fill(Color.White, Color.FromArgb(220, 220, 255), 45F);
 
             //This informs ZedGraph to use the labels supplied by the user in Axis.Scale.TextLabels
-             Axis.Default.Type = AxisType.Text;
+             //Axis.Default.Type = AxisType.Text;
 
             //Show tooltips when the mouse hovers over a point
             zgc.IsShowPointValues = true;
@@ -335,9 +375,22 @@ namespace LinqExample.Forms
 
             // Set the XAxis to date type
             myPane.XAxis.Type = AxisType.Text;
-   
+            string[] thresholdNames = new string[listCurrentThresholds.Count];
+            for (int i = 0; i < thresholdNames.Count(); ++i)
+            {
+                thresholdNames[i] = listCurrentThresholds[i].name;
+            }
+
+            myPane.XAxis.Scale.TextLabels = thresholdNames;
+            myPane.XAxis.IsVisible = true;
+            
+            myPane.X2Axis.Scale.Min = 0;
+            myPane.X2Axis.Scale.Max = 1;
+            myPane.X2Axis.IsVisible = false;
+
             myPane.YAxis.MajorGrid.IsVisible = true;
             myPane.YAxis.MinorGrid.IsVisible = true;
+
     
             // Calculate the Axis Scale Ranges
             axisChangeZedGraph(zgc); //refrsh the graph
@@ -397,7 +450,7 @@ namespace LinqExample.Forms
             curve.Label.Text = curve.Label.Text.Replace(" ", String.Empty);//remove whitespaces from device name
 
             XDate the_date = new XDate(pt.X);//Replace the pair double to date
-            return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units at Time: " + the_date.DateTime.TimeOfDay + " ";
+            return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units at Time: " + pt.X + " ";
            
            
         }
