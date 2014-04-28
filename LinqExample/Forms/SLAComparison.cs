@@ -56,7 +56,7 @@ namespace LinqExample.Forms
         }
         GraphPane myPane; 
 
-        //Run when the Graph load //was privte
+        //Run when the Graph load //was private
         public void SLAComparison_Load(object sender, EventArgs e)
         {
             dbConnection = new global::System.Data.SqlClient.SqlConnection();
@@ -210,9 +210,10 @@ namespace LinqExample.Forms
                 {
                     cmbBoxDeviceType.Items.Add(deviceTypeReader.GetString(0));
                 }
-
-                cmbBoxDeviceType.SelectedIndex = 0;
-
+                if (cmbBoxDeviceType.Items.Count > 0)
+                {
+                    cmbBoxDeviceType.SelectedIndex = 0;
+                }
 
                 deviceTypeReader.Close();//Close the reader since we are opening it every time when selected item
 
@@ -304,7 +305,8 @@ namespace LinqExample.Forms
             for ( int i =0; i < listCurrentThresholds.Count(); ++i ) 
             {
                 ThresholdItem item = listCurrentThresholds[i];
-                LineItem myLine = new LineItem(item.name, 
+                item.name = item.name.Replace(" ", String.Empty);//remove whitespaces
+                LineItem myLine = new LineItem(item.name + "Threshold", 
                     new double[] { 
                         ((float)(i * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
                         ((float)(i * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) }, 
@@ -341,11 +343,12 @@ namespace LinqExample.Forms
             for (int idx = 0; idx < listCurrentThresholds.Count(); ++idx)
             {
                 ThresholdItem item = listCurrentThresholds[idx];
+                item.name = item.name.Replace(" ", String.Empty);//remove whitespaces
                 //myPane.CurveList.Average
                 double avg = listBarItems.Select(v => v.Points[idx].Y ).Average();
                 double stdDev = Math.Sqrt(listBarItems.Select(v => v.Points[idx].Y).Average(v => Math.Pow(v - avg, 2)));
                 //MessageBox.Show("i:" + idx + " stdDev: " + stdDev);
-                LineItem myLine = new LineItem(item.name,
+                LineItem myLine = new LineItem(item.name + "Deviation",
                     new double[] { 
                         ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
                         ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) },

@@ -283,7 +283,7 @@ namespace LinqExample
                 {
                     me.devicesMeasurmentsCommand.Connection.Open();
                 }
-     
+                //fail from time to time
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
                // double value = 0;//add all the time the value
@@ -518,7 +518,7 @@ namespace LinqExample
 
         private void FillGraphWithData(ZedGraph.ZedGraphControl zgc, int thresholdId, int deviceId, string deviceType, string thresholdName)
         {
-            
+            //it will fail from time to time, need to fix
             GraphPane myPane = zgc.GraphPane;
             
 
