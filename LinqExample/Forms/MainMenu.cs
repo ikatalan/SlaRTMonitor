@@ -17,10 +17,17 @@ namespace LinqExample
         public MainMenu()
         {
             InitializeComponent();
-            this.FormClosing +=  MainMenu_FormClosing;
-           
-           
-          
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        void child_FormClosed(object sender, FormClosedEventArgs e)//handles the forms
+        {
+            //when child form is closed, the parent reappears
+            this.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,43 +37,21 @@ namespace LinqExample
             usrManagement.Show(); //show child
             this.Hide(); //hide parent
         }
-        void child_FormClosed(object sender, FormClosedEventArgs e)//handles the forms
-        {
-            //when child form is closed, the parent reappears
-            this.Show();
-        }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
             SLAManager manager = new SLAManager();
-            manager.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            manager.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             manager.Show(); //show child
             this.Hide(); //hide parent
         }
-        void child2_FormClosed(object sender, FormClosedEventArgs e)//handles the forms
-        {
-            //when child form is closed, the parent reappears
-            this.Show();
-        }
 
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-         
-        }
-
-       
-
-
-        private void MainMenu_Load(object sender, EventArgs e)
-        {
-            
-
-        }
 
         private void button5_Click(object sender, EventArgs e)
         {
             SimulatedDataLoader frmDataLoader = new SimulatedDataLoader();
-            frmDataLoader.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            frmDataLoader.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             frmDataLoader.Show(); //show child
             this.Hide(); //hide parent
         }
@@ -74,7 +59,7 @@ namespace LinqExample
         private void btnOpenGraphForm_Click(object sender, EventArgs e)
         {
             Graphs frmDataLoader = new Graphs();
-            frmDataLoader.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            frmDataLoader.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             frmDataLoader.Show(); //show child
             this.Hide(); //hide parent
         }
@@ -82,7 +67,7 @@ namespace LinqExample
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             Dashboard frmDataLoader = new Dashboard();
-            frmDataLoader.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            frmDataLoader.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             frmDataLoader.Show(); //show child
             this.Hide(); //hide parent
         }
@@ -90,7 +75,7 @@ namespace LinqExample
         private void SlaManager_Click(object sender, EventArgs e)
         {
             SLAManagerContract managerContract = new SLAManagerContract();
-            managerContract.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            managerContract.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             managerContract.Show(); //show child
             this.Hide(); //hide parent
         }
@@ -98,7 +83,7 @@ namespace LinqExample
         private void button2_Click(object sender, EventArgs e)
         {
             ReportsByTime reportByTime = new ReportsByTime();
-            reportByTime.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            reportByTime.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             reportByTime.Show(); //show child
             this.Hide(); //hide parent
         }
@@ -106,7 +91,7 @@ namespace LinqExample
         private void button4_Click(object sender, EventArgs e)
         {
             PredictionReport predictionReport = new PredictionReport();
-            predictionReport.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            predictionReport.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             predictionReport.Show(); //show child
             this.Hide(); //hide parent
         }
@@ -114,7 +99,7 @@ namespace LinqExample
         private void btnSlaComparison_Click(object sender, EventArgs e)
         {
             SLAComparison slaComparison = new SLAComparison();
-            slaComparison.FormClosed += new FormClosedEventHandler(child2_FormClosed);  //add handler to catch when child form is closed
+            slaComparison.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             slaComparison.Show(); //show child
             this.Hide(); //hide parent
 
@@ -145,7 +130,6 @@ namespace LinqExample
         //FormClosingEventArgs e
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             // Display a MsgBox asking the user to save changes or abort. 
             if (MessageBox.Show("Are you sure you want to close?", "Closing",
                MessageBoxButtons.YesNo) == DialogResult.No)
@@ -154,6 +138,7 @@ namespace LinqExample
                 e.Cancel = true;
                 // Call method to save file...
             }
+            
 
 
 
@@ -176,13 +161,11 @@ namespace LinqExample
 
         }
 
-
-
-
-     
-       
-
-      
-
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            SingletoneUser.UserPass = null;
+            SingletoneUser.UserName = null;
+            this.Close();
+        }
     }
 }

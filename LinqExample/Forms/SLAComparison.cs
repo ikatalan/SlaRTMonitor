@@ -56,9 +56,44 @@ namespace LinqExample.Forms
         }
         GraphPane myPane; 
 
+        class TimeScopeItem {
+            public TimeScopeItem(string _text, TimeSpan _span)
+            {
+                text = _text;
+                span = _span;
+            }
+
+            public override string ToString()
+            {
+                return text;
+            }
+            public string Text
+            {
+                get {
+                    return text;
+                }
+                
+            }
+            public TimeSpan TimeSpan
+            {
+                get
+                {
+                 return span;
+                }
+            }
+            string text;
+            TimeSpan span;
+        }
+
         //Run when the Graph load //was private
         public void SLAComparison_Load(object sender, EventArgs e)
         {
+            cmbBoxTimeScope.Items.Add(new TimeScopeItem("last 12 hours", new TimeSpan(12,0,0)));
+            cmbBoxTimeScope.Items.Add(new TimeScopeItem("last 3 days", new TimeSpan(3,0,0,0)));
+            cmbBoxTimeScope.Items.Add(new TimeScopeItem("last week", new TimeSpan(7,0,0,0)));
+            cmbBoxTimeScope.Items.Add(new TimeScopeItem("last month", new TimeSpan(30,0,0,0)));
+            cmbBoxTimeScope.Items.Add(new TimeScopeItem("beginning of time", new TimeSpan(500,0, 0, 0)));
+         
             dbConnection = new global::System.Data.SqlClient.SqlConnection();
             dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
@@ -320,23 +355,29 @@ namespace LinqExample.Forms
             List<BarItem> listBarItems = new List<BarItem>();
 
             //Create Random colors to show on Graph
-            Random randGenerator = new Random();
-            foreach (object objDevice in listDevices.SelectedItems)
+            Color[] barColors = new Color[]{
+                Color.Red,
+                Color.Aqua,
+                Color.Aquamarine,
+                Color.Azure,
+                Color.Bisque,
+                Color.Coral,
+                Color.Crimson,
+                Color.ForestGreen,
+                Color.Lavender,
+                Color.Navy
+            };
+
+            for (int idx = 0; idx < listDevices.SelectedItems.Count; ++idx )
             {
-                DeviceItem currDevice = (DeviceItem)objDevice;
+                DeviceItem currDevice = (DeviceItem)listDevices.SelectedItems[idx];
                 String currDeviceName = currDevice.name;
 
                 PointPairList listDeviceValues = GetDeviceData(listCurrentThresholds, currDevice.id);
 
-                int r = (int)(randGenerator.NextDouble() * 255);
-                int g = (int)(randGenerator.NextDouble() * 255);
-                int b = (int)(randGenerator.NextDouble() * 255);
-                
                 //use this to add line width 3.0F
-
-                BarItem myCurve = new BarItem(currDeviceName, listDeviceValues, Color.FromArgb(255, r, g, b));
+                BarItem myCurve = new BarItem(currDeviceName, listDeviceValues, barColors[idx%barColors.Count()]);
                 listBarItems.Add(myCurve);
-             
             }
 
             
@@ -345,18 +386,32 @@ namespace LinqExample.Forms
                 ThresholdItem item = listCurrentThresholds[idx];
                 item.name = item.name.Replace(" ", String.Empty);//remove whitespaces
                 //myPane.CurveList.Average
-                double avg = listBarItems.Select(v => v.Points[idx].Y ).Average();
-                double stdDev = Math.Sqrt(listBarItems.Select(v => v.Points[idx].Y).Average(v => Math.Pow(v - avg, 2)));
-                //MessageBox.Show("i:" + idx + " stdDev: " + stdDev);
-                LineItem myLine = new LineItem(item.name + "Deviation",
-                    new double[] { 
-                        ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
-                        ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) },
-                    new double[] { stdDev, stdDev },
-                    Color.GreenYellow,
-                    SymbolType.Diamond, 3.0f);
-                                myLine.IsX2Axis = true;
-                myPane.CurveList.Add(myLine);
+
+                try
+                {
+                    double avg = listBarItems.Where(v => v.Points.Count > idx).Select(v => v.Points[idx].Y).Average();
+
+                    double stdDev = Math.Sqrt(listBarItems.Where(v => v.Points.Count > idx).Select(v => v.Points[idx].Y).Average(v => Math.Pow(v - avg, 2)));
+
+                    //MessageBox.Show("i:" + idx + " stdDev: " + stdDev);
+                    LineItem myLine = new LineItem(item.name + "Deviation",
+                        new double[] { 
+                            ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
+                            ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) },
+                        new double[] { stdDev, stdDev },
+                        Color.GreenYellow,
+                        SymbolType.Diamond, 3.0f);
+                    myLine.IsX2Axis = true;
+                    myPane.CurveList.Add(myLine);
+                }
+                catch (InvalidOperationException )
+                {
+
+                }
+                catch (NullReferenceException)
+                {
+
+                }
 
             }
 
@@ -375,7 +430,7 @@ namespace LinqExample.Forms
             //Show tooltips when the mouse hovers over a point
             zgc.IsShowPointValues = true;
             zgc.PointValueEvent += new ZedGraphControl.PointValueHandler(MyPointValueHandler);
-
+            
             // Set the XAxis to date type
             myPane.XAxis.Type = AxisType.Text;
             string[] thresholdNames = new string[listCurrentThresholds.Count];
@@ -439,7 +494,13 @@ namespace LinqExample.Forms
 
         private object GetDateTimeFromTimeScope()
         {
-            return DateTime.Now.Subtract(new TimeSpan(5, 0, 0));
+            TimeSpan x = new TimeSpan();
+            if (cmbBoxTimeScope.SelectedItem != null)
+            {
+                x = ((TimeScopeItem)cmbBoxTimeScope.SelectedItem).TimeSpan;
+            }
+
+            return DateTime.Now.Subtract(x);
         }
 
        
@@ -454,8 +515,6 @@ namespace LinqExample.Forms
 
             XDate the_date = new XDate(pt.X);//Replace the pair double to date
             return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units at Time: " + pt.X + " ";
-           
-           
         }
 
         // used for getting threshold value from Contracts

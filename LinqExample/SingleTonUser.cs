@@ -5,53 +5,78 @@ using System.Text;
 
 namespace LinqExample
 {
-    class SingleTonUser
+    static class SingletoneUser
     {
-
-            // A private instance of the class
-
-            private static SingleTonUser instance;
-            private System.Collections.Generic.List<string> Users;
-
-            // The constructor for this user is private, so that cannot be instantiated
-
-            private SingleTonUser()
-            {
-            try
-            {
-            Users = new System.Collections.Generic.List<string>();
-            }
-            catch { }
-            }
-
-    // This private static property, will check if the static instance of the user
-    // is instantiated if it is then it will return the static instance, if not it will
-    // create a new instance.
+        private static string userName;
+        private static string userPass;
 
 
-
-            public static SingleTonUser Instance
-            {
+        public static string UserPass 
+        {
             get
             {
-            if (instance == null)
-            instance = new SingleTonUser();
-            return instance;
+                return userPass;
             }
-            }
-
-            public void AddUser(string User)
+            set
             {
-            Users.Add(User);
+                userPass = value;
             }
+        }
 
-            public bool HasUser(string User)
+        public static string UserName
+        {
+            get
             {
-                return Users.Contains(User);
+                return userName;
+            }
+            set
+            {
+                userName = value;
             }
         }
 
 
+
+        //// A private instance of the class
+        //private static SingletoneUser instance;
+        //private System.Collections.Generic.List<string> Users;
+
+        //// The constructor for this user is private, so that cannot be instantiated
+
+        //private SingletoneUser()
+        //{
+        //    try
+        //    {
+        //        Users = new System.Collections.Generic.List<string>();
+        //    }
+        //    catch { }
+        //}
+
+        //// This private static property, will check if the static instance of the user
+        //// is instantiated if it is then it will return the static instance, if not it will
+        //// create a new instance.
+        //public static SingletoneUser Instance
+        //{
+        //    get
+        //    {
+        //        if (instance == null)
+        //        {
+        //            instance = new SingletoneUser();
+        //        }
+        //        return instance;
+        //    }
+        //}
+
+        //public void AddUser(string User)
+        //{
+        //    Users.Add(User);
+        //}
+
+        //public bool HasUser(string User)
+        //{
+        //    return Users.Contains(User);
+        //}
+    }
 
  }
 

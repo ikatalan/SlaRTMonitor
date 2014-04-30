@@ -58,7 +58,6 @@ namespace LinqExample
 
                 while (devicesReader.Read())
                 {
-                    thresholdIdToName[devicesReader.GetInt32(0)] = devicesReader.GetString(1);
                     int typeId = devicesReader.GetInt32(0);
                     string typeName = devicesReader.GetString(1);
                     thresholdIdToName[typeId] = typeName;
@@ -68,29 +67,28 @@ namespace LinqExample
             if (dataGridViewSLAManger.Rows.Count >= 1) { OldContractExist = 1; }// need to know if we have contract in the database
 
             BindingSource SBind = new BindingSource();
-            SBind.DataSource = this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts;
-
-            dataGridViewSLAManger.AutoGenerateColumns = false;
-            dataGridViewSLAManger.DataSource = this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts;
-
-            for (int i = 1; i < dataGridViewSLAManger.ColumnCount; ++i)
-            {
-                if (i != 3)
-                {
-                    dataGridViewSLAManger.Columns[i - 1].DataPropertyName = this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts.Columns[i].Caption;
-                    //dataGridViewSLAManger.Columns[3].DataPropertyName = thresholdIdToName[];
-                   
-                }
-                //else if (i == 3)
-                //{
-                //    dataGridViewSLAManger.Columns[i - 1].DataPropertyName =  thresholdIdToName[i];
-                //}
-            }
-
+            SBind.DataSource = GetDataWithThresholdName(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
             dataGridViewSLAManger.DataSource = SBind;
+            dataGridViewSLAManger.AutoGenerateColumns = false;
             dataGridViewSLAManger.Refresh();
 
           
+        }
+
+        private DataTable GetDataWithThresholdName(DataTable slaContractsDataTable)
+        {
+            if (!slaContractsDataTable.Columns.Contains("threshold_name"))
+            {
+                slaContractsDataTable.Columns.Add("threshold_name");
+            }
+
+            foreach (DataRow row in slaContractsDataTable.Rows)
+            {
+                row["threshold_name"] = thresholdIdToName[Int32.Parse(row["threshold_id"].ToString())];
+            }
+
+            return slaContractsDataTable;
+
         }
 
         private void backMainMenu_Click(object sender, EventArgs e)
@@ -136,7 +134,7 @@ namespace LinqExample
             {
                 try
                 {
-                    DataTable slaData = GetDataTableFromCsv(openFileDialog1.FileName, true);
+                    DataTable slaData = GetDataWithThresholdName(GetDataTableFromCsv(openFileDialog1.FileName, true));
 
                     BindingSource SBind = new BindingSource();
                     SBind.DataSource = slaData;
@@ -147,7 +145,6 @@ namespace LinqExample
                     //Load all the information from the execl to the datagrid
                     for (int i = 0; i < dataGridViewSLAManger.ColumnCount; ++i)
                     {
-                        //  dataGridViewSLAManger.Columns[i].DataPropertyName = slaData.Columns[i - 1].Caption;
                         if (i != 2 && i != 3)
                         {
                             dataGridViewSLAManger.Columns[i].DataPropertyName = slaData.Columns[i].Caption;
@@ -229,16 +226,13 @@ namespace LinqExample
                 return;
             }
        
-            String input = string.Empty; // will hold the passowrd
-            input = "1234";// need to have the specfic user password that login 
-
             InputBox.InputBoxValidation validation = delegate(string password)
             {
                 if (password == "")
                 {
                     return "Value cannot be empty.";
                 }
-                if (password == input)
+                if (password == SingletoneUser.UserPass) // Check if password is the same as the logged-in user.
                 {
                   
                     btnSave.Visible = true;

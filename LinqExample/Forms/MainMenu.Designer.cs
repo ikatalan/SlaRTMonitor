@@ -40,9 +40,10 @@
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSlaComparison = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnSlaComparison = new System.Windows.Forms.Button();
+            this.btnLogOut = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -169,6 +170,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Reports";
             // 
+            // btnSlaComparison
+            // 
+            this.btnSlaComparison.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.btnSlaComparison.Location = new System.Drawing.Point(14, 125);
+            this.btnSlaComparison.Name = "btnSlaComparison";
+            this.btnSlaComparison.Size = new System.Drawing.Size(126, 74);
+            this.btnSlaComparison.TabIndex = 14;
+            this.btnSlaComparison.Text = "SLA Comparison";
+            this.btnSlaComparison.UseVisualStyleBackColor = true;
+            this.btnSlaComparison.Click += new System.EventHandler(this.btnSlaComparison_Click);
+            // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Segoe UI", 11.25F);
@@ -192,22 +204,22 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Management";
             // 
-            // btnSlaComparison
+            // btnLogOut
             // 
-            this.btnSlaComparison.Font = new System.Drawing.Font("Segoe UI", 11.25F);
-            this.btnSlaComparison.Location = new System.Drawing.Point(14, 125);
-            this.btnSlaComparison.Name = "btnSlaComparison";
-            this.btnSlaComparison.Size = new System.Drawing.Size(126, 74);
-            this.btnSlaComparison.TabIndex = 14;
-            this.btnSlaComparison.Text = "SLA Comparison";
-            this.btnSlaComparison.UseVisualStyleBackColor = true;
-            this.btnSlaComparison.Click += new System.EventHandler(this.btnSlaComparison_Click);
+            this.btnLogOut.Location = new System.Drawing.Point(634, 33);
+            this.btnLogOut.Name = "btnLogOut";
+            this.btnLogOut.Size = new System.Drawing.Size(75, 23);
+            this.btnLogOut.TabIndex = 14;
+            this.btnLogOut.Text = "LogOut";
+            this.btnLogOut.UseVisualStyleBackColor = true;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 581);
+            this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -246,5 +258,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnSlaComparison;
+        private System.Windows.Forms.Button btnLogOut;
     }
 }

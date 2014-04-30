@@ -37,28 +37,28 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.sLARTmonitoringDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.sLA_RT_monitoringDataSet = new LinqExample.SLA_RT_monitoringDataSet();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.sLA_RT_monitoringDataSet1 = new LinqExample.SLA_RT_monitoringDataSet1();
-            this.slaAgreementBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.slaAgreementTableAdapter = new LinqExample.SLA_RT_monitoringDataSet1TableAdapters.SlaAgreementTableAdapter();
-            this.sLA_RT_monitoringDataSet2 = new LinqExample.SLA_RT_monitoringDataSet2();
-            this.slA_RT_monitoringDataSet21 = new LinqExample.SLA_RT_monitoringDataSet2();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.device_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.threshold_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.sLARTmonitoringDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.sLA_RT_monitoringDataSet2 = new LinqExample.SLA_RT_monitoringDataSet2();
+            this.sLA_RT_monitoringDataSet = new LinqExample.SLA_RT_monitoringDataSet();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.sLA_RT_monitoringDataSet1 = new LinqExample.SLA_RT_monitoringDataSet1();
+            this.slaAgreementBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.slaAgreementTableAdapter = new LinqExample.SLA_RT_monitoringDataSet1TableAdapters.SlaAgreementTableAdapter();
+            this.slA_RT_monitoringDataSet21 = new LinqExample.SLA_RT_monitoringDataSet2();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLARTmonitoringDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slaAgreementBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slA_RT_monitoringDataSet21)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,67 +135,20 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.device_type,
             this.name,
             this.threshold_id,
             this.value});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridView2.Location = new System.Drawing.Point(3, 3);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(693, 362);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(699, 444);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Manage";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // sLARTmonitoringDataSetBindingSource
-            // 
-            this.sLARTmonitoringDataSetBindingSource.DataSource = this.sLA_RT_monitoringDataSet2;
-            this.sLARTmonitoringDataSetBindingSource.Position = 0;
-            this.sLARTmonitoringDataSetBindingSource.CurrentChanged += new System.EventHandler(this.sLARTmonitoringDataSetBindingSource_CurrentChanged);
-            // 
-            // sLA_RT_monitoringDataSet
-            // 
-            this.sLA_RT_monitoringDataSet.DataSetName = "SLA_RT_monitoringDataSet";
-            this.sLA_RT_monitoringDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // sLA_RT_monitoringDataSet1
-            // 
-            this.sLA_RT_monitoringDataSet1.DataSetName = "SLA_RT_monitoringDataSet1";
-            this.sLA_RT_monitoringDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // slaAgreementBindingSource
-            // 
-            this.slaAgreementBindingSource.DataMember = "SlaAgreement";
-            this.slaAgreementBindingSource.DataSource = this.sLA_RT_monitoringDataSet1;
-            // 
-            // slaAgreementTableAdapter
-            // 
-            this.slaAgreementTableAdapter.ClearBeforeFill = true;
-            // 
-            // sLA_RT_monitoringDataSet2
-            // 
-            this.sLA_RT_monitoringDataSet2.DataSetName = "SLA_RT_monitoringDataSet2";
-            this.sLA_RT_monitoringDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // slA_RT_monitoringDataSet21
-            // 
-            this.slA_RT_monitoringDataSet21.DataSetName = "SLA_RT_monitoringDataSet2";
-            this.slA_RT_monitoringDataSet21.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -225,6 +178,55 @@
             this.value.HeaderText = "Value";
             this.value.Name = "value";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(699, 444);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Manage";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // sLARTmonitoringDataSetBindingSource
+            // 
+            this.sLARTmonitoringDataSetBindingSource.DataSource = this.sLA_RT_monitoringDataSet2;
+            this.sLARTmonitoringDataSetBindingSource.Position = 0;
+            this.sLARTmonitoringDataSetBindingSource.CurrentChanged += new System.EventHandler(this.sLARTmonitoringDataSetBindingSource_CurrentChanged);
+            // 
+            // sLA_RT_monitoringDataSet2
+            // 
+            this.sLA_RT_monitoringDataSet2.DataSetName = "SLA_RT_monitoringDataSet2";
+            this.sLA_RT_monitoringDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // sLA_RT_monitoringDataSet
+            // 
+            this.sLA_RT_monitoringDataSet.DataSetName = "SLA_RT_monitoringDataSet";
+            this.sLA_RT_monitoringDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // sLA_RT_monitoringDataSet1
+            // 
+            this.sLA_RT_monitoringDataSet1.DataSetName = "SLA_RT_monitoringDataSet1";
+            this.sLA_RT_monitoringDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // slaAgreementBindingSource
+            // 
+            this.slaAgreementBindingSource.DataMember = "SlaAgreement";
+            this.slaAgreementBindingSource.DataSource = this.sLA_RT_monitoringDataSet1;
+            // 
+            // slaAgreementTableAdapter
+            // 
+            this.slaAgreementTableAdapter.ClearBeforeFill = true;
+            // 
+            // slA_RT_monitoringDataSet21
+            // 
+            this.slA_RT_monitoringDataSet21.DataSetName = "SLA_RT_monitoringDataSet2";
+            this.slA_RT_monitoringDataSet21.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // SLAManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,10 +245,10 @@
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLARTmonitoringDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.slaAgreementBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.slA_RT_monitoringDataSet21)).EndInit();
             this.ResumeLayout(false);
 

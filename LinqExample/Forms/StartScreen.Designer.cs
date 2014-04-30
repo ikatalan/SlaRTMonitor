@@ -82,7 +82,7 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(290, 109);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(170, 22);
+            this.txtPassword.Size = new System.Drawing.Size(170, 20);
             this.txtPassword.TabIndex = 5;
             this.toolTip1_Info.SetToolTip(this.txtPassword, "Maximum 20 Characters");
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
@@ -143,7 +143,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(287, 188);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(93, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(86, 13);
             this.linkLabel1.TabIndex = 10;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Forget Password";

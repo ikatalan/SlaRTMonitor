@@ -22,7 +22,7 @@ namespace LinqExample
         SqlCommand cmd = new SqlCommand();
         SqlDataReader dr;
         static int flag = 0;
-        static string UserPass = "";
+        
         public StartScreen()
         {
             InitializeComponent(); //Initializes this form
@@ -35,6 +35,7 @@ namespace LinqExample
         private void loaddata()
         {
             cmd.CommandText = "SELECT username FROM users";
+            
             con.Open();
             dr = cmd.ExecuteReader();
             if (dr.HasRows)
@@ -66,24 +67,28 @@ namespace LinqExample
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            string userPass = "";
+
             //Password Validation
-            if (flag == 0)
-            {
-                cmd.Parameters.AddWithValue("@username", cmbUserType.SelectedItem.ToString());
-                cmd.CommandText = "SELECT password FROM users WHERE username = @username";
-                con.Open();
-                dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                    UserPass = dr.GetString(0);
-
-                UserPass = UserPass.Replace(" ", String.Empty);//remove whitespaces      
+            if (!cmd.Parameters.Contains("@username")) {
+                cmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.NChar));
             }
-            flag = 1;
-            bool result = string.Equals(txtPassword.Text, UserPass);
-            if (result)
+            cmd.Parameters["@username"].Value = cmbUserType.SelectedItem.ToString();
+            cmd.CommandText = "SELECT password FROM users WHERE username = @username";
+            con.Open();
+            dr = cmd.ExecuteReader();
+    
+            if (dr.Read())
+                userPass = dr.GetString(0);
+
+            userPass = userPass.Replace(" ", String.Empty);//remove whitespaces      
+            
+            if (txtPassword.Text == userPass)
             {//Password is OK
 
+                SingletoneUser.UserName = cmbUserType.SelectedItem.ToString(); 
+                SingletoneUser.UserPass = userPass;
+                
                 con.Close();//close the connection 
                 MainMenu menu = new MainMenu();
                 menu.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
@@ -93,7 +98,6 @@ namespace LinqExample
 
                 x = new RTDataGenerator();
                 x.Start();
-
             }
             else
             {
@@ -105,8 +109,15 @@ namespace LinqExample
         }
         void child_FormClosed(object sender, FormClosedEventArgs e)//handles the forms
         {
-            //when child form is closed, the parent reappears
-            this.Close();
+            if (SingletoneUser.UserName == null)
+            {
+                //when child form is closed, the parent reappears
+                this.Show();
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void cmbUserType_SelectedIndexChanged(object sender, EventArgs e)

@@ -31,10 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SLAManagerContract));
             this.dataGridViewSLAManger = new System.Windows.Forms.DataGridView();
-            this.devicetypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.thresholdidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.threshold_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.slaContractsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.sLA_RT_monitoringDataSetSlaContracts = new LinqExample.SLA_RT_monitoringDataSetSlaContracts();
             this.button1 = new System.Windows.Forms.Button();
@@ -43,6 +39,10 @@
             this.btnUnlock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.slaContractsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
+            this.devicetypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.thresholdidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.threshold_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSLAManger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slaContractsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetSlaContracts)).BeginInit();
@@ -52,7 +52,11 @@
             // 
             this.dataGridViewSLAManger.AllowUserToAddRows = false;
             this.dataGridViewSLAManger.AllowUserToDeleteRows = false;
+            this.dataGridViewSLAManger.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSLAManger.AutoGenerateColumns = false;
+            this.dataGridViewSLAManger.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewSLAManger.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.devicetypeDataGridViewTextBoxColumn,
             this.thresholdidDataGridViewTextBoxColumn,
@@ -64,33 +68,6 @@
             this.dataGridViewSLAManger.RowTemplate.Height = 24;
             this.dataGridViewSLAManger.Size = new System.Drawing.Size(693, 364);
             this.dataGridViewSLAManger.TabIndex = 0;
-            // 
-            // devicetypeDataGridViewTextBoxColumn
-            // 
-            this.devicetypeDataGridViewTextBoxColumn.DataPropertyName = "device_type";
-            this.devicetypeDataGridViewTextBoxColumn.HeaderText = "Device Type";
-            this.devicetypeDataGridViewTextBoxColumn.Name = "devicetypeDataGridViewTextBoxColumn";
-            this.devicetypeDataGridViewTextBoxColumn.Width = 163;
-            // 
-            // thresholdidDataGridViewTextBoxColumn
-            // 
-            this.thresholdidDataGridViewTextBoxColumn.DataPropertyName = "threshold_id";
-            this.thresholdidDataGridViewTextBoxColumn.HeaderText = "Threshold ID";
-            this.thresholdidDataGridViewTextBoxColumn.Name = "thresholdidDataGridViewTextBoxColumn";
-            this.thresholdidDataGridViewTextBoxColumn.Width = 162;
-            // 
-            // threshold_name
-            // 
-            this.threshold_name.HeaderText = "Threshold Name";
-            this.threshold_name.Name = "threshold_name";
-            this.threshold_name.Width = 163;
-            // 
-            // valueDataGridViewTextBoxColumn
-            // 
-            this.valueDataGridViewTextBoxColumn.DataPropertyName = "value";
-            this.valueDataGridViewTextBoxColumn.HeaderText = "Value";
-            this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
-            this.valueDataGridViewTextBoxColumn.Width = 162;
             // 
             // slaContractsBindingSource
             // 
@@ -104,6 +81,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(12, 420);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 23);
@@ -114,7 +92,8 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(187, 420);
+            this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLoad.Location = new System.Drawing.Point(228, 420);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(127, 23);
             this.btnLoad.TabIndex = 6;
@@ -125,8 +104,9 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(341, 420);
+            this.btnSave.Location = new System.Drawing.Point(380, 420);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(155, 23);
             this.btnSave.TabIndex = 8;
@@ -137,7 +117,8 @@
             // 
             // btnUnlock
             // 
-            this.btnUnlock.Location = new System.Drawing.Point(561, 420);
+            this.btnUnlock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUnlock.Location = new System.Drawing.Point(143, 420);
             this.btnUnlock.Name = "btnUnlock";
             this.btnUnlock.Size = new System.Drawing.Size(67, 23);
             this.btnUnlock.TabIndex = 9;
@@ -158,6 +139,30 @@
             // slaContractsTableAdapter
             // 
             this.slaContractsTableAdapter.ClearBeforeFill = true;
+            // 
+            // devicetypeDataGridViewTextBoxColumn
+            // 
+            this.devicetypeDataGridViewTextBoxColumn.DataPropertyName = "device_type";
+            this.devicetypeDataGridViewTextBoxColumn.HeaderText = "Device Type";
+            this.devicetypeDataGridViewTextBoxColumn.Name = "devicetypeDataGridViewTextBoxColumn";
+            // 
+            // thresholdidDataGridViewTextBoxColumn
+            // 
+            this.thresholdidDataGridViewTextBoxColumn.DataPropertyName = "threshold_id";
+            this.thresholdidDataGridViewTextBoxColumn.HeaderText = "Threshold ID";
+            this.thresholdidDataGridViewTextBoxColumn.Name = "thresholdidDataGridViewTextBoxColumn";
+            // 
+            // threshold_name
+            // 
+            this.threshold_name.DataPropertyName = "threshold_name";
+            this.threshold_name.HeaderText = "Threshold Name";
+            this.threshold_name.Name = "threshold_name";
+            // 
+            // valueDataGridViewTextBoxColumn
+            // 
+            this.valueDataGridViewTextBoxColumn.DataPropertyName = "value";
+            this.valueDataGridViewTextBoxColumn.HeaderText = "Value";
+            this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
             // 
             // SLAManagerContract
             // 
@@ -190,14 +195,14 @@
         private SLA_RT_monitoringDataSetSlaContracts sLA_RT_monitoringDataSetSlaContracts;
         private System.Windows.Forms.BindingSource slaContractsBindingSource;
         private SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter slaContractsTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn devicetypeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn thresholdidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn threshold_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnUnlock;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn devicetypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn thresholdidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn threshold_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
     }
 }
