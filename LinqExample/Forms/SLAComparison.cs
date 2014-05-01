@@ -356,9 +356,10 @@ namespace LinqExample.Forms
 
             //Create Random colors to show on Graph
             Color[] barColors = new Color[]{
-                Color.Red,
-                Color.Aqua,
-                Color.Aquamarine,
+                //set of orange
+                Color.FromArgb(49,130,189),
+                Color.FromArgb(49,163,84),
+                Color.FromArgb(99,99,99),
                 Color.Azure,
                 Color.Bisque,
                 Color.Coral,
@@ -399,7 +400,7 @@ namespace LinqExample.Forms
                             ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) - (1.0 / (listCurrentThresholds.Count()*2 + 1)), 
                             ((float)(idx * 2 + 1)) / (listCurrentThresholds.Count() * 2) + (1.0 / (listCurrentThresholds.Count()*2 + 1)) },
                         new double[] { stdDev, stdDev },
-                        Color.GreenYellow,
+                        Color.FromArgb(240, 59, 32),
                         SymbolType.Diamond, 3.0f);
                     myLine.IsX2Axis = true;
                     myPane.CurveList.Add(myLine);
@@ -514,7 +515,7 @@ namespace LinqExample.Forms
             curve.Label.Text = curve.Label.Text.Replace(" ", String.Empty);//remove whitespaces from device name
 
             XDate the_date = new XDate(pt.X);//Replace the pair double to date
-            return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units at Time: " + pt.X + " ";
+            return curve.Label.Text + " is " + pt.Y.ToString("f2") + " units : " + pt.X + " ";
         }
 
         // used for getting threshold value from Contracts

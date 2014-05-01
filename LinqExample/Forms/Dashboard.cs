@@ -283,7 +283,7 @@ namespace LinqExample
                 {
                     me.devicesMeasurmentsCommand.Connection.Open();
                 }
-                //fail from time to time
+                //fail from time to time , since reader can be used once
                 SqlDataReader reader = me.devicesMeasurmentsCommand.ExecuteReader();
                 float value = 0;//add all the time the value
                // double value = 0;//add all the time the value

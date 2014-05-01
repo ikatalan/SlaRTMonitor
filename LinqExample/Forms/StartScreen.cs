@@ -16,12 +16,11 @@ namespace LinqExample
     public partial class StartScreen : Form
     {
         static RTDataGenerator x;//The second thrad that create the simulated data
-
+        private ErrorProvider er = new ErrorProvider();
         //connect to SQL
         SqlConnection con = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
         SqlDataReader dr;
-        static int flag = 0;
         
         public StartScreen()
         {
@@ -50,6 +49,7 @@ namespace LinqExample
             con.Close();
             if (cmbUserType.Items.Count > 0)
             {
+                cmbUserType.Sorted = true;
                 cmbUserType.SelectedIndex = 0;//Take the first value and show on the dropdownlist
 
             }
@@ -85,7 +85,7 @@ namespace LinqExample
             
             if (txtPassword.Text == userPass)
             {//Password is OK
-
+              //string securePass=MD5Hash(userPass);
                 SingletoneUser.UserName = cmbUserType.SelectedItem.ToString(); 
                 SingletoneUser.UserPass = userPass;
                 
@@ -97,7 +97,7 @@ namespace LinqExample
                 this.Hide(); //hide parent
 
                 x = new RTDataGenerator();
-                x.Start();
+                x.Start();//Start to generate the values
             }
             else
             {
@@ -157,8 +157,10 @@ namespace LinqExample
             var email = "";
             string password = "";
             string user = cmbUserType.SelectedItem.ToString().Replace(" ", String.Empty);//remove whitespaces  
-
-            cmd.Parameters.AddWithValue("@username", cmbUserType.SelectedItem.ToString());
+            if (!cmd.Parameters.Contains("@username"))
+            {
+                cmd.Parameters.AddWithValue("@username", cmbUserType.SelectedItem.ToString());
+            }
             cmd.CommandText = "SELECT email_address , password,id FROM users WHERE username = @username";
             con.Open();
             dr = cmd.ExecuteReader();
@@ -182,7 +184,7 @@ namespace LinqExample
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                mail.From = new MailAddress("ynsk44@gmail.com");
+                mail.From = new MailAddress("ynsk44@gmail.com", "SLA Real Time Monitoring");
                 mail.To.Add(email);
                 mail.Subject = "Forget my password sent from SLA Real Time Monitoring";
                 mail.Body = "The password for user" + " " + user + " is " + password;
@@ -236,12 +238,26 @@ namespace LinqExample
 
         private void StartScreen_Load(object sender, EventArgs e)
         {
+            
 
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtPassword_Validating(object sender, CancelEventArgs e)
+        {
+          //  if (txtPassword.TextLength > 20){
+               // txtPassword.ErrorText = "You have enterd more than 20 char";
+          //      e.Cancel = true;
+        //    }
+            //else{
+                 
+             //   txtPassword.ErrorText = string.Empty;
+            
+            //}
         }
 
 

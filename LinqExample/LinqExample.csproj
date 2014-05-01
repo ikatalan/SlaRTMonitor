@@ -219,15 +219,19 @@
     </Compile>
     <EmbeddedResource Include="Forms\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Graphs.resx">
       <DependentUpon>Graphs.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PredictionReport.resx">
       <DependentUpon>PredictionReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReportsByTime.resx">
       <DependentUpon>ReportsByTime.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SimulatedDataLoader.resx">
       <DependentUpon>SimulatedDataLoader.cs</DependentUpon>
