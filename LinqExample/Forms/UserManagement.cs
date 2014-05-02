@@ -69,7 +69,7 @@ namespace LinqExample
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
-            MessageBox.Show(this.dataGridView1.Columns[e.ColumnIndex].HeaderText);
+           // MessageBox.Show(this.dataGridView1.Columns[e.ColumnIndex].HeaderText);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -110,6 +110,12 @@ namespace LinqExample
 
         private void usersBindingSource_CurrentChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void dataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[3].Value = "Viewer";
 
         }
 

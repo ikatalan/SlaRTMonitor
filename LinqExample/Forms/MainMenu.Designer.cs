@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnOpenGraphForm = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.btnDashboard = new System.Windows.Forms.Button();
@@ -53,7 +52,7 @@
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.button1.Location = new System.Drawing.Point(14, 26);
+            this.button1.Location = new System.Drawing.Point(173, 24);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(126, 74);
             this.button1.TabIndex = 0;
@@ -71,18 +70,6 @@
             this.button2.Text = "Reports By Time";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.button3.Location = new System.Drawing.Point(394, 404);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(126, 74);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "OLD SLA manager";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // btnOpenGraphForm
             // 
@@ -121,7 +108,7 @@
             // SlaManager
             // 
             this.SlaManager.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.SlaManager.Location = new System.Drawing.Point(173, 24);
+            this.SlaManager.Location = new System.Drawing.Point(14, 24);
             this.SlaManager.Name = "SlaManager";
             this.SlaManager.Size = new System.Drawing.Size(126, 74);
             this.SlaManager.TabIndex = 5;
@@ -173,7 +160,7 @@
             // btnSlaComparison
             // 
             this.btnSlaComparison.Font = new System.Drawing.Font("Segoe UI", 11.25F);
-            this.btnSlaComparison.Location = new System.Drawing.Point(14, 125);
+            this.btnSlaComparison.Location = new System.Drawing.Point(14, 121);
             this.btnSlaComparison.Name = "btnSlaComparison";
             this.btnSlaComparison.Size = new System.Drawing.Size(126, 74);
             this.btnSlaComparison.TabIndex = 14;
@@ -223,7 +210,6 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.splitter1);
@@ -246,7 +232,6 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnOpenGraphForm;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnDashboard;

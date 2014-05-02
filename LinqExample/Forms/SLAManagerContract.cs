@@ -40,9 +40,8 @@ namespace LinqExample
 
                 // Used for having the contract threshold values per contract ID           
                 ThresholdNamePerContractCommand = new SqlCommand(
-                       @"SELECT DISTINCT a.threshold_id , b.name " 
-                      + @"FROM [SLA_RT_monitoring].[dbo].[SlaContracts] a "  
-                      + @"JOIN [SLA_RT_monitoring].[dbo].[Thresholds] b ON a.threshold_id=b.id " ,
+                       @"SELECT id, name " 
+                      + @"FROM [SLA_RT_monitoring].[dbo].[Thresholds]" ,
                           dbConnection);
 
 
@@ -297,6 +296,16 @@ namespace LinqExample
 
             data.AcceptChanges();
             btnSave.Enabled = false;
+        }
+
+        private void dataGridViewSLAManger_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int x = 0;
+        }
+
+        private void dataGridViewSLAManger_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+            int x = 0;
         }
     }
 }

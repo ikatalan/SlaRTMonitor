@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SLAManagerContract));
             this.dataGridViewSLAManger = new System.Windows.Forms.DataGridView();
+            this.devicetypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.thresholdidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.threshold_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.slaContractsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.sLA_RT_monitoringDataSetSlaContracts = new LinqExample.SLA_RT_monitoringDataSetSlaContracts();
             this.button1 = new System.Windows.Forms.Button();
@@ -39,10 +43,6 @@
             this.btnUnlock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.slaContractsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
-            this.devicetypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.thresholdidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.threshold_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSLAManger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slaContractsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetSlaContracts)).BeginInit();
@@ -68,6 +68,32 @@
             this.dataGridViewSLAManger.RowTemplate.Height = 24;
             this.dataGridViewSLAManger.Size = new System.Drawing.Size(693, 364);
             this.dataGridViewSLAManger.TabIndex = 0;
+            this.dataGridViewSLAManger.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSLAManger_CellValueChanged);
+            this.dataGridViewSLAManger.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGridViewSLAManger_CellValuePushed);
+            // 
+            // devicetypeDataGridViewTextBoxColumn
+            // 
+            this.devicetypeDataGridViewTextBoxColumn.DataPropertyName = "device_type";
+            this.devicetypeDataGridViewTextBoxColumn.HeaderText = "Device Type";
+            this.devicetypeDataGridViewTextBoxColumn.Name = "devicetypeDataGridViewTextBoxColumn";
+            // 
+            // thresholdidDataGridViewTextBoxColumn
+            // 
+            this.thresholdidDataGridViewTextBoxColumn.DataPropertyName = "threshold_id";
+            this.thresholdidDataGridViewTextBoxColumn.HeaderText = "Threshold ID";
+            this.thresholdidDataGridViewTextBoxColumn.Name = "thresholdidDataGridViewTextBoxColumn";
+            // 
+            // threshold_name
+            // 
+            this.threshold_name.DataPropertyName = "threshold_name";
+            this.threshold_name.HeaderText = "Threshold Name";
+            this.threshold_name.Name = "threshold_name";
+            // 
+            // valueDataGridViewTextBoxColumn
+            // 
+            this.valueDataGridViewTextBoxColumn.DataPropertyName = "value";
+            this.valueDataGridViewTextBoxColumn.HeaderText = "Threshold Value";
+            this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
             // 
             // slaContractsBindingSource
             // 
@@ -139,30 +165,6 @@
             // slaContractsTableAdapter
             // 
             this.slaContractsTableAdapter.ClearBeforeFill = true;
-            // 
-            // devicetypeDataGridViewTextBoxColumn
-            // 
-            this.devicetypeDataGridViewTextBoxColumn.DataPropertyName = "device_type";
-            this.devicetypeDataGridViewTextBoxColumn.HeaderText = "Device Type";
-            this.devicetypeDataGridViewTextBoxColumn.Name = "devicetypeDataGridViewTextBoxColumn";
-            // 
-            // thresholdidDataGridViewTextBoxColumn
-            // 
-            this.thresholdidDataGridViewTextBoxColumn.DataPropertyName = "threshold_id";
-            this.thresholdidDataGridViewTextBoxColumn.HeaderText = "Threshold ID";
-            this.thresholdidDataGridViewTextBoxColumn.Name = "thresholdidDataGridViewTextBoxColumn";
-            // 
-            // threshold_name
-            // 
-            this.threshold_name.DataPropertyName = "threshold_name";
-            this.threshold_name.HeaderText = "Threshold Name";
-            this.threshold_name.Name = "threshold_name";
-            // 
-            // valueDataGridViewTextBoxColumn
-            // 
-            this.valueDataGridViewTextBoxColumn.DataPropertyName = "value";
-            this.valueDataGridViewTextBoxColumn.HeaderText = "Threshold Value";
-            this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
             // 
             // SLAManagerContract
             // 

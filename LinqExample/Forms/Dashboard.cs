@@ -660,6 +660,10 @@ namespace LinqExample
             contractIdCommand.Parameters["@threshold_id"].Value = thresholdId;
 
             var contractIdObject = contractIdCommand.ExecuteScalar();
+            if (contractIdObject == null)
+            {
+                return 0;
+            }
             int contract_id = Int32.Parse(contractIdObject.ToString());
 
 

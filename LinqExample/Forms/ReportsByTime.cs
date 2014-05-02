@@ -280,8 +280,12 @@ namespace LinqExample
                 singleThresholdValueAdapter.SelectCommand.Connection.Open();
             }
 
-            //need to fix a bug if null value the system will crash ,this can happen if [SlaContracts] don't have threshold for each device
-            return (Int32)singleThresholdValueAdapter.SelectCommand.ExecuteScalar(); 
+            object result = singleThresholdValueAdapter.SelectCommand.ExecuteScalar();
+            if (result == null)
+            {
+                return 0;
+            }
+            return (Int32)result;
         }
 
         private Int32 GetSelectedThresholdId()

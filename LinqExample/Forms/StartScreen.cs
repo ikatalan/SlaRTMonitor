@@ -74,7 +74,7 @@ namespace LinqExample
                 cmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@username", global::System.Data.SqlDbType.NChar));
             }
             cmd.Parameters["@username"].Value = cmbUserType.SelectedItem.ToString();
-            cmd.CommandText = "SELECT password FROM users WHERE username = @username";
+            cmd.CommandText = "SELECT password, role FROM users WHERE username = @username";
             con.Open();
             dr = cmd.ExecuteReader();
     
@@ -88,7 +88,9 @@ namespace LinqExample
               //string securePass=MD5Hash(userPass);
                 SingletoneUser.UserName = cmbUserType.SelectedItem.ToString(); 
                 SingletoneUser.UserPass = userPass;
-                
+                SingletoneUser.Role = (dr.GetString(1) == "Admin" ? 0 : 1);
+
+
                 con.Close();//close the connection 
                 MainMenu menu = new MainMenu();
                 menu.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed

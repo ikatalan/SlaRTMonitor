@@ -100,7 +100,6 @@ C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\bin\Debug\ZedGrap
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.csprojResolveAssemblyReference.cache
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Graphs.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SimulatedDataLoader.resources
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SLAManager.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.UserManagement.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.StartScreen.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.MainMenu.resources

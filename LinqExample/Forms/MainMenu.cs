@@ -22,6 +22,11 @@ namespace LinqExample
         private void MainMenu_Load(object sender, EventArgs e)
         {
 
+            if (SingletoneUser.Role != 0)
+            {
+                button1.Enabled = false;
+            }
+
         }
 
         void child_FormClosed(object sender, FormClosedEventArgs e)//handles the forms
@@ -39,15 +44,7 @@ namespace LinqExample
         }
 
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            SLAManager manager = new SLAManager();
-            manager.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
-            manager.Show(); //show child
-            this.Hide(); //hide parent
-        }
-
-
+        
         private void button5_Click(object sender, EventArgs e)
         {
             SimulatedDataLoader frmDataLoader = new SimulatedDataLoader();
