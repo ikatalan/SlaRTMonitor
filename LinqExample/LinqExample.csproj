@@ -112,6 +112,18 @@
     <Compile Include="Forms\SLAComparison.Designer.cs">
       <DependentUpon>SLAComparison.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UniversalDashboardDeviceType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UniversalDashboardDeviceType.Designer.cs">
+      <DependentUpon>UniversalDashboardDeviceType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UniversalDashoboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UniversalDashoboard.Designer.cs">
+      <DependentUpon>UniversalDashoboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputBox.cs" />
     <Compile Include="Forms\ReportsByTime.cs">
       <SubType>Form</SubType>
@@ -235,6 +247,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SLAManagerContract.resx">
       <DependentUpon>SLAManagerContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UniversalDashboardDeviceType.resx">
+      <DependentUpon>UniversalDashboardDeviceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UniversalDashoboard.resx">
+      <DependentUpon>UniversalDashoboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserManagement.resx">
       <DependentUpon>UserManagement.cs</DependentUpon>

@@ -30,8 +30,12 @@ namespace LinqExample
 
         private void SLAManagerContract_Load(object sender, EventArgs e)
         {
-          changed = false;
-          this.slaContractsTableAdapter.Fill(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
+            btnUnlock.Enabled = (SingletoneUser.Role == 0 ? true : false);
+            dataGridViewSLAManger.Enabled = (SingletoneUser.Role == 0 ? true : false);
+
+
+            changed = false;
+            this.slaContractsTableAdapter.Fill(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
 
           
              //Open contract per threshold per device
@@ -62,8 +66,7 @@ namespace LinqExample
                     thresholdIdToName[typeId] = typeName;
                 }
 
-
-            if (dataGridViewSLAManger.Rows.Count >= 1) { OldContractExist = 1; }// need to know if we have contract in the database
+            if (dataGridViewSLAManger.Rows.Count >= 1) { OldContractExist = 1; } // need to know if we have contract in the database
 
             BindingSource SBind = new BindingSource();
             SBind.DataSource = GetDataWithThresholdName(this.sLA_RT_monitoringDataSetSlaContracts.SlaContracts);
@@ -71,7 +74,7 @@ namespace LinqExample
             dataGridViewSLAManger.AutoGenerateColumns = false;
             dataGridViewSLAManger.Refresh();
 
-          
+
         }
 
         private DataTable GetDataWithThresholdName(DataTable slaContractsDataTable)
@@ -298,14 +301,5 @@ namespace LinqExample
             btnSave.Enabled = false;
         }
 
-        private void dataGridViewSLAManger_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            int x = 0;
-        }
-
-        private void dataGridViewSLAManger_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
-        {
-            int x = 0;
-        }
     }
 }

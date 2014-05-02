@@ -68,8 +68,6 @@
             this.dataGridViewSLAManger.RowTemplate.Height = 24;
             this.dataGridViewSLAManger.Size = new System.Drawing.Size(693, 364);
             this.dataGridViewSLAManger.TabIndex = 0;
-            this.dataGridViewSLAManger.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSLAManger_CellValueChanged);
-            this.dataGridViewSLAManger.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGridViewSLAManger_CellValuePushed);
             // 
             // devicetypeDataGridViewTextBoxColumn
             // 

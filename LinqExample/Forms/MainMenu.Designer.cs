@@ -43,6 +43,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnLogOut = new System.Windows.Forms.Button();
+            this.btnUniversalDashboard = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -201,11 +202,23 @@
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
+            // btnUniversalDashboard
+            // 
+            this.btnUniversalDashboard.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.btnUniversalDashboard.Location = new System.Drawing.Point(416, 78);
+            this.btnUniversalDashboard.Name = "btnUniversalDashboard";
+            this.btnUniversalDashboard.Size = new System.Drawing.Size(133, 57);
+            this.btnUniversalDashboard.TabIndex = 15;
+            this.btnUniversalDashboard.Text = "Universal Dashboard";
+            this.btnUniversalDashboard.UseVisualStyleBackColor = true;
+            this.btnUniversalDashboard.Click += new System.EventHandler(this.btnUniversalDashboard_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 581);
+            this.Controls.Add(this.btnUniversalDashboard);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);
@@ -244,5 +257,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnSlaComparison;
         private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.Button btnUniversalDashboard;
     }
 }

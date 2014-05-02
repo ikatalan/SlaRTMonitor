@@ -102,6 +102,14 @@ namespace LinqExample
 
         }
 
+        private void btnUniversalDashboard_Click(object sender, EventArgs e)
+        {
+            UniversalDashoboard dashboard = new UniversalDashoboard();
+            dashboard.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
+            dashboard.Show(); //show child
+            this.Hide(); //hide parent
+        }
+
         //protected override void OnFormClosing(FormClosingEventArgs e)
         //{
 
@@ -164,5 +172,7 @@ namespace LinqExample
             SingletoneUser.UserName = null;
             this.Close();
         }
+
+ 
     }
 }
