@@ -43,6 +43,7 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetThreshold)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,6 +74,7 @@
             this.listDevices.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listDevices.Size = new System.Drawing.Size(121, 316);
             this.listDevices.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.listDevices, "Use CTRL+Mouse left to choose the devices ");
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listDevices_SelectedIndexChanged);
             // 
             // label1
@@ -117,6 +119,7 @@
             this.dateTimePicker1.ShowUpDown = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(123, 22);
             this.dateTimePicker1.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.dateTimePicker1, "Choose start time");
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.cmbBoxThresholdTypes_SelectedIndexChanged);
             // 
             // zg1
@@ -150,6 +153,7 @@
             this.dateTimePicker2.ShowUpDown = true;
             this.dateTimePicker2.Size = new System.Drawing.Size(123, 22);
             this.dateTimePicker2.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.dateTimePicker2, "Choose end time");
             this.dateTimePicker2.ValueChanged += new System.EventHandler(this.cmbBoxThresholdTypes_SelectedIndexChanged);
             // 
             // label3
@@ -167,6 +171,11 @@
             this.label4.Size = new System.Drawing.Size(123, 19);
             this.label4.TabIndex = 7;
             this.label4.Text = "End Time";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
             // ReportsByTime
             // 
@@ -210,6 +219,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }

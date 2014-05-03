@@ -178,26 +178,7 @@ namespace LinqExample
             string pathOnly = Path.GetDirectoryName(path);
             string fileName = Path.GetFileName(path);
 
-            string sql = @"SELECT * FROM [" + fileName + "]";
-
-            ////////////
-            //SqlDataReader devicesReader = ThresholdNamePerContractCommand.ExecuteReader();
-
-            //Dictionary<int, string> typeValues = new Dictionary<int, string>();
-            //while (devicesReader.Read())
-            //{
-            //    int typeId = devicesReader.GetInt32(0);
-            //    string typeName = devicesReader.GetString(2);
-
-            //    typeValues[typeId] = typeName;
-            //}
-
-
-
-
-            /////////////
-
-
+            string sql = @"SELECT * FROM [" + fileName + "]";       
 
             using (OleDbConnection connection = new OleDbConnection(
                       @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathOnly +

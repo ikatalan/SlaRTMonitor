@@ -159,7 +159,6 @@ C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExamp
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.PredictionReport.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.ReportsByTime.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SimulatedDataLoader.resources
-C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SLAManager.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.SLAManagerContract.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.UserManagement.resources
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.StartScreen.resources
@@ -172,3 +171,5 @@ C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\Lin
 C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Forms.SLAComparison.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Forms.UniversalDashboardDeviceType.resources
 C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Forms.UniversalDashoboard.resources
+C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Forms.UniversalDashboardDeviceType.resources
+C:\Users\ynsk4\Documents\GitHub\SlaRTMonitor\LinqExample\obj\x86\Debug\LinqExample.Forms.UniversalDashoboard.resources

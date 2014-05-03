@@ -68,6 +68,7 @@ namespace LinqExample
             dataGridIncidents.Sort(dataGridIncidents.Columns[4], ListSortDirection.Descending);
 
             isStartedReadingValues = false;
+
             lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3, 0, 0));
             //Provide the incident numbers and will fill the IncidentDataGrid
             incidentsProvider = new DashboardIncidentsProvider();

@@ -41,6 +41,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lblTimeScope = new System.Windows.Forms.Label();
             this.cmbBoxTimeScope = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetThreshold)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +70,7 @@
             this.listDevices.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listDevices.Size = new System.Drawing.Size(121, 251);
             this.listDevices.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.listDevices, "Use CTRL+Mouse left to choose the devices ");
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listDevices_SelectedIndexChanged);
             // 
             // cmbDeviceType
@@ -76,7 +78,7 @@
             this.cmbDeviceType.AutoSize = true;
             this.cmbDeviceType.Location = new System.Drawing.Point(13, 83);
             this.cmbDeviceType.Name = "cmbDeviceType";
-            this.cmbDeviceType.Size = new System.Drawing.Size(68, 13);
+            this.cmbDeviceType.Size = new System.Drawing.Size(66, 13);
             this.cmbDeviceType.TabIndex = 2;
             this.cmbDeviceType.Text = "Device Type";
             // 
@@ -85,7 +87,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 133);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Devices";
             // 
@@ -143,6 +145,11 @@
             this.cmbBoxTimeScope.TabIndex = 6;
             this.cmbBoxTimeScope.SelectedIndexChanged += new System.EventHandler(this.cmbBoxDeviceTypeIndexChanged);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
             // SLAComparison
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,6 +188,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblTimeScope;
         private System.Windows.Forms.ComboBox cmbBoxTimeScope;
+        private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }

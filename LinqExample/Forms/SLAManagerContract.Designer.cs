@@ -43,6 +43,7 @@
             this.btnUnlock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.slaContractsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetSlaContractsTableAdapters.SlaContractsTableAdapter();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSLAManger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.slaContractsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetSlaContracts)).BeginInit();
@@ -122,6 +123,7 @@
             this.btnLoad.Size = new System.Drawing.Size(127, 23);
             this.btnLoad.TabIndex = 6;
             this.btnLoad.Text = "Load SLA Agreement";
+            this.toolTip1.SetToolTip(this.btnLoad, "Load new SLA agreement from CSV file");
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Visible = false;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
@@ -135,6 +137,7 @@
             this.btnSave.Size = new System.Drawing.Size(155, 23);
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Save New SLA Agreement";
+            this.toolTip1.SetToolTip(this.btnSave, "Save the new SLA agreement");
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Visible = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -147,6 +150,7 @@
             this.btnUnlock.Size = new System.Drawing.Size(67, 23);
             this.btnUnlock.TabIndex = 9;
             this.btnUnlock.Text = "Unlock";
+            this.toolTip1.SetToolTip(this.btnUnlock, "Unlock to load new SLA agreement");
             this.btnUnlock.UseVisualStyleBackColor = true;
             this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click);
             // 
@@ -163,6 +167,10 @@
             // slaContractsTableAdapter
             // 
             this.slaContractsTableAdapter.ClearBeforeFill = true;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
             // SLAManagerContract
             // 
@@ -204,5 +212,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn thresholdidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn threshold_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

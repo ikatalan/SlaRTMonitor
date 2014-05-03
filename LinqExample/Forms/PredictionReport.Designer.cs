@@ -39,6 +39,7 @@
             this.thresholdsTableAdapter = new LinqExample.SLA_RT_monitoringDataSetThresholdTableAdapters.ThresholdsTableAdapter();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDataSetThreshold)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +69,7 @@
             this.listDevices.Name = "listDevices";
             this.listDevices.Size = new System.Drawing.Size(121, 316);
             this.listDevices.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.listDevices, "Use CTRL+Mouse left to choose the devices ");
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listDevices_SelectedIndexChanged);
             // 
             // label1
@@ -123,6 +125,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
             // PredictionReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,6 +164,7 @@
         private SLA_RT_monitoringDataSetThreshold sLA_RT_monitoringDataSetThreshold;
         private ZedGraph.ZedGraphControl zg1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }
