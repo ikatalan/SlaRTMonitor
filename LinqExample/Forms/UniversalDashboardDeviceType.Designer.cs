@@ -36,7 +36,7 @@
             this.lblDeviceType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDeviceType.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeviceType.Location = new System.Drawing.Point(25, 12);
+            this.lblDeviceType.Location = new System.Drawing.Point(25, 0);
             this.lblDeviceType.Name = "lblDeviceType";
             this.lblDeviceType.Size = new System.Drawing.Size(200, 23);
             this.lblDeviceType.TabIndex = 0;

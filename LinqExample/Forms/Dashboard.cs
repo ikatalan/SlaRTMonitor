@@ -24,7 +24,7 @@ namespace LinqExample
         private SqlConnection dbConnection3;//Open contract per threshold per device
         private SqlCommand thresholdContractCommand;
 
-        private SqlConnection dbConnection4;//Open contract id for deviceType and thresholdId
+        private SqlConnection dbConnection4;//Open contract id for deviceTypeControl and thresholdId
         private SqlCommand contractIdCommand;
 
         private Thread fetcherThread;
@@ -38,6 +38,8 @@ namespace LinqExample
         DashboardIncidentsProvider incidentsProvider;
 
         Dictionary<int, int> thresholdForGauge;
+
+        private int? startDeviceId;
 
 
         // This delegate enables asynchronous calls for setting
@@ -54,7 +56,12 @@ namespace LinqExample
         public Dashboard()
         {
             InitializeComponent();
-   
+        }
+
+        public Dashboard(int initDeviceId)
+        {
+            InitializeComponent();
+            startDeviceId = initDeviceId;
         }
 
         //When the form Load
@@ -155,7 +162,7 @@ namespace LinqExample
             }
 
             {
-                //Open contract id for deviceType and thresholdId
+                //Open contract id for deviceTypeControl and thresholdId
                 dbConnection4 = new global::System.Data.SqlClient.SqlConnection();
                 dbConnection4.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
@@ -187,6 +194,17 @@ namespace LinqExample
 
             try
             {
+                if (startDeviceId != null)
+                {
+                    foreach (DataRowView item in listDevices.Items)
+                    {
+                        if (Int32.Parse(item[0].ToString()) == startDeviceId)
+                        {
+                            listDevices.SelectedItem = item;
+                        }
+                    }        
+                } 
+
                 if (listDevices.SelectedItem != null)
                 {
                     deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
@@ -393,9 +411,12 @@ namespace LinqExample
                         }
                     }
 
-                    me.SetGuageValue(aguage, lbl, thresholdName, value);
-                    //Fetch Graph Data for Graph1.
-                    me.FillGraphWithData(zgc, thresholdId, deviceId, deviceType, thresholdName);
+                    if (zgc != null)
+                    {
+                        me.SetGuageValue(aguage, lbl, thresholdName, value);
+                        //Fetch Graph Data for Graph1.
+                        me.FillGraphWithData(zgc, thresholdId, deviceId, deviceType, thresholdName);
+                    }
                         
                     idx++;
 

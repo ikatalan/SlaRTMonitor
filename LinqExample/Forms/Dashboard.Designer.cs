@@ -55,13 +55,13 @@
             this.zg2 = new ZedGraph.ZedGraphControl();
             this.zg3 = new ZedGraph.ZedGraphControl();
             this.dataGridIncidents = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.device_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.device_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.threshold_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridIncidents)).BeginInit();
@@ -273,7 +273,7 @@
             this.listDevices.FormattingEnabled = true;
             this.listDevices.Location = new System.Drawing.Point(13, 52);
             this.listDevices.Name = "listDevices";
-            this.listDevices.Size = new System.Drawing.Size(93, 537);
+            this.listDevices.Size = new System.Drawing.Size(93, 511);
             this.listDevices.TabIndex = 2;
             this.listDevices.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -292,7 +292,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(45, 13);
+            this.lblDevices.Size = new System.Drawing.Size(46, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 
@@ -397,28 +397,6 @@
             this.dataGridIncidents.Size = new System.Drawing.Size(1022, 196);
             this.dataGridIncidents.TabIndex = 6;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(493, 389);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(285, 47);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Current Incidents";
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(2, 612);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Back To MainMenu";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // device_name
             // 
             this.device_name.DataPropertyName = "device_name";
@@ -448,6 +426,28 @@
             this.timestamp.DataPropertyName = "timestamp";
             this.timestamp.HeaderText = "Time";
             this.timestamp.Name = "timestamp";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(493, 389);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(285, 47);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Current Incidents";
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(12, 576);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(94, 59);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Back To Universal Dashboard";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Dashboard
             // 

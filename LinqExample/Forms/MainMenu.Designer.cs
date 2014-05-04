@@ -98,7 +98,7 @@
             // btnDashboard
             // 
             this.btnDashboard.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnDashboard.Location = new System.Drawing.Point(17, 21);
+            this.btnDashboard.Location = new System.Drawing.Point(394, 34);
             this.btnDashboard.Name = "btnDashboard";
             this.btnDashboard.Size = new System.Drawing.Size(126, 74);
             this.btnDashboard.TabIndex = 3;
@@ -135,8 +135,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnDashboard);
             this.groupBox1.Controls.Add(this.btnOpenGraphForm);
+            this.groupBox1.Controls.Add(this.btnUniversalDashboard);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.groupBox1.Location = new System.Drawing.Point(30, 12);
             this.groupBox1.Name = "groupBox1";
@@ -205,9 +205,9 @@
             // btnUniversalDashboard
             // 
             this.btnUniversalDashboard.Font = new System.Drawing.Font("Segoe UI", 11.25F);
-            this.btnUniversalDashboard.Location = new System.Drawing.Point(416, 78);
+            this.btnUniversalDashboard.Location = new System.Drawing.Point(10, 24);
             this.btnUniversalDashboard.Name = "btnUniversalDashboard";
-            this.btnUniversalDashboard.Size = new System.Drawing.Size(133, 57);
+            this.btnUniversalDashboard.Size = new System.Drawing.Size(133, 71);
             this.btnUniversalDashboard.TabIndex = 15;
             this.btnUniversalDashboard.Text = "Universal Dashboard";
             this.btnUniversalDashboard.UseVisualStyleBackColor = true;
@@ -218,7 +218,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(736, 581);
-            this.Controls.Add(this.btnUniversalDashboard);
+            this.ControlBox = false;
+            this.Controls.Add(this.btnDashboard);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox3);

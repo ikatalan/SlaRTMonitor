@@ -162,5 +162,51 @@ namespace LinqExample
             return true;
         }
 
+
+        public int GetIncedentsFor(int thresholdId, int deviceId, DateTime lastTimestamp)
+        {
+            thresholdTypeForThresholdIdCommand.Parameters["@threshold_id"].Value = thresholdId;
+
+            object value = thresholdTypeForThresholdIdCommand.ExecuteScalar();
+            string type = (string)value;
+
+            SqlCommand chosenCommnad = null;
+
+            if (type == "above")
+            {
+                chosenCommnad = incidentsAboveCommand;
+            }
+            else if (type == "below")
+            {
+                chosenCommnad = incidentsBelowCommand;
+            }
+
+            if (chosenCommnad == null)
+            {
+                return 0;
+            }
+
+            chosenCommnad.Parameters["@device_id"].Value = deviceId;
+            chosenCommnad.Parameters["@threshold_id"].Value = thresholdId;
+            chosenCommnad.Parameters["@last_timestamp"].Value = lastTimestamp;
+            int i = 0;
+            try
+            {
+                SqlDataReader reader = chosenCommnad.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    ++i;
+                }
+
+                reader.Close();
+            }
+            catch (Exception )
+            {
+
+            }
+            return i;
+        }
+
     }
 }

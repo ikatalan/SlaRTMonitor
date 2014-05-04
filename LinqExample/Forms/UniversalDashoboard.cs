@@ -21,8 +21,8 @@ namespace LinqExample.Forms
 
             UniversalDashboardDeviceType x;
 
-            x = new UniversalDashboardDeviceType("Printers");
-            dashboardElement.Add("Printers", x);
+            x = new UniversalDashboardDeviceType("Printer");
+            dashboardElement.Add("Printer", x);
 
             x = new UniversalDashboardDeviceType("Network");
             dashboardElement.Add("Network", x);
@@ -30,23 +30,45 @@ namespace LinqExample.Forms
             x = new UniversalDashboardDeviceType("Storage");
             dashboardElement.Add("Storage", x);
 
+            x = new UniversalDashboardDeviceType("Server");
+            dashboardElement.Add("Server", x);
+
             int i = 0; 
-            foreach (UniversalDashboardDeviceType deviceType in dashboardElement.Values)
+            foreach (UniversalDashboardDeviceType deviceTypeControl in dashboardElement.Values)
             {
-                deviceType.Location = new Point(20, (int)(60 + 120 * (i * 1.2)));
-                deviceType.Size = new Size(this.Size.Width, 120);
+                deviceTypeControl.Location = new Point(20, (int)(45 + 110 * (i * 1.2)));
+                deviceTypeControl.Size = new Size(this.Size.Width - 60, 110);
+                deviceTypeControl.Anchor = (AnchorStyles) AnchorStyles.Left | AnchorStyles.Right;
+                deviceTypeControl.BorderStyle = BorderStyle.FixedSingle;
+                deviceTypeControl.MouseLeave += deviceTypeControl_MouseLeave;
+                deviceTypeControl.MouseEnter += deviceTypeControl_MouseEnter;
 
-                this.Controls.Add(deviceType);
-
-
+                this.Controls.Add(deviceTypeControl);
                 ++i;
             }
+        }
 
+        void deviceTypeControl_MouseEnter(object sender, EventArgs e)
+        {
+            UniversalDashboardDeviceType deviceTypeControl = (UniversalDashboardDeviceType)sender;
+            deviceTypeControl.BackColor = Color.Beige;
+        }
+
+        void deviceTypeControl_MouseLeave(object sender, EventArgs e)
+        {
+            UniversalDashboardDeviceType deviceTypeControl = (UniversalDashboardDeviceType)sender;
+            deviceTypeControl.BackColor = Color.FromArgb(255, 240, 240, 240);
+            
         }
 
         private void UniversalDashoboard_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
