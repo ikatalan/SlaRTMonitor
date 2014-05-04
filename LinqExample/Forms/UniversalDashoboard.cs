@@ -32,12 +32,13 @@ namespace LinqExample.Forms
 
             x = new UniversalDashboardDeviceType("Server");
             dashboardElement.Add("Server", x);
-
+            
             int i = 0; 
             foreach (UniversalDashboardDeviceType deviceTypeControl in dashboardElement.Values)
             {
                 deviceTypeControl.Location = new Point(20, (int)(45 + 110 * (i * 1.2)));
                 deviceTypeControl.Size = new Size(this.Size.Width - 60, 110);
+                 
                 deviceTypeControl.Anchor = (AnchorStyles) AnchorStyles.Left | AnchorStyles.Right;
                 deviceTypeControl.BorderStyle = BorderStyle.FixedSingle;
                 deviceTypeControl.MouseLeave += deviceTypeControl_MouseLeave;

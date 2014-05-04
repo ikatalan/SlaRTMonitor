@@ -38,12 +38,12 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnUniversalDashboard = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSlaComparison = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.btnUniversalDashboard = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -104,6 +104,7 @@
             this.btnDashboard.TabIndex = 3;
             this.btnDashboard.Text = "Dashboards";
             this.btnDashboard.UseVisualStyleBackColor = true;
+            this.btnDashboard.Visible = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
             // SlaManager
@@ -144,6 +145,17 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Monitoring";
+            // 
+            // btnUniversalDashboard
+            // 
+            this.btnUniversalDashboard.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.btnUniversalDashboard.Location = new System.Drawing.Point(10, 24);
+            this.btnUniversalDashboard.Name = "btnUniversalDashboard";
+            this.btnUniversalDashboard.Size = new System.Drawing.Size(126, 74);
+            this.btnUniversalDashboard.TabIndex = 15;
+            this.btnUniversalDashboard.Text = "Universal Dashboard";
+            this.btnUniversalDashboard.UseVisualStyleBackColor = true;
+            this.btnUniversalDashboard.Click += new System.EventHandler(this.btnUniversalDashboard_Click);
             // 
             // groupBox2
             // 
@@ -201,17 +213,6 @@
             this.btnLogOut.Text = "LogOut";
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
-            // 
-            // btnUniversalDashboard
-            // 
-            this.btnUniversalDashboard.Font = new System.Drawing.Font("Segoe UI", 11.25F);
-            this.btnUniversalDashboard.Location = new System.Drawing.Point(10, 24);
-            this.btnUniversalDashboard.Name = "btnUniversalDashboard";
-            this.btnUniversalDashboard.Size = new System.Drawing.Size(133, 71);
-            this.btnUniversalDashboard.TabIndex = 15;
-            this.btnUniversalDashboard.Text = "Universal Dashboard";
-            this.btnUniversalDashboard.UseVisualStyleBackColor = true;
-            this.btnUniversalDashboard.Click += new System.EventHandler(this.btnUniversalDashboard_Click);
             // 
             // MainMenu
             // 

@@ -76,7 +76,7 @@
             this.gauge1.BaseArcSweep = 190;
             this.gauge1.BaseArcWidth = 2;
             this.gauge1.Center = new System.Drawing.Point(100, 100);
-            this.gauge1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gauge1.Cursor = System.Windows.Forms.Cursors.Default;
             aGaugeRange1.Color = System.Drawing.Color.Red;
             aGaugeRange1.EndValue = 100F;
             aGaugeRange1.InnerRadius = 70;
@@ -142,7 +142,7 @@
             this.gauge2.BaseArcSweep = 190;
             this.gauge2.BaseArcWidth = 2;
             this.gauge2.Center = new System.Drawing.Point(100, 100);
-            this.gauge2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gauge2.Cursor = System.Windows.Forms.Cursors.Default;
             aGaugeRange4.Color = System.Drawing.Color.Red;
             aGaugeRange4.EndValue = 100F;
             aGaugeRange4.InnerRadius = 70;
@@ -208,7 +208,7 @@
             this.gauge3.BaseArcSweep = 190;
             this.gauge3.BaseArcWidth = 2;
             this.gauge3.Center = new System.Drawing.Point(100, 100);
-            this.gauge3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gauge3.Cursor = System.Windows.Forms.Cursors.Default;
             aGaugeRange7.Color = System.Drawing.Color.Yellow;
             aGaugeRange7.EndValue = 90F;
             aGaugeRange7.InnerRadius = 70;
@@ -292,7 +292,7 @@
             this.lblDevices.AutoSize = true;
             this.lblDevices.Location = new System.Drawing.Point(13, 33);
             this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(46, 13);
+            this.lblDevices.Size = new System.Drawing.Size(45, 13);
             this.lblDevices.TabIndex = 3;
             this.lblDevices.Text = "Devices";
             // 

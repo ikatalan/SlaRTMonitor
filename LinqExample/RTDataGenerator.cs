@@ -238,7 +238,10 @@ namespace LinqExample
 
         private object GetValueForDeviceThresholdPair(int deviceId, int thresholdId)
         {
-            return 5;   
+            Random randGenerator = new Random();
+            //randGenerator.NextDouble() * (theChosenRange.maxVal - theChosenRange.minVal + 1) + theChosenRange.minVal;
+            return randGenerator.NextDouble() * (100 - 0 + 1) + 0; 
+              // return 98;   
         }
 
 

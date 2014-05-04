@@ -37,6 +37,7 @@ namespace LinqExample
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             UserManagement usrManagement = new UserManagement();
             usrManagement.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             usrManagement.Show(); //show child
@@ -47,6 +48,7 @@ namespace LinqExample
         
         private void button5_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             SimulatedDataLoader frmDataLoader = new SimulatedDataLoader();
             frmDataLoader.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             frmDataLoader.Show(); //show child
@@ -55,6 +57,7 @@ namespace LinqExample
 
         private void btnOpenGraphForm_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Graphs frmDataLoader = new Graphs();
             frmDataLoader.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             frmDataLoader.Show(); //show child
@@ -63,6 +66,7 @@ namespace LinqExample
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Dashboard frmDataLoader = new Dashboard();
             frmDataLoader.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             frmDataLoader.Show(); //show child
@@ -71,6 +75,7 @@ namespace LinqExample
 
         private void SlaManager_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             SLAManagerContract managerContract = new SLAManagerContract();
             managerContract.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             managerContract.Show(); //show child
@@ -79,6 +84,7 @@ namespace LinqExample
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             ReportsByTime reportByTime = new ReportsByTime();
             reportByTime.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             reportByTime.Show(); //show child
@@ -87,6 +93,7 @@ namespace LinqExample
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             PredictionReport predictionReport = new PredictionReport();
             predictionReport.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             predictionReport.Show(); //show child
@@ -95,6 +102,7 @@ namespace LinqExample
 
         private void btnSlaComparison_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             SLAComparison slaComparison = new SLAComparison();
             slaComparison.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             slaComparison.Show(); //show child
@@ -104,6 +112,7 @@ namespace LinqExample
 
         private void btnUniversalDashboard_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             UniversalDashoboard dashboard = new UniversalDashoboard();
             dashboard.FormClosed += new FormClosedEventHandler(child_FormClosed);  //add handler to catch when child form is closed
             dashboard.Show(); //show child
