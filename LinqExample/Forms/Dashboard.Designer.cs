@@ -55,13 +55,13 @@
             this.zg2 = new ZedGraph.ZedGraphControl();
             this.zg3 = new ZedGraph.ZedGraphControl();
             this.dataGridIncidents = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.device_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.device_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.threshold_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.devicesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sLA_RT_monitoringDevicesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridIncidents)).BeginInit();
@@ -397,36 +397,6 @@
             this.dataGridIncidents.Size = new System.Drawing.Size(1022, 196);
             this.dataGridIncidents.TabIndex = 6;
             // 
-            // device_name
-            // 
-            this.device_name.DataPropertyName = "device_name";
-            this.device_name.HeaderText = "Device Name";
-            this.device_name.Name = "device_name";
-            // 
-            // device_type
-            // 
-            this.device_type.DataPropertyName = "device_type";
-            this.device_type.HeaderText = "Device Type";
-            this.device_type.Name = "device_type";
-            // 
-            // threshold_text
-            // 
-            this.threshold_text.DataPropertyName = "threshold_text";
-            this.threshold_text.HeaderText = "Threshold";
-            this.threshold_text.Name = "threshold_text";
-            // 
-            // value
-            // 
-            this.value.DataPropertyName = "value";
-            this.value.HeaderText = "Value";
-            this.value.Name = "value";
-            // 
-            // timestamp
-            // 
-            this.timestamp.DataPropertyName = "timestamp";
-            this.timestamp.HeaderText = "Time";
-            this.timestamp.Name = "timestamp";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -448,6 +418,36 @@
             this.button2.Text = "Back To MainMenu";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // device_name
+            // 
+            this.device_name.DataPropertyName = "device_name";
+            this.device_name.HeaderText = "Device Name";
+            this.device_name.Name = "device_name";
+            // 
+            // device_type
+            // 
+            this.device_type.DataPropertyName = "device_type";
+            this.device_type.HeaderText = "Device Type";
+            this.device_type.Name = "device_type";
+            // 
+            // threshold_text
+            // 
+            this.threshold_text.DataPropertyName = "threshold_text";
+            this.threshold_text.HeaderText = "Threshold Name";
+            this.threshold_text.Name = "threshold_text";
+            // 
+            // value
+            // 
+            this.value.DataPropertyName = "value";
+            this.value.HeaderText = "Threshold Value";
+            this.value.Name = "value";
+            // 
+            // timestamp
+            // 
+            this.timestamp.DataPropertyName = "timestamp";
+            this.timestamp.HeaderText = "Time";
+            this.timestamp.Name = "timestamp";
             // 
             // Dashboard
             // 
