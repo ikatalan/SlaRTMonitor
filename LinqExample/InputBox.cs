@@ -66,6 +66,7 @@ namespace LinqExample
                         {
                             MessageBox.Show(form, errorText, "Validation Error",
                                             MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            textBox.Text = null; 
                             textBox.Focus();
                         }
                     }
