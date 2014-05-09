@@ -41,7 +41,7 @@ namespace LinqExample
             public string deviceType;
         }
 
-        static int interval = 300;//Three sec
+        static int interval = 20000;//Interval 
 
         char[] trailingSpace = { ' ' };
         private List<DeviceData> devicesData = new List<DeviceData>();

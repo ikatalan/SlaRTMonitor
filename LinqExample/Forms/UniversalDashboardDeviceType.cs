@@ -30,7 +30,6 @@ namespace LinqExample.Forms
         {
             public SingleDeviceData(int p1, string p2)
             {
-                // TODO: Complete member initialization
                 this.deviceId = p1;
                 this.deviceName = p2;
             }
@@ -89,7 +88,7 @@ namespace LinqExample.Forms
                 listThresholds.Add(reader2.GetInt32(0));
             }
 
-
+            reader2.Close();//close the reader when not using.
             SqlConnection dbConnection;//Open connections for devices table
             SqlCommand deviceByTypeCommand;
 
@@ -136,7 +135,7 @@ namespace LinqExample.Forms
                 x.TextAlign = ContentAlignment.MiddleCenter;
                 x.Text = newDeviceData.deviceName;
                 x.Tag = newDeviceData;
-
+                x.Cursor = Cursors.Hand;
                 x.Click += x_Click;
 
                 this.Controls.Add(x);
