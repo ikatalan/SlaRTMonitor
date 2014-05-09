@@ -311,7 +311,7 @@ namespace LinqExample
                 while (reader.Read())
                 {
                     int thresholdId = reader.GetInt32(0);
-                    int thresholdValue = reader.GetInt32(1);
+                    double thresholdValue = reader.GetDouble(1);
                     //timestamp = reader.Get...(2)
                     int minValue = reader.GetInt32(3);
                     int maxValue = reader.GetInt32(4);
@@ -660,7 +660,7 @@ namespace LinqExample
                     DateTime x = measurementsReader.GetDateTime(2);//time
                     listValues.Add(
                       new XDate(x),
-                        measurementsReader.GetInt32(1) //value
+                        measurementsReader.GetDouble(1) //value
                     );
                 }
 

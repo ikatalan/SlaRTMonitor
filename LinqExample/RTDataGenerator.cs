@@ -10,17 +10,18 @@ namespace LinqExample
 {
     class RTDataGenerator
     {
-
-        class Range
+        class ThresholdData
         {
-            public Range(int _minVal, int _maxVal)
+            public ThresholdData(bool _isAbove, int _minVal, int _maxVal)
             {
                 minVal = _minVal;
                 maxVal = _maxVal;
+                isAbove = _isAbove;
             }
 
             public int minVal;
             public int maxVal;
+            public bool isAbove;
         }
 
         class DeviceData
@@ -34,23 +35,19 @@ namespace LinqExample
             public string type;
         }
 
-
         class ContractData
         {
-            public List<int> listThresholdIds;
+            public List<KeyValuePair<int,float>> listThresholdIds;
             public string deviceType;
-            public int contractValue;
         }
 
-        static int interval = 30000;//Three sec
+        static int interval = 300;//Three sec
 
         char[] trailingSpace = { ' ' };
         private List<DeviceData> devicesData = new List<DeviceData>();
-        private Dictionary<int, Range> thresholds = new Dictionary<int, Range>();
-
+        private Dictionary<int, ThresholdData> thresholds = new Dictionary<int, ThresholdData>();
 
         private Dictionary<string, ContractData> thresholdForDeviceType;
-        
         
         private SqlConnection dbConnection;
         private SqlCommand insertSimulatedMeasurementCmd;
@@ -63,6 +60,12 @@ namespace LinqExample
 
         private SqlConnection dbConnectionContracts;
         private SqlCommand allContracts;
+
+        private SqlConnection dbConnectionPastMeasurements;
+        private SqlCommand pastMeasurements;
+
+
+        Random randGenerator = new Random((int)DateTime.Now.Ticks);
 
 
         private System.Threading.Thread t1 = null;
@@ -78,7 +81,6 @@ namespace LinqExample
         {
             //Init thread object.
             t1 = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(Generator));
-
 
             {// Read all devices data.
                 dbConnectionDevices = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
@@ -105,7 +107,7 @@ namespace LinqExample
                 dbConnectionThresholdTypes = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
                 // fetch all threshold ids with min/max values
-                allThresholdTypes = new SqlCommand("SELECT id, minValue, maxValue FROM [dbo].[Thresholds]", dbConnectionThresholdTypes);
+                allThresholdTypes = new SqlCommand("SELECT id, threshold_type_id, minValue, maxValue FROM [dbo].[Thresholds]", dbConnectionThresholdTypes);
 
                 if (((allThresholdTypes.Connection.State & global::System.Data.ConnectionState.Open) != global::System.Data.ConnectionState.Open))
                 {
@@ -114,10 +116,10 @@ namespace LinqExample
 
                 SqlDataReader thresholdTypesReader = allThresholdTypes.ExecuteReader();
 
-                thresholds = new Dictionary<int, Range>();
+                thresholds = new Dictionary<int, ThresholdData>();
                 while (thresholdTypesReader.Read())
                 {
-                    thresholds[thresholdTypesReader.GetInt32(0)] = new Range(thresholdTypesReader.GetInt32(1), thresholdTypesReader.GetInt32(2));
+                    thresholds[thresholdTypesReader.GetInt32(0)] = new ThresholdData(thresholdTypesReader.GetInt32(1) == 1, thresholdTypesReader.GetInt32(2), thresholdTypesReader.GetInt32(3));
                 }
             }
 
@@ -139,20 +141,22 @@ namespace LinqExample
                     string currDeviceType = contractsReader.GetString(0).ToLower().TrimEnd(trailingSpace);
                     if (thresholdForDeviceType.ContainsKey(currDeviceType))
                     {
-                        if (!thresholdForDeviceType[currDeviceType].listThresholdIds.Contains(contractsReader.GetInt32(1)))
+                        if (!thresholdForDeviceType[currDeviceType].listThresholdIds.Exists(x => x.Key == contractsReader.GetInt32(1)))
                         {
-                            thresholdForDeviceType[currDeviceType].listThresholdIds.Add(contractsReader.GetInt32(1));
+                            thresholdForDeviceType[currDeviceType].listThresholdIds.Add(
+                                new KeyValuePair<int, float>(
+                                    contractsReader.GetInt32(1), (float)contractsReader.GetInt32(2)));
                         }
                     }
                     else
                     {
                         ContractData newContractData = new ContractData();
                         newContractData.deviceType = currDeviceType;
-                        newContractData.listThresholdIds = new List<int>();
-                        newContractData.contractValue = contractsReader.GetInt32(2);
-
+                        newContractData.listThresholdIds = new List<KeyValuePair<int, float>>();
+                        newContractData.listThresholdIds.Add(new KeyValuePair<int, float>(contractsReader.GetInt32(1),(float)contractsReader.GetInt32(2)));
+                        
                         thresholdForDeviceType.Add(currDeviceType, newContractData);
-                        thresholdForDeviceType[currDeviceType].listThresholdIds.Add(contractsReader.GetInt32(1));
+                        
                     }
                 }
 
@@ -182,7 +186,7 @@ namespace LinqExample
                 insertSimulatedMeasurementCmd.CommandType = global::System.Data.CommandType.Text;
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-                insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
                 global::System.Data.ConnectionState previousConnectionState = insertSimulatedMeasurementCmd.Connection.State;
@@ -193,6 +197,31 @@ namespace LinqExample
                 }
             }
 
+            {// Read past measurements of device & threshjold pair.
+                dbConnectionPastMeasurements = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
+
+                //Get All devices currently in the system
+                pastMeasurements = new SqlCommand(
+                    "SELECT AVG(a.value) " +
+                    "FROM ( " +
+	                "    SELECT TOP 2 timestamp, value FROM [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] " +
+	                "    WHERE device_id=@device_id " +
+	                "    AND threshold_id=@threshold_id " +
+	                "    AND timestamp>@timestamp " +
+	                "    ORDER BY timestamp DESC " +
+                    "    ) a ",
+                    dbConnectionPastMeasurements);
+
+                if (((pastMeasurements.Connection.State & global::System.Data.ConnectionState.Open) != global::System.Data.ConnectionState.Open))
+                {
+                    pastMeasurements.Connection.Open();
+                }
+
+                pastMeasurements.CommandType = global::System.Data.CommandType.Text;
+                pastMeasurements.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                pastMeasurements.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                pastMeasurements.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            }
 
             shouldContinue = true;
             t1.Start(this);
@@ -216,13 +245,17 @@ namespace LinqExample
 
                     if (thresholdForDeviceType.ContainsKey(theChosenDevice.type))
                     {
-                        foreach (int thresholdId in thresholdForDeviceType[theChosenDevice.type].listThresholdIds) {
+                        ContractData currContract = thresholdForDeviceType[theChosenDevice.type];
 
-                            Range theChosenRange = thresholds[thresholdId];
+                        foreach (KeyValuePair<int, float> thresholdWithContractValue in currContract.listThresholdIds)
+                        {
+
+                            int thresholdId = thresholdWithContractValue.Key;
+                            ThresholdData theChosenRange = thresholds[thresholdId];
 
                             insertSimulatedMeasurementCmd.Parameters[0].Value = theChosenDevice.id;
                             insertSimulatedMeasurementCmd.Parameters[1].Value = thresholdId;
-                            insertSimulatedMeasurementCmd.Parameters[2].Value = GetValueForDeviceThresholdPair(theChosenDevice.id, thresholdId);// randGenerator.NextDouble() * (theChosenRange.maxVal - theChosenRange.minVal + 1) + theChosenRange.minVal;
+                            insertSimulatedMeasurementCmd.Parameters[2].Value = GetValueForDeviceThresholdPair(theChosenDevice, thresholdId, currContract);
                             insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
                             Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + thresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
@@ -236,28 +269,75 @@ namespace LinqExample
             }
         }
 
-        private object GetValueForDeviceThresholdPair(int deviceId, int thresholdId)
+        private object GetValueForDeviceThresholdPair(DeviceData deviceData, int thresholdId, ContractData contractData)
         {
-            Random randGenerator = new Random();
-            //randGenerator.NextDouble() * (theChosenRange.maxVal - theChosenRange.minVal + 1) + theChosenRange.minVal;
-            return randGenerator.NextDouble() * (100 - 0 + 1) + 0; 
-              // return 98;   
-        }
 
 
-        public int GetRandomThresholdIdForDeviceType(Random randGenerator, string deviceType) 
-        {
-            if (!thresholdForDeviceType.ContainsKey(deviceType))
+            KeyValuePair<int, float> currContractValue = contractData.listThresholdIds.Find(x => x.Key == thresholdId);
+
+            pastMeasurements.Parameters["@device_id"].Value = deviceData.id;
+            pastMeasurements.Parameters["@threshold_id"].Value = thresholdId;
+            pastMeasurements.Parameters["@timestamp"].Value = DateTime.Now.Subtract(new TimeSpan(0, 0, (int)(((float)interval) / (1000) * 5)));
+
+            float nextValue = 0;
+            
+            double lastMeasurementsAverageValue = 0;
+            if (!Double.TryParse(pastMeasurements.ExecuteScalar().ToString(), out lastMeasurementsAverageValue))
             {
-                return -1;
+
+                ThresholdData thresholdData = thresholds[thresholdId];
+
+                if (thresholdData.isAbove)
+                {
+                    nextValue = currContractValue.Value * 1.2f;
+                }
+                else
+                {
+                    nextValue = currContractValue.Value * 0.8f;
+                }
+
             }
-            List<int> thresholdForDevice = thresholdForDeviceType[deviceType].listThresholdIds;
-            if (thresholdForDevice.Count > 0)
+            else
             {
-                return thresholdForDevice[(int)(randGenerator.NextDouble() * (thresholdForDevice.Count()))];
-                
+
+                float min = (float)(lastMeasurementsAverageValue * 0.85);
+                float max = (float)(lastMeasurementsAverageValue * 1.15);
+
+                ThresholdData thresholdData = thresholds[thresholdId];
+
+                if (thresholdData.isAbove)
+                {
+                    if (min < currContractValue.Value)
+                    {
+                        min *= 1.5f;
+                    }
+
+                }
+                else
+                {
+                    if (max > currContractValue.Value)
+                    {
+                        max /= 1.5f;
+                    }
+                }
+
+
+                if (min < thresholdData.minVal)
+                {
+                    min = thresholdData.minVal * 1.1f;
+                }
+
+
+                if (max > thresholdData.maxVal)
+                {
+                    max = thresholdData.maxVal * 0.9f;
+                }
+
+
+                nextValue = (float)(randGenerator.NextDouble() * (max - min) + min);
             }
-            return -1;
+
+            return Math.Round(nextValue, 2);
         }
 
     }

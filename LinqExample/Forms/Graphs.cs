@@ -313,7 +313,7 @@ namespace LinqExample
                     DateTime x = measurementsReader.GetDateTime(0);//time
                     listValues.Add(
                       new XDate(x),
-                        measurementsReader.GetInt32(1) //value
+                        measurementsReader.GetDouble(1) //value
                     );
                 }
 

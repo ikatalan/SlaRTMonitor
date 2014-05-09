@@ -304,7 +304,7 @@ namespace LinqExample
 
                     PointPair current = new PointPair(
                         new XDate(measurementsReader.GetDateTime(0)),  // timestamp
-                        measurementsReader.GetInt32(1) // value
+                        measurementsReader.GetDouble(1) // value
                         );
 
                     if (lastXValues.Count == 0)
@@ -417,7 +417,7 @@ namespace LinqExample
                     DateTime x = measurementsReader.GetDateTime(0);//time
                     listValues.Add(
                       new XDate(x),
-                        measurementsReader.GetInt32(1) //value
+                        measurementsReader.GetDouble(1) //value
                     );
                 }
 

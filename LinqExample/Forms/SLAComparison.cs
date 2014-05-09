@@ -479,7 +479,7 @@ namespace LinqExample.Forms
                 {   
                     listValues.Add(
                         measurementsReader.GetInt32(0), //threshjold_id
-                        measurementsReader.GetInt32(1) //average value for time scope.
+                        measurementsReader.GetDouble(1) //average value for time scope.
                     );
                 }
 
@@ -575,7 +575,7 @@ namespace LinqExample.Forms
                     DateTime x = measurementsReader.GetDateTime(0);//time
                     listValues.Add(
                       new XDate(x),
-                        measurementsReader.GetInt32(1) //value
+                        measurementsReader.GetDouble(1) //value
                     );
                 }
 
