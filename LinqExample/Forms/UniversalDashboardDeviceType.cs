@@ -132,8 +132,15 @@ namespace LinqExample.Forms
 
                 x.Region = new Region(path);
                 x.BackColor = GetColorByIncidentsNumber(newDeviceData.deviceId);
+                x.TextAlign = ContentAlignment.TopCenter;
+              //  x.Text = newDeviceData.deviceName;
+                x.Text += SplitName(newDeviceData.deviceName)[0];
+                x.Text += "\n";
+                x.Text += SplitName(newDeviceData.deviceName)[1];
+                x.Text += "\n";
                 x.TextAlign = ContentAlignment.MiddleCenter;
-                x.Text = newDeviceData.deviceName;
+                x.Text += SplitName(newDeviceData.deviceName)[2];
+               
                 x.Tag = newDeviceData;
                 x.Cursor = Cursors.Hand;
                 x.Click += x_Click;
@@ -145,7 +152,28 @@ namespace LinqExample.Forms
 
 
         }
+        
+        private List<string> SplitName(string deviceName)
+        {
+         
+            int maxCharsInLine = 5; //fit name in one line
+            string[] words = deviceName.Split(' '); // Split the text into words
+            List<string> result = new List<string>();
 
+            result.Add(words[0]);
+            for (int i = 1; i < words.Length; i++)
+            {
+                // If the previous word and the current word (plus whitespace) do not exceed the limitation
+                if (result[result.Count - 1].Length + 1 + words[i].Length <= maxCharsInLine)
+                    result[result.Count - 1] += "  " + words[i]; // Append the current word to the previous one
+                else
+                    result.Add(words[i]); // Put the current word to a new line
+            }
+          
+            return result;
+
+        }
+   
         private Color GetColorByIncidentsNumber(int deviceId)
         {
             DateTime lastHour = DateTime.Now.Subtract(new TimeSpan(1, 0, 0));
