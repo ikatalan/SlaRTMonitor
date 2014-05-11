@@ -5,7 +5,8 @@ Printer,3,30
 Storage,5,30
 Storage,4,30
 Storage,6,100
-Server,2,70
+Server,10,100
+Server,12,60
 Server,10,50
 Network,2,50
 Network,10,70
