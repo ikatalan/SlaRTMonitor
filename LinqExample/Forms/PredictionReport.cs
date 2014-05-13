@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -277,7 +278,7 @@ namespace LinqExample
 
         private PointPairList GetPredictionForDevice(string deviceName, int thresholdId)
         {
-            PointPairList listValues = new PointPairList();
+            PointPairList predictedValues = new PointPairList();
             try
             {
                 SqlDataReader measurementsReader = null;
@@ -297,42 +298,69 @@ namespace LinqExample
                 
                 PointPairList lastXValues = new PointPairList();
 
+                DateTime lastMeasuremnetDateTime = DateTime.MinValue;
                 while (measurementsReader.Read())
                 {
-                    XDate startFromDateTime = new XDate(measurementsReader.GetDateTime(0).Subtract(new TimeSpan(1,0,0)));
+                    // look 2 minutes back to prediction
+                    XDate startFromDateTime = new XDate(measurementsReader.GetDateTime(0).Subtract(new TimeSpan(0,2,0)));
 
-
+                    lastMeasuremnetDateTime = measurementsReader.GetDateTime(0);
                     PointPair current = new PointPair(
                         new XDate(measurementsReader.GetDateTime(0)),  // timestamp
                         measurementsReader.GetDouble(1) // value
                         );
 
-                    if (lastXValues.Count == 0)
-                    {
-                        listValues.Add(current);
+                    double predictedValue = 0;
+                    int count = 0;
+
+                    foreach(PointPair pnt in lastXValues ) {
+                        if ( pnt.X > startFromDateTime ) {
+                            count++;
+                            predictedValue += pnt.Y;
+                        }
                     }
-                    else
+                    if (count > 0)
                     {
-                        int index = 0;
-                        for ( int i =0; i < lastXValues.Count; i++ ) 
+                        predictedValue /= count;
+                        predictedValues.Add(new PointPair(current.X, predictedValue));
+                    }
+                    
+                    lastXValues.Add(current);
+                }
+
+                while (lastXValues.Count > 0)
+                {
+                    // look 30 minutes back to prediction
+                    DateTime xxx = lastMeasuremnetDateTime.Subtract(new TimeSpan(0, 10, 0));
+                    XDate startFromDateTime = new XDate(xxx);
+
+                    // predict every 3 minutes. (to the future)
+                    lastMeasuremnetDateTime = lastMeasuremnetDateTime.Add(new TimeSpan(0, 3, 0));
+
+                    if (lastXValues.Count != 0)
+                    {
+                        //Average all points (measurements ) in range (30 minutes).
+                        double predictedValue = 0;
+                        int count = 0;
+
+                        foreach (PointPair pnt in lastXValues)
                         {
-                            if (lastXValues[i].X >= startFromDateTime)
+                            if (pnt.X > startFromDateTime)
                             {
-                                index = i;
+                                count++;
+                                predictedValue += pnt.Y;
                             }
                         }
-                        lastXValues.RemoveRange(0, index);
-
-                        double predictedValue = 0;
-                        lastXValues.ForEach(pnt => predictedValue += pnt.Y);
-                        predictedValue /= lastXValues.Count;
-
-                        listValues.Add(new PointPair(current.X, predictedValue));
-                    }
-
-                    lastXValues.Add(current);
-
-                    
+                        if (count > 0)
+                        {
+                            predictedValue /= count;
+                            predictedValues.Add(new PointPair(new XDate(lastMeasuremnetDateTime), predictedValue));
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }        
                 }
 
                 measurementsReader.Close();
@@ -342,7 +370,7 @@ namespace LinqExample
                 MessageBox.Show(e.ToString());
             }
 
-            return listValues;
+            return predictedValues;
         }
 
         // Display customized tooltips when the mouse hovers over a point

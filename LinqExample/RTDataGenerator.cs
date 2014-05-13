@@ -233,6 +233,8 @@ namespace LinqExample
             t1.Abort();
         }
 
+        private int irregularPeak = 0;
+
         private void Generator (object arg) {
             RTDataGenerator me = (RTDataGenerator) arg;
             Random randGenerator = new Random();
@@ -249,18 +251,20 @@ namespace LinqExample
 
                         foreach (KeyValuePair<int, float> thresholdWithContractValue in currContract.listThresholdIds)
                         {
-
                             int thresholdId = thresholdWithContractValue.Key;
                             ThresholdData theChosenRange = thresholds[thresholdId];
 
                             insertSimulatedMeasurementCmd.Parameters[0].Value = theChosenDevice.id;
                             insertSimulatedMeasurementCmd.Parameters[1].Value = thresholdId;
-                            insertSimulatedMeasurementCmd.Parameters[2].Value = GetValueForDeviceThresholdPair(theChosenDevice, thresholdId, currContract);
+                            insertSimulatedMeasurementCmd.Parameters[2].Value = 
+                                GetValueForDeviceThresholdPair(theChosenDevice, thresholdId, currContract, (irregularPeak%37) == 0);
                             insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
                             Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + thresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
 
                             insertSimulatedMeasurementCmd.ExecuteNonQuery();
+
+                            ++irregularPeak;
                         }
                     }
                 }
@@ -269,72 +273,84 @@ namespace LinqExample
             }
         }
 
-        private object GetValueForDeviceThresholdPair(DeviceData deviceData, int thresholdId, ContractData contractData)
+        private object GetValueForDeviceThresholdPair(DeviceData deviceData, int thresholdId, ContractData contractData, bool generageIrregularData )
         {
-
-
             KeyValuePair<int, float> currContractValue = contractData.listThresholdIds.Find(x => x.Key == thresholdId);
-
-            pastMeasurements.Parameters["@device_id"].Value = deviceData.id;
-            pastMeasurements.Parameters["@threshold_id"].Value = thresholdId;
-            pastMeasurements.Parameters["@timestamp"].Value = DateTime.Now.Subtract(new TimeSpan(0, 0, (int)(((float)interval) / (1000) * 5)));
+            ThresholdData thresholdData = thresholds[thresholdId];
 
             float nextValue = 0;
-            
-            double lastMeasurementsAverageValue = 0;
-            if (!Double.TryParse(pastMeasurements.ExecuteScalar().ToString(), out lastMeasurementsAverageValue))
+
+            if (generageIrregularData)
             {
-
-                ThresholdData thresholdData = thresholds[thresholdId];
-
-                if (thresholdData.isAbove)
+                if (!thresholdData.isAbove)
                 {
-                    nextValue = currContractValue.Value * 1.2f;
+                    nextValue = (float)randGenerator.Next((int)Math.Ceiling(currContractValue.Value), thresholdData.maxVal);
                 }
                 else
                 {
-                    nextValue = currContractValue.Value * 0.8f;
+                    nextValue = (float)randGenerator.Next(thresholdData.minVal, (int)Math.Floor(currContractValue.Value));
                 }
-
             }
             else
             {
 
-                float min = (float)(lastMeasurementsAverageValue * 0.85);
-                float max = (float)(lastMeasurementsAverageValue * 1.15);
+                pastMeasurements.Parameters["@device_id"].Value = deviceData.id;
+                pastMeasurements.Parameters["@threshold_id"].Value = thresholdId;
+                pastMeasurements.Parameters["@timestamp"].Value = DateTime.Now.Subtract(new TimeSpan(0, 0, (int)(((float)interval) / (1000) * 5)));
 
-                ThresholdData thresholdData = thresholds[thresholdId];
 
-                if (thresholdData.isAbove)
+
+                double lastMeasurementsAverageValue = 0;
+                if (!Double.TryParse(pastMeasurements.ExecuteScalar().ToString(), out lastMeasurementsAverageValue))
                 {
-                    if (min < currContractValue.Value)
+                    if (thresholdData.isAbove)
                     {
-                        min *= 1.5f;
+                        nextValue = currContractValue.Value * 1.2f;
                     }
-
+                    else
+                    {
+                        nextValue = currContractValue.Value * 0.8f;
+                    }
                 }
                 else
                 {
-                    if (max > currContractValue.Value)
+                    float min = (float)(lastMeasurementsAverageValue * 0.85);
+                    float max = (float)(lastMeasurementsAverageValue * 1.15);
+
+                    if (thresholdData.isAbove)
                     {
-                        max /= 1.5f;
+                        if (min < currContractValue.Value ||
+                            max < currContractValue.Value)
+                        {
+                            max = thresholdData.maxVal;
+                            min = currContractValue.Value; 
+                        }
                     }
+                    else
+                    {
+                        if (max > currContractValue.Value ||
+                            min > currContractValue.Value)
+                        {
+                            max = currContractValue.Value;
+                            min = thresholdData.minVal;
+                        }
+                    }
+
+
+                    if (min < thresholdData.minVal)
+                    {
+                        min = thresholdData.minVal * 1.1f;
+                    }
+
+
+                    if (max > thresholdData.maxVal)
+                    {
+                        max = thresholdData.maxVal * 0.9f;
+                    }
+
+
+                    nextValue = (float)(randGenerator.NextDouble() * (max - min) + min);
                 }
-
-
-                if (min < thresholdData.minVal)
-                {
-                    min = thresholdData.minVal * 1.1f;
-                }
-
-
-                if (max > thresholdData.maxVal)
-                {
-                    max = thresholdData.maxVal * 0.9f;
-                }
-
-
-                nextValue = (float)(randGenerator.NextDouble() * (max - min) + min);
             }
 
             return Math.Round(nextValue, 2);

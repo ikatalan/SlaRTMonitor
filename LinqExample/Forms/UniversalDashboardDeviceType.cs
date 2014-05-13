@@ -13,6 +13,7 @@ namespace LinqExample.Forms
     public partial class UniversalDashboardDeviceType : UserControl
     {
         DashboardIncidentsProvider incidentsProvider;
+        Timer updateTimer;
 
         public UniversalDashboardDeviceType()
         {
@@ -24,6 +25,28 @@ namespace LinqExample.Forms
             InitializeComponent();
             this.DeviceTypeText = deviceType;
             incidentsProvider = new DashboardIncidentsProvider();
+            updateTimer = new Timer();
+            updateTimer.Interval = 1000;
+            updateTimer.Tick += updateTimer_Tick;
+            
+        }
+
+        void updateTimer_Tick(object sender, EventArgs e)
+        {
+            foreach (Control currControl in this.Controls)
+            {
+                if (currControl is Label)
+                {
+                    Label currLabel = (Label)currControl;
+
+                    if (currLabel.Tag is SingleDeviceData)
+                    {
+                        SingleDeviceData data = (SingleDeviceData)currLabel.Tag;
+                        currLabel.BackColor = GetColorByIncidentsNumber(data.deviceId);
+                    }
+                }
+            }
+            
         }
 
         private class SingleDeviceData
@@ -121,7 +144,6 @@ namespace LinqExample.Forms
             {
                 SingleDeviceData newDeviceData = new SingleDeviceData(reader.GetInt32(0), reader.GetString(1));
 
-
                 Label x = new Label();
                 
                 x.Location = new Point((int)(40 + 65 * (i*1.2)), 35 );
@@ -139,7 +161,7 @@ namespace LinqExample.Forms
                 x.Text += SplitName(newDeviceData.deviceName)[1];
                 x.Text += "\n";
                 x.TextAlign = ContentAlignment.MiddleCenter;
-                x.Text += SplitName(newDeviceData.deviceName)[2];
+                //x.Text += SplitName(newDeviceData.deviceName)[2];
                
                 x.Tag = newDeviceData;
                 x.Cursor = Cursors.Hand;
@@ -149,7 +171,7 @@ namespace LinqExample.Forms
                 ++i;
             }
 
-
+            updateTimer.Start();
 
         }
         
