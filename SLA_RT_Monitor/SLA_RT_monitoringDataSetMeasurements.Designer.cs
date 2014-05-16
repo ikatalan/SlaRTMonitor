@@ -420,7 +420,7 @@ namespace LinqExample {
             internal void InitVars() {
                 this.columndevice_id = base.Columns["device_id"];
                 this.columnthreshold_id = base.Columns["threshold_id"];
-                this.columnvalue = base.Columns["gaugeValue"];
+                this.columnvalue = base.Columns["value"];
                 this.columntimestamp = base.Columns["timestamp"];
             }
             
@@ -431,7 +431,7 @@ namespace LinqExample {
                 base.Columns.Add(this.columndevice_id);
                 this.columnthreshold_id = new global::System.Data.DataColumn("threshold_id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnthreshold_id);
-                this.columnvalue = new global::System.Data.DataColumn("gaugeValue", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnvalue = new global::System.Data.DataColumn("value", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalue);
                 this.columntimestamp = new global::System.Data.DataColumn("timestamp", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntimestamp);
@@ -584,7 +584,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSimulatedMeasurements.device_idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'device_id\' in table \'SimulatedMeasurements\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'device_id\' in table \'SimulatedMeasurements\' is DBNull.", e);
                     }
                 }
                 set {
@@ -600,7 +600,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSimulatedMeasurements.threshold_idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'threshold_id\' in table \'SimulatedMeasurements\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'threshold_id\' in table \'SimulatedMeasurements\' is DBNull.", e);
                     }
                 }
                 set {
@@ -616,7 +616,7 @@ namespace LinqExample {
                         return ((int)(this[this.tableSimulatedMeasurements.valueColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'gaugeValue\' in table \'SimulatedMeasurements\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'Value\' in table \'SimulatedMeasurements\' is DBNull.", e);
                     }
                 }
                 set {
@@ -632,7 +632,7 @@ namespace LinqExample {
                         return ((global::System.DateTime)(this[this.tableSimulatedMeasurements.timestampColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'timestamp\' in table \'SimulatedMeasurements\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'timestamp\' in table \'SimulatedMeasurements\' is DBNull.", e);
                     }
                 }
                 set {
@@ -850,17 +850,17 @@ namespace LinqExample.SLA_RT_monitoringDataSetMeasurementsTableAdapters {
             tableMapping.DataSetTable = "SimulatedMeasurements";
             tableMapping.ColumnMappings.Add("device_id", "device_id");
             tableMapping.ColumnMappings.Add("threshold_id", "threshold_id");
-            tableMapping.ColumnMappings.Add("gaugeValue", "gaugeValue");
+            tableMapping.ColumnMappings.Add("value", "value");
             tableMapping.ColumnMappings.Add("timestamp", "timestamp");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[SimulatedMeasurements] ([device_id], [threshold_id], [gaugeValue], " +
-                "[timestamp]) VALUES (@device_id, @threshold_id, @gaugeValue, @timestamp)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[SimulatedMeasurements] ([device_id], [threshold_id], [value], " +
+                "[timestamp]) VALUES (@device_id, @threshold_id, @value, @timestamp)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gaugeValue", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -877,7 +877,7 @@ namespace LinqExample.SLA_RT_monitoringDataSetMeasurementsTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT device_id, threshold_id, gaugeValue, timestamp FROM dbo.SimulatedMeasurements";
+            this._commandCollection[0].CommandText = "SELECT device_id, threshold_id, value, timestamp FROM dbo.SimulatedMeasurements";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

@@ -597,7 +597,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableDevices.nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'name\' in table \'Devices\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'name\' in table \'Devices\' is DBNull.", e);
                     }
                 }
                 set {
@@ -613,7 +613,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableDevices.typeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'type\' in table \'Devices\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'type\' in table \'Devices\' is DBNull.", e);
                     }
                 }
                 set {

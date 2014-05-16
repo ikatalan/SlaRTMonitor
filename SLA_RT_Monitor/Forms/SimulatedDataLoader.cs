@@ -102,15 +102,15 @@ namespace LinqExample
 
                 measurmentsAdapter.InsertCommand = new SqlCommand(
                     @"INSERT INTO [dbo].[SimulatedMeasurements] ( 
-                              [device_id], [threshold_id], [gaugeValue], [timestamp]) 
-                      VALUES (@device_id, @threshold_id, @gaugeValue, @timestamp);",
+                              [device_id], [threshold_id], [value], [timestamp]) 
+                      VALUES (@device_id, @threshold_id, @value, @timestamp);",
                     simulatedMeasurementsTableAdapter.Connection);
                 
                 measurmentsAdapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
                 measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gaugeValue", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                measurmentsAdapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
 
                 global::System.Data.ConnectionState previousConnectionState = measurmentsAdapter.InsertCommand.Connection.State;

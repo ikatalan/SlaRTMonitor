@@ -126,7 +126,7 @@ namespace LinqExample
             { // Read all contract and map contract to device type.
                 dbConnectionContracts = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
-                allContracts = new SqlCommand("SELECT device_type, threshold_id, gaugeValue FROM [dbo].[SLAContracts]", dbConnectionContracts);
+                allContracts = new SqlCommand("SELECT device_type, threshold_id, value FROM [dbo].[SLAContracts]", dbConnectionContracts);
 
                 if (((allContracts.Connection.State & global::System.Data.ConnectionState.Open) != global::System.Data.ConnectionState.Open))
                 {
@@ -171,9 +171,9 @@ namespace LinqExample
                     @"INSERT INTO [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] "
                         + @"([device_id] "
                         + @",[threshold_id] "
-                        + @",[gaugeValue] "
+                        + @",[value] "
                         + @",[timestamp]) "
-                        + @"VALUES (@device_id, @threshold_id, @gaugeValue, @timestamp)",
+                        + @"VALUES (@device_id, @threshold_id, @value, @timestamp)",
                     dbConnection);
 
 
@@ -186,7 +186,7 @@ namespace LinqExample
                 insertSimulatedMeasurementCmd.CommandType = global::System.Data.CommandType.Text;
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-                insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gaugeValue", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
                 global::System.Data.ConnectionState previousConnectionState = insertSimulatedMeasurementCmd.Connection.State;
@@ -202,9 +202,9 @@ namespace LinqExample
 
                 //Get All devices currently in the system
                 pastMeasurements = new SqlCommand(
-                    "SELECT AVG(a.gaugeValue) " +
+                    "SELECT AVG(a.value) " +
                     "FROM ( " +
-	                "    SELECT TOP 2 timestamp, gaugeValue FROM [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] " +
+	                "    SELECT TOP 2 timestamp, value FROM [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] " +
 	                "    WHERE device_id=@device_id " +
 	                "    AND threshold_id=@threshold_id " +
 	                "    AND timestamp>@timestamp " +
@@ -260,7 +260,7 @@ namespace LinqExample
                                 GetValueForDeviceThresholdPair(theChosenDevice, thresholdId, currContract, (irregularPeak%37) == 0);
                             insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
-                            Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + thresholdId + " gaugeValue: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
+                            Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + thresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
 
                             insertSimulatedMeasurementCmd.ExecuteNonQuery();
 

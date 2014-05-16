@@ -428,7 +428,7 @@ namespace LinqExample {
                 this.columncontract_id = base.Columns["contract_id"];
                 this.columndevice_type = base.Columns["device_type"];
                 this.columnthreshold_id = base.Columns["threshold_id"];
-                this.columnvalue = base.Columns["gaugeValue"];
+                this.columnvalue = base.Columns["value"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -440,7 +440,7 @@ namespace LinqExample {
                 base.Columns.Add(this.columndevice_type);
                 this.columnthreshold_id = new global::System.Data.DataColumn("threshold_id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnthreshold_id);
-                this.columnvalue = new global::System.Data.DataColumn("gaugeValue", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnvalue = new global::System.Data.DataColumn("value", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalue);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columncontract_id}, true));
@@ -610,7 +610,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSlaContracts.device_typeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'device_type\' in table \'SlaContracts\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'device_type\' in table \'SlaContracts\' is DBNull.", e);
                     }
                 }
                 set {
@@ -626,7 +626,7 @@ namespace LinqExample {
                         return ((int)(this[this.tableSlaContracts.threshold_idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'threshold_id\' in table \'SlaContracts\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'threshold_id\' in table \'SlaContracts\' is DBNull.", e);
                     }
                 }
                 set {
@@ -642,7 +642,7 @@ namespace LinqExample {
                         return ((int)(this[this.tableSlaContracts.valueColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'gaugeValue\' in table \'SlaContracts\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'Value\' in table \'SlaContracts\' is DBNull.", e);
                     }
                 }
                 set {
@@ -849,43 +849,43 @@ namespace LinqExample.SLA_RT_monitoringDataSet2TableAdapters {
             tableMapping.ColumnMappings.Add("contract_id", "contract_id");
             tableMapping.ColumnMappings.Add("device_type", "device_type");
             tableMapping.ColumnMappings.Add("threshold_id", "threshold_id");
-            tableMapping.ColumnMappings.Add("gaugeValue", "gaugeValue");
+            tableMapping.ColumnMappings.Add("value", "value");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[SlaContracts] WHERE (([contract_id] = @Original_contract_id) AND ((@IsNull_device_type = 1 AND [device_type] IS NULL) OR ([device_type] = @Original_device_type)) AND ((@IsNull_threshold_id = 1 AND [threshold_id] IS NULL) OR ([threshold_id] = @Original_threshold_id)) AND ((@IsNull_value = 1 AND [gaugeValue] IS NULL) OR ([gaugeValue] = @Original_value)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[SlaContracts] WHERE (([contract_id] = @Original_contract_id) AND ((@IsNull_device_type = 1 AND [device_type] IS NULL) OR ([device_type] = @Original_device_type)) AND ((@IsNull_threshold_id = 1 AND [threshold_id] IS NULL) OR ([threshold_id] = @Original_threshold_id)) AND ((@IsNull_value = 1 AND [value] IS NULL) OR ([value] = @Original_value)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_contract_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "contract_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_device_type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[SlaContracts] ([device_type], [threshold_id], [gaugeValue]) VALUES " +
-                "(@device_type, @threshold_id, @gaugeValue);\r\nSELECT contract_id, device_type, thresho" +
-                "ld_id, gaugeValue FROM SlaContracts WHERE (contract_id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[SlaContracts] ([device_type], [threshold_id], [value]) VALUES " +
+                "(@device_type, @threshold_id, @value);\r\nSELECT contract_id, device_type, thresho" +
+                "ld_id, value FROM SlaContracts WHERE (contract_id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gaugeValue", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[SlaContracts] SET [device_type] = @device_type, [threshold_id] = @threshold_id, [gaugeValue] = @gaugeValue WHERE (([contract_id] = @Original_contract_id) AND ((@IsNull_device_type = 1 AND [device_type] IS NULL) OR ([device_type] = @Original_device_type)) AND ((@IsNull_threshold_id = 1 AND [threshold_id] IS NULL) OR ([threshold_id] = @Original_threshold_id)) AND ((@IsNull_value = 1 AND [gaugeValue] IS NULL) OR ([gaugeValue] = @Original_value)));
-SELECT contract_id, device_type, threshold_id, gaugeValue FROM SlaContracts WHERE (contract_id = @contract_id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[SlaContracts] SET [device_type] = @device_type, [threshold_id] = @threshold_id, [value] = @value WHERE (([contract_id] = @Original_contract_id) AND ((@IsNull_device_type = 1 AND [device_type] IS NULL) OR ([device_type] = @Original_device_type)) AND ((@IsNull_threshold_id = 1 AND [threshold_id] IS NULL) OR ([threshold_id] = @Original_threshold_id)) AND ((@IsNull_value = 1 AND [value] IS NULL) OR ([value] = @Original_value)));
+SELECT contract_id, device_type, threshold_id, value FROM SlaContracts WHERE (contract_id = @contract_id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gaugeValue", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_contract_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "contract_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_device_type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gaugeValue", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_value", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@contract_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "contract_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -902,7 +902,7 @@ SELECT contract_id, device_type, threshold_id, gaugeValue FROM SlaContracts WHER
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT contract_id, device_type, threshold_id, gaugeValue FROM dbo.SlaContracts";
+            this._commandCollection[0].CommandText = "SELECT contract_id, device_type, threshold_id, value FROM dbo.SlaContracts";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

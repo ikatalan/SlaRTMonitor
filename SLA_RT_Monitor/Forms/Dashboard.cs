@@ -95,7 +95,7 @@ namespace LinqExample
 
             // Used for having all the information about measurements and threshold data per Device ID
             devicesMeasurmentsCommand = new SqlCommand(
-                @"SELECT a.threshold_id, a.gaugeValue, a.timestamp, b.minValue, b.maxValue, b.name "
+                @"SELECT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name "
                 + @"FROM [dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
                 + @"WHERE a.device_id= @device_id "
@@ -119,7 +119,7 @@ namespace LinqExample
 
                 // Used for filling list of items (device_name) per threshold_id   (last 24 hours)        
                 devicesMeasurmentsByThresholdCommand = new SqlCommand(
-                    @"SELECT DISTINCT a.threshold_id, a.gaugeValue, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
+                    @"SELECT DISTINCT a.threshold_id, a.value, a.timestamp, b.minValue, b.maxValue, b.name FROM [dbo].[SimulatedMeasurements] a "
                     + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
                     + @"WHERE (device_id= @device_id) AND (threshold_id=@threshold_id) AND (timestamp > DATEADD(DAY, -1, GETUTCDATE())) "
                     + @"ORDER BY timestamp ",
@@ -146,7 +146,7 @@ namespace LinqExample
 
                 // Used for having the contract threshold values per contract ID           
                 thresholdContractCommand = new SqlCommand(
-                    @"SELECT gaugeValue "
+                    @"SELECT value "
                     + @"FROM [dbo].[SlaContracts] "
                     + @"WHERE contract_id= @contract_id",
                     dbConnection3);

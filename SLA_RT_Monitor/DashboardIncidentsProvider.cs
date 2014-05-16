@@ -52,13 +52,13 @@ namespace LinqExample
 
                 // Used for filling list of items (device_name) per threshold_id            
                 incidentsAboveCommand = new SqlCommand(
-                    @"SELECT dev2.name device_name, dev2.type device_type, thre.name threshold_text, sim.gaugeValue gaugeValue, sim.timestamp timestamp " +
+                    @"SELECT dev2.name device_name, dev2.type device_type, thre.name threshold_text, sim.value value, sim.timestamp timestamp " +
                     @"FROM [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] sim " +
                     @"INNER JOIN [SLA_RT_monitoring].[dbo].[Devices] dev2 " +
                     @"ON sim.device_id = dev2.id " +
                     @"INNER JOIN [SLA_RT_monitoring].[dbo].[Thresholds] thre " +
                     @"ON sim.threshold_id = thre.id " +
-                    @"WHERE sim.gaugeValue < ( SELECT con.[gaugeValue] " +
+                    @"WHERE sim.value < ( SELECT con.[value] " +
                                        @"FROM [SLA_RT_monitoring].[dbo].[SlaContracts] con " +
                                        @"WHERE con.[device_type] = ( SELECT dev.[type] " +
                                                                    @"FROM [SLA_RT_monitoring].[dbo].[Devices] dev " +
@@ -90,13 +90,13 @@ namespace LinqExample
 
                 // Used for filling list of items (device_name) per threshold_id            
                 incidentsBelowCommand = new SqlCommand(
-                    @"SELECT dev2.name device_name, dev2.type device_type, thre.name threshold_text, sim.gaugeValue gaugeValue, sim.timestamp timestamp " +
+                    @"SELECT dev2.name device_name, dev2.type device_type, thre.name threshold_text, sim.value value, sim.timestamp timestamp " +
                     @"FROM [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] sim " +
                     @"INNER JOIN [SLA_RT_monitoring].[dbo].[Devices] dev2 " + 
                     @"ON sim.device_id = dev2.id " +
                     @"INNER JOIN [SLA_RT_monitoring].[dbo].[Thresholds] thre " +
                     @"ON sim.threshold_id = thre.id " +
-                    @"WHERE [gaugeValue] > ( SELECT con.[gaugeValue] " +
+                    @"WHERE [value] > ( SELECT con.[value] " +
                                        @"FROM [SLA_RT_monitoring].[dbo].[SlaContracts] con " +
                                        @"WHERE con.[device_type] = ( SELECT dev.[type] " +
                                                                    @"FROM [SLA_RT_monitoring].[dbo].[Devices] dev " +

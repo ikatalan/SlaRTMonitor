@@ -71,7 +71,7 @@ namespace LinqExample
 
             // used for getting measurements valus for a specific device.
             measurmentsValuesAdapter = new SqlDataAdapter(
-                @"SELECT timestamp, gaugeValue  "
+                @"SELECT timestamp, value  "
                 + @" FROM [dbo].[SimulatedMeasurements] a"
                 + @" JOIN [dbo].[Devices] b ON a.device_id=b.id "
                 + @" WHERE b.name=@device_name "
@@ -97,7 +97,7 @@ namespace LinqExample
 
             // used for getting threshold gaugeValue from Contracts
             singleThresholdValueAdapter = new SqlDataAdapter(
-                @"SELECT gaugeValue "
+                @"SELECT value "
                 + @"FROM [dbo].[SlaContracts] "
                 + @"WHERE threshold_id=@threshold_id;",
                 dbConnection3);

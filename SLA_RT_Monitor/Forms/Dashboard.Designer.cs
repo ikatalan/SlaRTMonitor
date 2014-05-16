@@ -417,9 +417,9 @@
             // 
             // gaugeValue
             // 
-            this.value.DataPropertyName = "gaugeValue";
+            this.value.DataPropertyName = "value";
             this.value.HeaderText = "Threshold Value";
-            this.value.Name = "gaugeValue";
+            this.value.Name = "value";
             // 
             // timestamp
             // 

@@ -596,7 +596,7 @@ namespace LinqExample {
                         return ((int)(this[this.tableThresholds.threshold_type_idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'threshold_type_id\' in table \'Thresholds\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'threshold_type_id\' in table \'Thresholds\' is DBNull.", e);
                     }
                 }
                 set {
@@ -612,7 +612,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableThresholds.nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'name\' in table \'Thresholds\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'name\' in table \'Thresholds\' is DBNull.", e);
                     }
                 }
                 set {

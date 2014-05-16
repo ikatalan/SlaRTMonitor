@@ -134,7 +134,7 @@
             // gaugeValue
             // 
             this.value.HeaderText = "Value";
-            this.value.Name = "gaugeValue";
+            this.value.Name = "value";
             // 
             // timestamp
             // 

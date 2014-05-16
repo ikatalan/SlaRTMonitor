@@ -696,7 +696,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableUsers.mobile_phoneColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'mobile_phone\' in table \'Users\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'mobile_phone\' in table \'Users\' is DBNull.", e);
                     }
                 }
                 set {
@@ -712,7 +712,7 @@ namespace LinqExample {
                         return ((global::System.DateTime)(this[this.tableUsers.birth_dateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'birth_date\' in table \'Users\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'birth_date\' in table \'Users\' is DBNull.", e);
                     }
                 }
                 set {
@@ -728,7 +728,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableUsers.addressColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'address\' in table \'Users\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'address\' in table \'Users\' is DBNull.", e);
                     }
                 }
                 set {
@@ -755,7 +755,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableUsers.email_addressColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'email_address\' in table \'Users\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'email_address\' in table \'Users\' is DBNull.", e);
                     }
                 }
                 set {

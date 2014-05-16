@@ -131,7 +131,7 @@ namespace LinqExample.Forms
 
             // used for getting measurements valus for a specific device.
             measurmentsValuesAdapter = new SqlDataAdapter(
-                @"SELECT timestamp, gaugeValue  "
+                @"SELECT timestamp, value  "
                 + @" FROM [dbo].[SimulatedMeasurements] a"
                 + @" JOIN [dbo].[Devices] b ON a.device_id=b.id "
                 + @" WHERE b.name=@device_name "
@@ -157,7 +157,7 @@ namespace LinqExample.Forms
 
             // used for getting measurements valus for a specific device.
             calculatedMeasurementsSqlCommand = new SqlCommand(
-                @"SELECT threshold_id, AVG(gaugeValue)  "
+                @"SELECT threshold_id, AVG(value)  "
                 + @" FROM [dbo].[SimulatedMeasurements] a"
                 + @" WHERE device_id=@device_id "
                 + @" AND timestamp>=@timestamp "
@@ -180,7 +180,7 @@ namespace LinqExample.Forms
 
             // used for getting threshold gaugeValue from Contracts
             singleThresholdValueAdapter = new SqlDataAdapter(
-                @"SELECT gaugeValue "
+                @"SELECT value "
                 + @"FROM [dbo].[SlaContracts] "
                 + @"WHERE threshold_id=@threshold_id;",
                 dbConnection3);
@@ -270,7 +270,7 @@ namespace LinqExample.Forms
             dbConnection4.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
             thresholdTypeSqlCommand = new SqlCommand(
-                @"SELECT id, name, threshold_type_id, b.gaugeValue FROM [dbo].[Thresholds] a "
+                @"SELECT id, name, threshold_type_id, b.value FROM [dbo].[Thresholds] a "
               + @"JOIN [dbo].[SlaContracts] b ON b.threshold_id = a.id "
               + @"WHERE b.device_type=@device_type "
               + @"ORDER BY a.id ASC",

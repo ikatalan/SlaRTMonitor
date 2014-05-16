@@ -90,7 +90,7 @@
             // 
             // valueDataGridViewTextBoxColumn
             // 
-            this.valueDataGridViewTextBoxColumn.DataPropertyName = "gaugeValue";
+            this.valueDataGridViewTextBoxColumn.DataPropertyName = "value";
             this.valueDataGridViewTextBoxColumn.HeaderText = "Threshold Value";
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
             // 

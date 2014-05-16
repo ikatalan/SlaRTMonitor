@@ -627,7 +627,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSlaAgreement.device_typeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'device_type\' in table \'SlaAgreement\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'device_type\' in table \'SlaAgreement\' is DBNull.", e);
                     }
                 }
                 set {
@@ -643,7 +643,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSlaAgreement.device_nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'device_name\' in table \'SlaAgreement\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'device_name\' in table \'SlaAgreement\' is DBNull.", e);
                     }
                 }
                 set {
@@ -659,7 +659,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSlaAgreement.measure_typeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'measure_type\' in table \'SlaAgreement\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'measure_type\' in table \'SlaAgreement\' is DBNull.", e);
                     }
                 }
                 set {
@@ -675,7 +675,7 @@ namespace LinqExample {
                         return ((string)(this[this.tableSlaAgreement.thresholdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The gaugeValue for column \'threshold\' in table \'SlaAgreement\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The Value for column \'threshold\' in table \'SlaAgreement\' is DBNull.", e);
                     }
                 }
                 set {
