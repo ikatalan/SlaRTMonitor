@@ -91,7 +91,7 @@ namespace LinqExample
             dr.Delete();
             this.usersTableAdapter.Update(this.sLA_RT_monitoringDataSet.Users);
             MessageBox.Show("Delete Successfully", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //System.Windows.Forms.MessageBox.Show("Line Deleted From Database");
+        
            
         }
 
@@ -105,11 +105,6 @@ namespace LinqExample
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void usersBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
 
         }
 

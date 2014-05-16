@@ -58,9 +58,9 @@ namespace LinqExample
                     @"ON sim.device_id = dev2.id " +
                     @"INNER JOIN [SLA_RT_monitoring].[dbo].[Thresholds] thre " +
                     @"ON sim.threshold_id = thre.id " +
-                    @"WHERE sim.value < ( SELECT con.[value] " +
+                    @"WHERE sim.value < ( SELECT min(con.[value]) " +
                                        @"FROM [SLA_RT_monitoring].[dbo].[SlaContracts] con " +
-                                       @"WHERE con.[device_type] = ( SELECT dev.[type] " +
+                                       @"WHERE con.[device_type] = ( SELECT min(dev.[type]) " +
                                                                    @"FROM [SLA_RT_monitoring].[dbo].[Devices] dev " +
                                                                    @"WHERE dev.[id] = @device_id) " +
                                        @"AND con.[threshold_id] = @threshold_id) " +
@@ -96,9 +96,9 @@ namespace LinqExample
                     @"ON sim.device_id = dev2.id " +
                     @"INNER JOIN [SLA_RT_monitoring].[dbo].[Thresholds] thre " +
                     @"ON sim.threshold_id = thre.id " +
-                    @"WHERE [value] > ( SELECT con.[value] " +
+                    @"WHERE [value] > ( SELECT min(con.[value]) " +
                                        @"FROM [SLA_RT_monitoring].[dbo].[SlaContracts] con " +
-                                       @"WHERE con.[device_type] = ( SELECT dev.[type] " +
+                                       @"WHERE con.[device_type] = ( SELECT min(dev.[type]) " +
                                                                    @"FROM [SLA_RT_monitoring].[dbo].[Devices] dev " +
                                                                    @"WHERE dev.[id] = @device_id) " +
                                        @"AND con.[threshold_id] = @threshold_id) " +

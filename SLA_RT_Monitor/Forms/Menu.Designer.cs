@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panel2 = new System.Windows.Forms.GroupBox();
             this.btnSLAComparison = new System.Windows.Forms.Button();
             this.btnPredictionReport = new System.Windows.Forms.Button();
@@ -46,6 +48,7 @@
             this.btnGraphs = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.GroupBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
@@ -69,6 +72,7 @@
             // 
             // btnSLAComparison
             // 
+            this.btnSLAComparison.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSLAComparison.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSLAComparison.Location = new System.Drawing.Point(455, 27);
             this.btnSLAComparison.Name = "btnSLAComparison";
@@ -80,6 +84,7 @@
             // 
             // btnPredictionReport
             // 
+            this.btnPredictionReport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPredictionReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPredictionReport.Location = new System.Drawing.Point(297, 27);
             this.btnPredictionReport.Name = "btnPredictionReport";
@@ -91,6 +96,7 @@
             // 
             // btnReportsByTime
             // 
+            this.btnReportsByTime.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReportsByTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReportsByTime.Location = new System.Drawing.Point(147, 27);
             this.btnReportsByTime.Name = "btnReportsByTime";
@@ -123,6 +129,7 @@
             // 
             // btnUserMnagement
             // 
+            this.btnUserMnagement.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUserMnagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUserMnagement.Location = new System.Drawing.Point(297, 31);
             this.btnUserMnagement.Name = "btnUserMnagement";
@@ -134,6 +141,7 @@
             // 
             // btnSLAManager
             // 
+            this.btnSLAManager.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSLAManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSLAManager.Location = new System.Drawing.Point(147, 31);
             this.btnSLAManager.Name = "btnSLAManager";
@@ -167,7 +175,7 @@
             // 
             this.lbl_reports.AutoSize = true;
             this.lbl_reports.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_reports.Location = new System.Drawing.Point(291, 214);
+            this.lbl_reports.Location = new System.Drawing.Point(262, 214);
             this.lbl_reports.Name = "lbl_reports";
             this.lbl_reports.Size = new System.Drawing.Size(139, 39);
             this.lbl_reports.TabIndex = 4;
@@ -177,7 +185,7 @@
             // 
             this.lbl_management.AutoSize = true;
             this.lbl_management.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_management.Location = new System.Drawing.Point(272, 408);
+            this.lbl_management.Location = new System.Drawing.Point(262, 408);
             this.lbl_management.Name = "lbl_management";
             this.lbl_management.Size = new System.Drawing.Size(219, 39);
             this.lbl_management.TabIndex = 4;
@@ -185,6 +193,7 @@
             // 
             // btnLogOut
             // 
+            this.btnLogOut.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogOut.Image = global::LinqExample.Properties.Resources.exit;
             this.btnLogOut.Location = new System.Drawing.Point(751, 30);
             this.btnLogOut.Name = "btnLogOut";
@@ -192,6 +201,7 @@
             this.btnLogOut.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnLogOut.TabIndex = 3;
             this.btnLogOut.TabStop = false;
+            this.toolTip1.SetToolTip(this.btnLogOut, "Exit the system");
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // pictureBox1
@@ -206,6 +216,7 @@
             // 
             // btnDashboard
             // 
+            this.btnDashboard.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.Location = new System.Drawing.Point(147, 26);
             this.btnDashboard.Name = "btnDashboard";
@@ -217,6 +228,7 @@
             // 
             // btnGraphs
             // 
+            this.btnGraphs.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGraphs.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGraphs.Location = new System.Drawing.Point(297, 26);
             this.btnGraphs.Name = "btnGraphs";
@@ -250,9 +262,13 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menu";
+            this.Text = "MainMenu";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
             this.Load += new System.EventHandler(this.Menu_Load);
             this.panel2.ResumeLayout(false);
@@ -287,6 +303,7 @@
         private System.Windows.Forms.Button btnGraphs;
         private System.Windows.Forms.GroupBox panel1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ToolTip toolTip1;
 
 
 

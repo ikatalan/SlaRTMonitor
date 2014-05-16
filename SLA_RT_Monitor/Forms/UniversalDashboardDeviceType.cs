@@ -173,6 +173,10 @@ namespace LinqExample.Forms
                 deviceLabel.Text += SplitName(newDeviceData.deviceName)[1];
                 deviceLabel.Text += "\n";
                 deviceLabel.TextAlign = ContentAlignment.MiddleCenter;
+                if (SplitName(newDeviceData.deviceName)[2] != null)
+                {
+                    deviceLabel.Text += SplitName(newDeviceData.deviceName)[2];
+                }
 
                 // Insert device data in the Tag property ( for using on Click event and updateTimer).
                 deviceLabel.Tag = newDeviceData;

@@ -96,14 +96,11 @@ namespace LinqExample.Forms
 
         private void Menu_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Display a MsgBox asking the user to save changes or abort. 
-            if (MessageBox.Show("Are you sure you want to close?", "Closing",
-               MessageBoxButtons.YesNo) == DialogResult.No)
-            {
-                // Cancel the Closing event from closing the form.
-                e.Cancel = true;
-                // Call method to save file...
-            }
+              DialogResult result = MessageBox.Show("Are you sure you want to close?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)

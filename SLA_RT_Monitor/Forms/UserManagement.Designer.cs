@@ -137,7 +137,7 @@
             // 
             this.usersBindingSource.DataMember = "Users";
             this.usersBindingSource.DataSource = this.sLA_RT_monitoringDataSet;
-            this.usersBindingSource.CurrentChanged += new System.EventHandler(this.usersBindingSource_CurrentChanged);
+       
             // 
             // sLA_RT_monitoringDataSet
             // 
