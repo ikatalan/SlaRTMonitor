@@ -1,5 +1,0 @@
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\AGauge_Src\AGauge\bin\Debug\AGauge.dll
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\AGauge_Src\AGauge\bin\Debug\AGauge.pdb
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\AGauge_Src\AGauge\obj\Debug\AGauge.csprojResolveAssemblyReference.cache
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\AGauge_Src\AGauge\obj\Debug\AGauge.dll
-C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\AGauge_Src\AGauge\obj\Debug\AGauge.pdb
