@@ -137,7 +137,6 @@
             // 
             this.usersBindingSource.DataMember = "Users";
             this.usersBindingSource.DataSource = this.sLA_RT_monitoringDataSet;
-       
             // 
             // sLA_RT_monitoringDataSet
             // 

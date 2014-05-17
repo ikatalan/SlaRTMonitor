@@ -201,7 +201,7 @@
             this.btnLogOut.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnLogOut.TabIndex = 3;
             this.btnLogOut.TabStop = false;
-            this.toolTip1.SetToolTip(this.btnLogOut, "Exit the system");
+            this.toolTip1.SetToolTip(this.btnLogOut, "Logout");
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // pictureBox1

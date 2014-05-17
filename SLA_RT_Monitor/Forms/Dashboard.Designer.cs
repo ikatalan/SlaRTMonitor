@@ -415,7 +415,7 @@
             this.threshold_text.HeaderText = "Threshold Name";
             this.threshold_text.Name = "threshold_text";
             // 
-            // gaugeValue
+            // value
             // 
             this.value.DataPropertyName = "value";
             this.value.HeaderText = "Threshold Value";

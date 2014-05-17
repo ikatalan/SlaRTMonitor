@@ -165,7 +165,7 @@ namespace LinqExample
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error: Could not read file from disk. In Most cases the file is open " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
                 }
             }

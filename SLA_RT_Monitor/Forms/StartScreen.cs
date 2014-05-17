@@ -50,8 +50,8 @@ namespace LinqExample
             con.Close();
             if (cmbUserType.Items.Count > 0)
             {
-                cmbUserType.Sorted = true;
-                cmbUserType.SelectedIndex = 0;//Take the first gaugeValue and show on the dropdownlist
+                //cmbUserType.Sorted = true;//Sort the username
+                cmbUserType.SelectedIndex = 0;//Take the first Value and show on the dropdownlist
 
             }
 
@@ -138,8 +138,17 @@ namespace LinqExample
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (x != null)
+            {
+                x.Stop();//stop the RTDataGenerator thread
+            }
+           this.Close();
+           
         }
+   
+
+
+
         private void btnExit_MouseHover(object sender, EventArgs e)
         {
             this.toolTip1_Info.ToolTipTitle = "Exit";
@@ -149,12 +158,14 @@ namespace LinqExample
         //Send email if user forget his password
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 MessageBox.Show("No Internet Connection Available, Connect to the internet and try again", "Forget Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+           
             usersCmd.Parameters.Clear();
             linkLabel1.Enabled = false;//disable the link until the email sent
             var email = "";
@@ -185,6 +196,7 @@ namespace LinqExample
 
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                 mail.From = new MailAddress("ynsk44@gmail.com", "SLA Real Time Monitoring");
@@ -234,25 +246,9 @@ namespace LinqExample
             return strBuilder.ToString();
         }
 
-        private void toolTip1_Info_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-
-        private void StartScreen_Load(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void StartScreen_VisibleChanged(object sender, EventArgs e)
         {
+            txtPassword.Clear();//Remove the password for textBox
             loaddata();
         }
     }

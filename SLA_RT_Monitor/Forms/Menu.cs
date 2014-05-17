@@ -96,7 +96,7 @@ namespace LinqExample.Forms
 
         private void Menu_FormClosing(object sender, FormClosingEventArgs e)
         {
-              DialogResult result = MessageBox.Show("Are you sure you want to close?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+              DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.No)
                 {
                     e.Cancel = true;
@@ -108,6 +108,8 @@ namespace LinqExample.Forms
             SingletoneUser.UserPass = null;
             SingletoneUser.UserName = null;
             this.Close();
+           
+ 
         }
     }
 }

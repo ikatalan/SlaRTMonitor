@@ -22,7 +22,7 @@ namespace LinqExample
         private SqlCommand devicesMeasurmentsByThresholdCommand; // Select measurements for the list of device.
 
         private SqlConnection dbConnection3;//connections thresholdContractCommand
-        private SqlCommand thresholdContractCommand; // get contract gaugeValue by contract Id.
+        private SqlCommand thresholdContractCommand; // get contract Value by contract Id.
 
         private SqlConnection dbConnection4;//contractIdCommand
         private SqlCommand contractIdCommand; // Get contract for deviceType and threhsoldId
@@ -482,9 +482,17 @@ namespace LinqExample
                 {
                     devicesMeasurmentsCommand.Connection.Open();
                 }
+                SqlDataReader reader2;
+                //Prevent from reader to crash if deviceId is missing
+                if (deviceId >= 0)
+                {
 
-
-                SqlDataReader reader2 = devicesMeasurmentsCommand.ExecuteReader();
+                     reader2 = devicesMeasurmentsCommand.ExecuteReader();
+                }
+                else
+                {
+                    return;
+                }
 
                 // Fill incidents table for each threshold 
                 List<int> listThresholds = new List<int>();
