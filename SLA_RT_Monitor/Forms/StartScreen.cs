@@ -143,6 +143,7 @@ namespace LinqExample
                 x.Stop();//stop the RTDataGenerator thread
             }
            this.Close();
+           this.Dispose();
            
         }
    

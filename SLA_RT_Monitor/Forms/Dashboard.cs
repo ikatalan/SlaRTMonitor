@@ -201,10 +201,12 @@ namespace LinqExample
                         {
                             listDevices.SelectedItem = item;
                         }
+                       
                     }        
                 } 
 
                 if (listDevices.SelectedItem != null)
+            //    if(listDevices.Items.Count > 0 )
                 {
                     deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
                     deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString();
@@ -218,6 +220,10 @@ namespace LinqExample
         }
         private void InitGraph(ZedGraph.ZedGraphControl zgc)
         {
+            if (zgc == null)
+            {
+                return;
+            }
             GraphPane myPane = zgc.GraphPane;
 
             myPane.XAxis.Title.Text = "Time (Sec)";
@@ -251,9 +257,10 @@ namespace LinqExample
             // Calculate the Axis Scale Ranges
             axisChangeZedGraph(zgc); //refrsh the graph
         }
-
+        //When Select device fro, the list
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Lock the selection until finish the cycle and then cleat the Gauge
             lock (thresholdForGauge)
             {
                 thresholdForGauge.Clear();
@@ -278,12 +285,12 @@ namespace LinqExample
 
                 try
                 {
-                    //If deviceId is valid insert paramteer to query.
+                    //If deviceId is valid insert parameters to query.
                     if (deviceId >= 0)
                     {
                         me.devicesMeasurmentsCommand.Parameters["@device_id"].Value = deviceId;
                     }
-                    else
+                    else//iterate next
                     {
                         continue;
                     }
@@ -660,11 +667,12 @@ namespace LinqExample
             {
                 SqlDataReader measurementsReader = null;
 
-                if (deviceId >= 0)
+                if (deviceId >= 0 && thresholdId >= 0)
                 {
                     devicesMeasurmentsByThresholdCommand.Parameters["@device_id"].Value = deviceId;
                     devicesMeasurmentsByThresholdCommand.Parameters["@threshold_id"].Value = thresholdId;
                 }
+                
                      
 
                 global::System.Data.ConnectionState previousConnectionState = devicesMeasurmentsByThresholdCommand.Connection.State;
@@ -673,9 +681,10 @@ namespace LinqExample
                 {
                     devicesMeasurmentsByThresholdCommand.Connection.Open();
                 }
-
-                measurementsReader = devicesMeasurmentsByThresholdCommand.ExecuteReader();
-
+                //if (deviceId >= 0)
+               // {
+                    measurementsReader = devicesMeasurmentsByThresholdCommand.ExecuteReader();
+               // }         
                 
                 while (measurementsReader.Read())
                 {
@@ -690,7 +699,7 @@ namespace LinqExample
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                //MessageBox.Show(e.ToString());
             }
 
             return listValues;

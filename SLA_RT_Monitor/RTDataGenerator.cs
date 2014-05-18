@@ -48,24 +48,24 @@ namespace LinqExample
         private Dictionary<int, ThresholdData> thresholds = new Dictionary<int, ThresholdData>();
 
         private Dictionary<string, ContractData> thresholdForDeviceType;
-        
-        private SqlConnection dbConnection;
-        private SqlCommand insertSimulatedMeasurementCmd;
 
-        private SqlConnection dbConnectionDevices;
-        private SqlCommand allDevices;
+        private SqlConnection dbConnection;//connections for insertSimulatedMeasurementCmd
+        private SqlCommand insertSimulatedMeasurementCmd;//Insert the data created to table SimulatedMeasurement
 
-        private SqlConnection dbConnectionThresholdTypes;
-        private SqlCommand allThresholdTypes;
+        private SqlConnection dbConnectionDevices;//Connections for allDevices
+        private SqlCommand allDevices;//Get All devices currently in the system
+
+        private SqlConnection dbConnectionThresholdTypes;//Connections for allThresholdTypes
+        private SqlCommand allThresholdTypes; // fetch all threshold ids with min/max values
 
         private SqlConnection dbConnectionContracts;
-        private SqlCommand allContracts;
+        private SqlCommand allContracts;//Read contract and get device_type, threshold_id, value
 
-        private SqlConnection dbConnectionPastMeasurements;
-        private SqlCommand pastMeasurements;
+        private SqlConnection dbConnectionPastMeasurements;//Connections for pastMeasurements
+        private SqlCommand pastMeasurements;//Get AVG value for a device
 
 
-        Random randGenerator = new Random((int)DateTime.Now.Ticks);
+        Random randGenerator = new Random((int)DateTime.Now.Ticks);//create random seed based on ticks
 
 
         private System.Threading.Thread t1 = null;
@@ -98,7 +98,7 @@ namespace LinqExample
                 //Init device data vector with ID and TYPE
                 devicesData = new List<DeviceData>();
                 while (devicesReader.Read())
-                {
+                {                                   // id,                      //type
                     devicesData.Add(new DeviceData(devicesReader.GetInt32(0), devicesReader.GetString(1).ToLower()));
                 }
             }
@@ -118,7 +118,7 @@ namespace LinqExample
 
                 thresholds = new Dictionary<int, ThresholdData>();
                 while (thresholdTypesReader.Read())
-                {
+                {                                       //id,                                       //threshold_type_id,                        //minValue,                         //maxValue
                     thresholds[thresholdTypesReader.GetInt32(0)] = new ThresholdData(thresholdTypesReader.GetInt32(1) == 1, thresholdTypesReader.GetInt32(2), thresholdTypesReader.GetInt32(3));
                 }
             }
@@ -132,19 +132,23 @@ namespace LinqExample
                 {
                     allContracts.Connection.Open();
                 }
-
-                SqlDataReader contractsReader = allContracts.ExecuteReader();
-
+               
+               
+               SqlDataReader contractsReader = allContracts.ExecuteReader();
+                
+               
                 thresholdForDeviceType = new Dictionary<string, ContractData>();
                 while (contractsReader.Read())
                 {
+                                            //device_type
                     string currDeviceType = contractsReader.GetString(0).ToLower().TrimEnd(trailingSpace);
                     if (thresholdForDeviceType.ContainsKey(currDeviceType))
-                    {
+                    {                                                                                       //threshold_id        
                         if (!thresholdForDeviceType[currDeviceType].listThresholdIds.Exists(x => x.Key == contractsReader.GetInt32(1)))
                         {
                             thresholdForDeviceType[currDeviceType].listThresholdIds.Add(
                                 new KeyValuePair<int, float>(
+                                    //threshold_id,                                     //value
                                     contractsReader.GetInt32(1), (float)contractsReader.GetInt32(2)));
                         }
                     }
@@ -197,7 +201,7 @@ namespace LinqExample
                 }
             }
 
-            {// Read past measurements of device & threshjold pair.
+            {// Read past measurements of device & threshold pair.
                 dbConnectionPastMeasurements = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
                 //Get All devices currently in the system
@@ -227,6 +231,7 @@ namespace LinqExample
             t1.Start(this);
         }
 
+        //Stop the generate data
         public void Stop()
         {
             shouldContinue = false;

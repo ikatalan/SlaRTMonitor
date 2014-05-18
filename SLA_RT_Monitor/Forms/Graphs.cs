@@ -93,7 +93,7 @@ namespace LinqExample
 
 
 
-            // used for getting threshold gaugeValue from Contracts
+            // used for getting threshold Value from Contracts
             singleThresholdValueAdapter = new SqlDataAdapter(
                 @"SELECT value "
                 + @"FROM [dbo].[SlaContracts] "
