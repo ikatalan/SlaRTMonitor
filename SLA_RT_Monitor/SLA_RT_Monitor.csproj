@@ -436,6 +436,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\progress.gif" />
     <None Include="Resources\exit.png" />
     <None Include="Resources\management.jpg" />
     <None Include="Resources\reports.jpg" />

@@ -857,8 +857,8 @@ namespace LinqExample
 
         private void button2_Click(object sender, EventArgs e)
         {
-            fetcherThread.Abort(this);//Kiil the thread
             shouldContinue = false;
+            fetcherThread.Abort(this);//Kill the thread
             this.Close();
         }
 
