@@ -10,6 +10,7 @@ namespace LinqExample
 {
     class RTDataGenerator
     {
+        //Hold the Threshold data , Min Value, Max Value , IsAbove = should the value need to be below or not
         class ThresholdData
         {
             public ThresholdData(bool _isAbove, int _minVal, int _maxVal)
@@ -24,6 +25,7 @@ namespace LinqExample
             public bool isAbove;
         }
 
+        //Hold the device data ,Id and Type
         class DeviceData
         {
             public DeviceData(int _id, string _type)
@@ -35,6 +37,7 @@ namespace LinqExample
             public string type;
         }
 
+        //Hold the contract data ,Device Type and the threshold Id
         class ContractData
         {
             public List<KeyValuePair<int,float>> listThresholdIds;
@@ -43,7 +46,7 @@ namespace LinqExample
 
         static int interval = 20000;//Interval 
 
-        char[] trailingSpace = { ' ' };
+        char[] trailingSpace = { ' ' };//support device name if was nchar which can store Unicode characters
         private List<DeviceData> devicesData = new List<DeviceData>();
         private Dictionary<int, ThresholdData> thresholds = new Dictionary<int, ThresholdData>();
 
@@ -65,12 +68,12 @@ namespace LinqExample
         private SqlCommand pastMeasurements;//Get AVG value for a device
 
 
-        Random randGenerator = new Random((int)DateTime.Now.Ticks);//create random seed based on ticks
+        Random randGenerator = new Random((int)DateTime.Now.Ticks);//create random seed based onticks
 
 
-        private System.Threading.Thread t1 = null;
+        private System.Threading.Thread t1 = null;//declare on thread
 
-        private bool shouldContinue;
+        private bool shouldContinue;//flag to know if thread should contuine running
 
         public RTDataGenerator()
         {
@@ -82,7 +85,7 @@ namespace LinqExample
             //Init thread object.
             t1 = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(Generator));
 
-            {// Read all devices data.
+            {
                 dbConnectionDevices = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
                 //Get All devices currently in the system
@@ -93,6 +96,7 @@ namespace LinqExample
                     allDevices.Connection.Open();
                 }
 
+                //run the quary to get the devices from database
                 SqlDataReader devicesReader = allDevices.ExecuteReader();
 
                 //Init device data vector with ID and TYPE
@@ -103,7 +107,7 @@ namespace LinqExample
                 }
             }
 
-            { // Read all thresholds
+            { 
                 dbConnectionThresholdTypes = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
                 // fetch all threshold ids with min/max values
@@ -114,11 +118,12 @@ namespace LinqExample
                     allThresholdTypes.Connection.Open();
                 }
 
+                //run the quary to get the threshold information from database
                 SqlDataReader thresholdTypesReader = allThresholdTypes.ExecuteReader();
 
                 thresholds = new Dictionary<int, ThresholdData>();
                 while (thresholdTypesReader.Read())
-                {                                       //id,                                       //threshold_type_id,                        //minValue,                         //maxValue
+                {                                       //id,                                       //threshold_type_id,1 = isAbove                       //minValue,                         //maxValue
                     thresholds[thresholdTypesReader.GetInt32(0)] = new ThresholdData(thresholdTypesReader.GetInt32(1) == 1, thresholdTypesReader.GetInt32(2), thresholdTypesReader.GetInt32(3));
                 }
             }
@@ -132,45 +137,48 @@ namespace LinqExample
                 {
                     allContracts.Connection.Open();
                 }
-               
-               
+
+                //run the quary to get the contract information from database   
                SqlDataReader contractsReader = allContracts.ExecuteReader();
                 
                
                 thresholdForDeviceType = new Dictionary<string, ContractData>();
                 while (contractsReader.Read())
                 {
-                                            //device_type
+                                            //device_type , trim space if the value in database is nchar
                     string currDeviceType = contractsReader.GetString(0).ToLower().TrimEnd(trailingSpace);
+                    //checking if devicetype is found in thresholdForDeviceType
                     if (thresholdForDeviceType.ContainsKey(currDeviceType))
                     {                                                                                       //threshold_id        
                         if (!thresholdForDeviceType[currDeviceType].listThresholdIds.Exists(x => x.Key == contractsReader.GetInt32(1)))
                         {
+                            //add threshold_id and value if thresholdForDeviceType if not found
                             thresholdForDeviceType[currDeviceType].listThresholdIds.Add(
                                 new KeyValuePair<int, float>(
                                     //threshold_id,                                     //value
                                     contractsReader.GetInt32(1), (float)contractsReader.GetInt32(2)));
                         }
                     }
+                    // if devicetype not found in thresholdForDeviceType
                     else
                     {
                         ContractData newContractData = new ContractData();
                         newContractData.deviceType = currDeviceType;
                         newContractData.listThresholdIds = new List<KeyValuePair<int, float>>();
+                                                                                                            //threshold_id,                     value 
                         newContractData.listThresholdIds.Add(new KeyValuePair<int, float>(contractsReader.GetInt32(1),(float)contractsReader.GetInt32(2)));
-                        
                         thresholdForDeviceType.Add(currDeviceType, newContractData);
                         
                     }
                 }
-
+             
             }
 
             {
                 dbConnection = new global::System.Data.SqlClient.SqlConnection();
                 dbConnection.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
 
-                // Init insert into simulated measurements sql comand
+                //The strem data need to be insert into SimulatedMeasurements 
                 insertSimulatedMeasurementCmd = new SqlCommand(
                     @"INSERT INTO [SLA_RT_monitoring].[dbo].[SimulatedMeasurements] "
                         + @"([device_id] "
@@ -187,10 +195,15 @@ namespace LinqExample
                     insertSimulatedMeasurementCmd.Connection.Open();
                 }
 
+                
                 insertSimulatedMeasurementCmd.CommandType = global::System.Data.CommandType.Text;
+                //device_id
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //threshold_id
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //value
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@value", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "value", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //timestamp
                 insertSimulatedMeasurementCmd.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
                 global::System.Data.ConnectionState previousConnectionState = insertSimulatedMeasurementCmd.Connection.State;
@@ -204,7 +217,7 @@ namespace LinqExample
             {// Read past measurements of device & threshold pair.
                 dbConnectionPastMeasurements = new SqlConnection(global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString);
 
-                //Get All devices currently in the system
+                //Get the AVG value from the past 2 results 
                 pastMeasurements = new SqlCommand(
                     "SELECT AVG(a.value) " +
                     "FROM ( " +
@@ -222,24 +235,29 @@ namespace LinqExample
                 }
 
                 pastMeasurements.CommandType = global::System.Data.CommandType.Text;
+                //device_id
                 pastMeasurements.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //threshold_id
                 pastMeasurements.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //timestamp
                 pastMeasurements.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@timestamp", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "timestamp", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             }
 
             shouldContinue = true;
             t1.Start(this);
-        }
+        }//end of Start
 
-        //Stop the generate data
+        //Stop the generate data (Thread)
         public void Stop()
         {
             shouldContinue = false;
             t1.Abort();
         }
 
+        //Number to help provide real data that should come from time to time
         private int irregularPeak = 0;
 
+        //Generat the values based on contract database
         private void Generator (object arg) {
             RTDataGenerator me = (RTDataGenerator) arg;
             Random randGenerator = new Random();
@@ -258,26 +276,32 @@ namespace LinqExample
                         {
                             int thresholdId = thresholdWithContractValue.Key;
                             ThresholdData theChosenRange = thresholds[thresholdId];
-
+                            //device_id
                             insertSimulatedMeasurementCmd.Parameters[0].Value = theChosenDevice.id;
+                            //threshold_id
                             insertSimulatedMeasurementCmd.Parameters[1].Value = thresholdId;
+                            //value
                             insertSimulatedMeasurementCmd.Parameters[2].Value = 
-                                GetValueForDeviceThresholdPair(theChosenDevice, thresholdId, currContract, (irregularPeak%37) == 0);
+                                GetValueForDeviceThresholdPair(theChosenDevice, thresholdId, currContract, (irregularPeak%67) == 0);
+                            //timestamp
                             insertSimulatedMeasurementCmd.Parameters[3].Value = DateTime.Now;
 
+                            //Here for debugging - need to know the generate values are correct
                             Debug.WriteLine("device: " + theChosenDevice.id + " threshold_id: " + thresholdId + " value: " + insertSimulatedMeasurementCmd.Parameters[2].Value + " time: " + insertSimulatedMeasurementCmd.Parameters[3].Value);
 
+                            //ExecuteNonQuery - use when insert data to database
                             insertSimulatedMeasurementCmd.ExecuteNonQuery();
 
+                            //Incrase the irregularPeak to insert diff values after some time 
                             ++irregularPeak;
                         }
                     }
                 }
-                
+                //Generate values each time based on the interval
                 System.Threading.Thread.Sleep(interval);
             }
         }
-
+        //Create the values for device - Taking in considoration the contract values
         private object GetValueForDeviceThresholdPair(DeviceData deviceData, int thresholdId, ContractData contractData, bool generageIrregularData )
         {
             KeyValuePair<int, float> currContractValue = contractData.listThresholdIds.Find(x => x.Key == thresholdId);
@@ -364,8 +388,5 @@ namespace LinqExample
     }
 }
 
-	
-	
-		
 	
 	

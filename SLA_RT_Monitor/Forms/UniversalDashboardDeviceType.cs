@@ -65,6 +65,8 @@ namespace LinqExample.Forms
                     }
                 }
             }
+            //add running clock 
+           // DigiClockTextBox.Text = DateTime.Now.TimeOfDay.ToString();
             
         }
 
@@ -173,10 +175,14 @@ namespace LinqExample.Forms
                 deviceLabel.Text += SplitName(newDeviceData.deviceName)[1];
                 deviceLabel.Text += "\n";
                 deviceLabel.TextAlign = ContentAlignment.MiddleCenter;
-                if (SplitName(newDeviceData.deviceName)[2] != null)
+                try
                 {
-                    deviceLabel.Text += SplitName(newDeviceData.deviceName)[2];
+                    if (SplitName(newDeviceData.deviceName)[2] != null)
+                    {
+                        deviceLabel.Text += SplitName(newDeviceData.deviceName)[2];
+                    }
                 }
+                catch { }
 
                 // Insert device data in the Tag property ( for using on Click event and updateTimer).
                 deviceLabel.Tag = newDeviceData;
@@ -187,7 +193,7 @@ namespace LinqExample.Forms
                 this.Controls.Add(deviceLabel);
                 ++i;
             }
-
+            reader.Close();
             //Update incidents every interval.
             updateTimer.Start();
 
@@ -225,7 +231,7 @@ namespace LinqExample.Forms
                 summary += incidentsProvider.GetIncedentsFor(thresholdId, deviceId, startIncidentsFrom);
             }
 
-            if (summary > 5)
+            if (summary >= 6)
             {
                 return Color.Red;
             }

@@ -62,7 +62,7 @@ namespace LinqExample
         public Dashboard(int initDeviceId)
         {
             InitializeComponent();
-            startDeviceId = initDeviceId; // the device ID to start with.
+            startDeviceId = initDeviceId; // the device ID to start with when arriving from Universal Dashboard.
         }
 
         //When the form Load
@@ -72,9 +72,9 @@ namespace LinqExample
             //Sort the datagrid by time ,show the most updated line
             dataGridIncidents.Sort(dataGridIncidents.Columns[4], ListSortDirection.Descending);
 
-            isStartedReadingValues = false;
+            isStartedReadingValues = false;//false on load since we still didn't read any value
 
-            lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3, 0, 0));
+            lastIncidentsCheck = DateTime.Now.Subtract(new TimeSpan(3, 0, 0));//check the last 3 hours
             //Provide the incident numbers and will fill the IncidentDataGrid
             incidentsProvider = new DashboardIncidentsProvider();
 
@@ -84,7 +84,7 @@ namespace LinqExample
 
             //Create the thread with GuageDataFetcher as the starting function.
             fetcherThread = new Thread(new ParameterizedThreadStart(GuageDataFetcher));
-            shouldContinue = true;
+            shouldContinue = true;//flag to know if thread should contuine work
 
             //Start the update thread.
             fetcherThread.Start(this);
@@ -99,7 +99,7 @@ namespace LinqExample
                 + @"FROM [dbo].[SimulatedMeasurements] a "
                 + @"JOIN [dbo].[Thresholds] b ON a.threshold_id=b.id "
                 + @"WHERE a.device_id= @device_id "
-                + @"ORDER BY timestamp DESC",
+                + @"ORDER BY timestamp DESC",//Desc - From the newest time to the older time
                 dbConnection);
 
             global::System.Data.ConnectionState previousConnectionState = devicesMeasurmentsCommand.Connection.State;
@@ -133,7 +133,9 @@ namespace LinqExample
                 }
 
                 devicesMeasurmentsByThresholdCommand.CommandType = global::System.Data.CommandType.Text;
+                //device_id
                 devicesMeasurmentsByThresholdCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //threshold_id
                 devicesMeasurmentsByThresholdCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
             }
@@ -158,6 +160,7 @@ namespace LinqExample
                 }
 
                 thresholdContractCommand.CommandType = global::System.Data.CommandType.Text;
+                //contract_id
                 thresholdContractCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@contract_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "contract_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             }
 
@@ -180,7 +183,9 @@ namespace LinqExample
                 }
 
                 contractIdCommand.CommandType = global::System.Data.CommandType.Text;
+                //device_type
                 contractIdCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@device_type", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+                //threshold_id
                 contractIdCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "threshold_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             }
 
@@ -195,6 +200,7 @@ namespace LinqExample
                 //If no startdeviceId chosen than start the form with the first device Selected.
                 if (startDeviceId != null)
                 {
+                    //ListDevices coming from DeviceBindingSource which giving the connection to Devices information
                     foreach (DataRowView item in listDevices.Items)
                     {
                         if (Int32.Parse(item[0].ToString()) == startDeviceId)
@@ -206,7 +212,6 @@ namespace LinqExample
                 } 
 
                 if (listDevices.SelectedItem != null)
-            //    if(listDevices.Items.Count > 0 )
                 {
                     deviceId = Int32.Parse(((DataRowView)listDevices.SelectedItem)[0].ToString());
                     deviceType = ((DataRowView)listDevices.SelectedItem)[2].ToString();
@@ -248,20 +253,21 @@ namespace LinqExample
             //This informs ZedGraph to use the labels supplied by the user in Axis.Scale.TextLabels
             Axis.Default.Type = AxisType.Text;
 
-            // Set the XAxis to date type
+            // Set the XAxis to date type since I want to show timeframe for the information
             myPane.XAxis.Type = AxisType.Date;
 
             myPane.YAxis.MajorGrid.IsVisible = true;
             myPane.YAxis.MinorGrid.IsVisible = true;
 
-            // Calculate the Axis Scale Ranges
             axisChangeZedGraph(zgc); //refrsh the graph
         }
-        //When Select device fro, the list
+        //When Select device from the list
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Lock the selection until finish the cycle and then cleat the Gauge
+            //Lock the selection until finish the cycle and then clear the Gauge
+            //Since I am on the thread , I need to provide the cycle that started enough time to finish
             lock (thresholdForGauge)
+            //Lock -  block as a critical section: ensures that one thread does not enter a critical section of code while another thread
             {
                 thresholdForGauge.Clear();
             }
