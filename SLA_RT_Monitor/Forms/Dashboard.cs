@@ -45,7 +45,7 @@ namespace LinqExample
 
         // This delegate enables asynchronous calls for setting
         // the text property on a TextBox control.
-        delegate void SetGuageValueCallback(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value);
+        delegate void SetGuageValueCallback(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value, float minValue, float maxValue, float contractValue);
 
         //delegate to fill the incident datagrid
         delegate void FillIncidentsCallBack(DataTable table);
@@ -432,7 +432,9 @@ namespace LinqExample
                     //If the threshold have a place to be shown. set the data to the Gauge, Graph and Label.
                     if (zgc != null)
                     {
-                        me.SetGuageValue(aguage, lbl, thresholdName, gaugeValue);
+                        Int32 contractValue = me.GetContractThreshold(deviceType, thresholdId);//Read the contract values
+
+                        me.SetGuageValue(aguage, lbl, thresholdName, gaugeValue, (float)minValue, (float)maxValue, (float)contractValue);
                         //Fetch Graph Data for Graph1.
                         me.FillGraphWithData(zgc, thresholdId, deviceId, deviceType, thresholdName);
                     }
@@ -747,8 +749,7 @@ namespace LinqExample
         }
 
 
-        private void SetGuageValue(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value)
-       // private void SetGuageValue(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, double gaugeValue)
+        private void SetGuageValue(AGauge currGuage, System.Windows.Forms.Label currLabel, string thresholdName, float value, float minValue, float maxValue, float contractValue)
         {
             if (currLabel == null) { return; }
             // InvokeRequired required compares the thread ID of the
@@ -758,9 +759,8 @@ namespace LinqExample
             {
                 SetGuageValueCallback d = new SetGuageValueCallback(SetGuageValue);
                 thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
-                //this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, gaugeValue});
-                this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, value });
-                //AGauge currGuage, Label currLabel, string thresholdName, float gaugeValue
+                this.Invoke(d, new object[] { currGuage, currLabel, thresholdName, value, minValue, maxValue, contractValue });
+                
             }
             else
             {
@@ -769,7 +769,19 @@ namespace LinqExample
                 if (value > 100) { value = 100; }
                 thresholdName = thresholdName.Replace(" ", String.Empty);//remove whitespaces
                 currLabel.Text = thresholdName + " - " + value + "%";
-               
+
+                ////yellow
+                //currGuage.GaugeRanges[0].EndValue = (float) Math.Floor(Convert.ToDouble((contractValue - minValue) / (maxValue - minValue) * 100));
+                //currGuage.GaugeRanges[0].StartValue = (float) Math.Floor(Convert.ToDouble(((contractValue * 0.85f) - minValue) / (maxValue - minValue) * 100));
+
+                ////RED
+                //currGuage.GaugeRanges[1].EndValue = 100;
+                //currGuage.GaugeRanges[1].StartValue = (float) Math.Floor(Convert.ToDouble((contractValue - minValue) / (maxValue - minValue) * 100));
+
+                ////Green
+                //currGuage.GaugeRanges[2].EndValue = (float) Math.Floor(Convert.ToDouble(((contractValue * 0.85f) - minValue) / (maxValue - minValue) * 100));
+                //currGuage.GaugeRanges[2].StartValue = 0;
+                
             }
         }
 
