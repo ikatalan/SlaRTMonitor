@@ -1,0 +1,17 @@
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\HW2.exe.config
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\obj\Debug\HW2.AboutBox1.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\obj\Debug\HW2.Form1.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\obj\Debug\HW2.Properties.Resources.resources
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\obj\Debug\HW2.csproj.GenerateResource.Cache
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\HW2.exe
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\HW2.pdb
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\obj\Debug\HW2.exe
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\obj\Debug\HW2.pdb
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\DB.mdf
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\DB_log.ldf
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\EntityFramework.dll
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\EntityFramework.xml
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\DB.cs
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\DB.designer.cs
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\DB.dbml.layout
+C:\Users\ikatalan-pc\Documents\GitHub\SlaRTMonitor\HW2\HW2\HW2\bin\Debug\DB.dbml

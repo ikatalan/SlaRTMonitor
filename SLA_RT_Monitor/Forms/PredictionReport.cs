@@ -222,6 +222,7 @@ namespace LinqExample
                 myCurve = new LineItem(currDeviceName, listDeviceValues, Color.Black, SymbolType.None);
                 myPane.CurveList.Add(myCurve);
              
+                // Calculate min and max dates for the Threshold Curve.
                 if ( listDeviceValues.Count > 0 )
                 {
                     XDate firstDate = (XDate)(listDeviceValues[0].X);
@@ -299,6 +300,8 @@ namespace LinqExample
                 PointPairList lastXValues = new PointPairList();
 
                 DateTime lastMeasuremnetDateTime = DateTime.MinValue;
+
+                // Past & present prediction (not including current)
                 while (measurementsReader.Read())
                 {
                     // look 2 minutes back to prediction
@@ -328,9 +331,11 @@ namespace LinqExample
                     lastXValues.Add(current);
                 }
 
+
+                // Future prediction
                 while (lastXValues.Count > 0)
                 {
-                    // look 30 minutes back to prediction
+                    // look 10 minutes back to prediction
                     DateTime xxx = lastMeasuremnetDateTime.Subtract(new TimeSpan(0, 10, 0));
                     XDate startFromDateTime = new XDate(xxx);
 
@@ -339,7 +344,7 @@ namespace LinqExample
 
                     if (lastXValues.Count != 0)
                     {
-                        //Average all points (measurements ) in range (30 minutes).
+                        //Average all points (measurements ) in range (10 minutes).
                         double predictedValue = 0;
                         int count = 0;
 

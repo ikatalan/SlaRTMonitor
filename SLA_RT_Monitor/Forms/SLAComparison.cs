@@ -195,7 +195,7 @@ namespace LinqExample.Forms
             singleThresholdValueAdapter.SelectCommand.CommandType = global::System.Data.CommandType.Text;
             singleThresholdValueAdapter.SelectCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@threshold_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "device_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
 
-
+            //Fill combobox of device types from DB.
             InitCmbDeviceType();
 
             cmbBoxTimeScope.SelectedIndex = 0;
@@ -206,17 +206,14 @@ namespace LinqExample.Forms
             SqlConnection dbConnection4;
             SqlCommand deviceTypeSqlCommand;
 
-
             dbConnection4 = new global::System.Data.SqlClient.SqlConnection();
             dbConnection4.ConnectionString = global::LinqExample.Properties.Settings.Default.SLA_RT_monitoringConnectionString;
-
 
             // Used for filling list of items (device_name) per threshold_id            
             deviceTypeSqlCommand = new SqlCommand(
                 @"SELECT type FROM [dbo].[Devices] "
               + @"GROUP BY type;",
                 dbConnection4);
-
 
             if (((deviceTypeSqlCommand.Connection.State & global::System.Data.ConnectionState.Open)
                         != global::System.Data.ConnectionState.Open))
@@ -241,10 +238,12 @@ namespace LinqExample.Forms
 
                 cmbBoxDeviceType.Items.Clear();
 
+                //Fill combobox with types
                 while (deviceTypeReader.Read())
                 {
                     cmbBoxDeviceType.Items.Add(deviceTypeReader.GetString(0));
                 }
+                // start with index 0 selected.
                 if (cmbBoxDeviceType.Items.Count > 0)
                 {
                     cmbBoxDeviceType.SelectedIndex = 0;
@@ -254,9 +253,8 @@ namespace LinqExample.Forms
 
                 cmbBoxDeviceTypeIndexChanged(null, null);
             }
-            catch (Exception e123)
+            catch (Exception)
             {
-                MessageBox.Show(e123.ToString());
             }
         }
 
@@ -374,6 +372,7 @@ namespace LinqExample.Forms
                 DeviceItem currDevice = (DeviceItem)listDevices.SelectedItems[idx];
                 String currDeviceName = currDevice.name;
 
+                //Get one point for each threshold according to the device type.
                 PointPairList listDeviceValues = GetDeviceData(listCurrentThresholds, currDevice.id);
 
                 //use this to add line width 3.0F
@@ -390,9 +389,12 @@ namespace LinqExample.Forms
 
                 try
                 {
-                    double avg = listBarItems.Where(v => v.Points.Count > idx).Select(v => v.Points[idx].Y).Average();
+                    double avg = listBarItems.Where(v => v.Points.Count > idx)
+                                             .Select(v => v.Points[idx].Y).Average();
 
-                    double stdDev = Math.Sqrt(listBarItems.Where(v => v.Points.Count > idx).Select(v => v.Points[idx].Y).Average(v => Math.Pow(v - avg, 2)));
+                    double stdDev = Math.Sqrt(listBarItems.Where(v => v.Points.Count > idx)
+                                                          .Select(v => v.Points[idx].Y)
+                                                          .Average(v => Math.Pow(v - avg, 2)));
 
                     //MessageBox.Show("i:" + idx + " stdDev: " + stdDev);
                     LineItem myLine = new LineItem(item.name + "Deviation",

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB" Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True" SettingsObjectName="HW2.Properties.Settings" SettingsPropertyName="DBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="birthdate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="Customer_Transaction" Member="Transactions" ThisKey="Id" OtherKey="idCustomer" Type="Transaction" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="price" Storage="_productType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Product_Transaction" Member="Transactions" ThisKey="Id" OtherKey="idProduct" Type="Transaction" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Transactions" Member="Transactions">
+    <Type Name="Transaction">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idCustomer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idProduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Customer_Transaction" Member="Customer" ThisKey="idCustomer" OtherKey="Id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Product_Transaction" Member="Product" ThisKey="idProduct" OtherKey="Id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

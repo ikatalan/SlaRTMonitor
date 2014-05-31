@@ -50,7 +50,7 @@ namespace LinqExample
         private List<DeviceData> devicesData = new List<DeviceData>();
         private Dictionary<int, ThresholdData> thresholds = new Dictionary<int, ThresholdData>();
 
-        private Dictionary<string, ContractData> thresholdForDeviceType;
+        private Dictionary<string, ContractData> thresholdForDeviceType; //Get Contract data for printer.
 
         private SqlConnection dbConnection;//connections for insertSimulatedMeasurementCmd
         private SqlCommand insertSimulatedMeasurementCmd;//Insert the data created to table SimulatedMeasurement
@@ -123,7 +123,10 @@ namespace LinqExample
 
                 thresholds = new Dictionary<int, ThresholdData>();
                 while (thresholdTypesReader.Read())
-                {                                       //id,                                       //threshold_type_id,1 = isAbove                       //minValue,                         //maxValue
+                {   //id,                                       
+                    //threshold_type_id,1 = isAbove                       
+                    //minValue,                         
+                    //maxValue
                     thresholds[thresholdTypesReader.GetInt32(0)] = new ThresholdData(thresholdTypesReader.GetInt32(1) == 1, thresholdTypesReader.GetInt32(2), thresholdTypesReader.GetInt32(3));
                 }
             }
@@ -304,6 +307,7 @@ namespace LinqExample
         //Create the values for device - Taking in considoration the contract values
         private object GetValueForDeviceThresholdPair(DeviceData deviceData, int thresholdId, ContractData contractData, bool generageIrregularData )
         {
+            // Get the contract value of thresholdId.
             KeyValuePair<int, float> currContractValue = contractData.listThresholdIds.Find(x => x.Key == thresholdId);
             ThresholdData thresholdData = thresholds[thresholdId];
 
